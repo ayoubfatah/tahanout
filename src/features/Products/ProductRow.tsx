@@ -1,9 +1,10 @@
 import React from "react";
 import { HiEllipsisVertical } from "react-icons/hi2";
+import Table from "../../ui/Tabel";
 
 export default function ProductRow({ data }: any) {
   return (
-    <>
+    <Table.Body>
       {" "}
       <div className="flex items-center justify-start">
         {" "}
@@ -26,7 +27,6 @@ export default function ProductRow({ data }: any) {
           <HiEllipsisVertical size={25} />
         </span>
       </div>
-      <div className="absolute h-[1px] w-[100%]   bg-gray-300"></div>
-    </>
+    </Table.Body>
   );
 }

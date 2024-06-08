@@ -35,13 +35,13 @@ const data: ProductType[] = [
   },
   {
     image:
-      "https://i5.walmartimages.com/seo/Razer-BlackShark-V2-SE-Wired-Gaming-Headset-for-PC-PS4-PS5-Xbox-X-S-Switch-262-g-Black_7ebd085a-d4f5-4273-b269-cbd2897f6f94.1f79972e65b11a80160fa9c61a9e88cf.png",
-    sku: "3dfs2JDS",
-    name: "Razer HeadPhones ",
-    price: 100,
-    discount: 0,
-    quantity: 102,
-    warehouse: "Marrakech",
+      "https://www.ultrapc.ma/14983-large_default/razer-seiren-mini-noir.jpg",
+    sku: "3d42JDS",
+    name: "Razer Mic ",
+    price: 500,
+    discount: 100,
+    quantity: 20,
+    warehouse: "Ouarzazate",
   },
 ];
 
@@ -59,14 +59,13 @@ export default function ProductTables() {
             <span className="">Quantity</span>
             <span className="">WareHouse </span>
           </Table.Header>
-          <Table.Body>
-            {data.map((product) => (
-              <>
-                {" "}
-                <ProductRow key={product.sku} data={product} />
-              </>
-            ))}
-          </Table.Body>
+
+          {data.map((product) => (
+            <>
+              {" "}
+              <ProductRow key={product.sku} data={product} />
+            </>
+          ))}
         </Table>
       </div>
 

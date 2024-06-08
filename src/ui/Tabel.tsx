@@ -42,7 +42,7 @@ function Body({ children }: RowProps) {
   return (
     <div
       role="row"
-      className={`relative py-2 px-3 grid     items-center gap-2`}
+      className={`relative py-2 px-3 grid    border-b border-gray-200  items-center gap-2`}
       style={{ gridTemplateColumns: col }}
     >
       {children}
