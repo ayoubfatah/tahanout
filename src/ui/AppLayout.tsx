@@ -8,7 +8,7 @@ export default function AppLayout() {
       <Header />
       <Sidebar />
 
-      <main>
+      <main className="py-10 mx-24">
         <Outlet />
       </main>
     </div>
