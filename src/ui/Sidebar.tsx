@@ -1,5 +1,5 @@
 import { FaBoxOpen, FaShoppingCart, FaUsers } from "react-icons/fa";
-import { HiHome } from "react-icons/hi";
+import { HiHome, HiMiniUserGroup } from "react-icons/hi2";
 import {
   HiGlobeAsiaAustralia,
   HiMiniCog8Tooth,
@@ -17,11 +17,11 @@ export default function Sidebar() {
         to="/dashboard"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiHome size={27} />
+        <HiHome size={25} />
         <span className="text-grey-600">Home</span>{" "}
       </NavLink>
       {/*  */}
@@ -29,11 +29,11 @@ export default function Sidebar() {
         to="/products"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <FaShoppingCart size={27} />
+        <FaShoppingCart size={25} />
         <span className="text-grey-600">Products</span>{" "}
       </NavLink>
       {/*  */}
@@ -41,11 +41,11 @@ export default function Sidebar() {
         to="/orders"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <FaBoxOpen size={27} />
+        <FaBoxOpen size={25} />
         <span className="text-grey-600">Orders</span>{" "}
       </NavLink>
       {/*  */}
@@ -53,33 +53,33 @@ export default function Sidebar() {
         to="/employees"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <FaUsers size={27} />
+        <HiMiniUserGroup size={25} />
         <span className="text-grey-600">Employees</span>{" "}
       </NavLink>
       <NavLink
         to="/customers"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiMiniUsers size={27} />
+        <HiMiniUsers size={25} />
         <span className="text-grey-600">Customers</span>{" "}
       </NavLink>{" "}
       <NavLink
         to="/sourcing"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiGlobeAsiaAustralia size={27} />
+        <HiGlobeAsiaAustralia size={25} />
         <span className="text-grey-600">Sourcing</span>{" "}
       </NavLink>
       {/*  */}{" "}
@@ -87,16 +87,13 @@ export default function Sidebar() {
         to="/settings"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-100 text-sky-500 w-full  py-3 px-2  flex items-center gap-2"
+            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiMiniCog8Tooth size={27} />
+        <HiMiniCog8Tooth size={25} />
         <span className="text-grey-600">Settings</span>{" "}
       </NavLink>
-      <div className="hover:bg-gray-100 w-full  py-3 px-2 flex items-center gap-2">
-        logout
-      </div>
     </div>
   );
 }

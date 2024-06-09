@@ -1,6 +1,7 @@
 import Button from "../../ui/Button";
 import Table from "../../ui/Tabel";
 import ProductRow from "./ProductRow";
+import useProducts from "./useProducts";
 
 type ProductType = {
   image: string;
@@ -46,6 +47,13 @@ const data: ProductType[] = [
 ];
 
 export default function ProductTables() {
+  const { isLoading, Products, error } = useProducts();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <>
       <div className="border border-gray-200 rounded-md text-gray-600">
@@ -60,12 +68,15 @@ export default function ProductTables() {
             <span className="">WareHouse </span>
           </Table.Header>
 
-          {data.map((product) => (
-            <>
-              {" "}
-              <ProductRow key={product.sku} data={product} />
-            </>
-          ))}
+          <div>
+            {data.map((product) => (
+              <>
+                {" "}
+                <ProductRow key={product.sku} data={product} />
+              </>
+            ))}
+          </div>
+          <Table.Footer></Table.Footer>
         </Table>
       </div>
 

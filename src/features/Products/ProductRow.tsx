@@ -9,7 +9,7 @@ export default function ProductRow({ data }: any) {
       <div className="flex items-center justify-start">
         {" "}
         <img
-          className="object-cover bg-no-repeat bg-center w-20 h-20"
+          className="object-cover bg-no-repeat bg-center w-[60px] h-[60px]"
           src={data.image}
           alt=""
         />
