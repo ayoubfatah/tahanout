@@ -1,4 +1,7 @@
+import Products from "../../pages/Products";
 import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
+import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Tabel";
 import ProductRow from "./ProductRow";
 import useProducts from "./useProducts";
@@ -47,13 +50,10 @@ const data: ProductType[] = [
 ];
 
 export default function ProductTables() {
-  const { isLoading, Products, error } = useProducts();
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const { isLoading, products } = useProducts();
+  console.log(products);
+  if (isLoading) return <Spinner />;
+
   return (
     <>
       <div className="border border-gray-200 rounded-md text-gray-600">
@@ -69,7 +69,7 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {data.map((product) => (
+            {products?.data.map((product: any) => (
               <>
                 {" "}
                 <ProductRow key={product.sku} data={product} />
@@ -79,8 +79,16 @@ export default function ProductTables() {
           <Table.Footer></Table.Footer>
         </Table>
       </div>
-
-      <Button text="Add Product" color="bg-sky-500" />
+      <Modal>
+        <Modal.Open opens="Products">
+          <button className=" text-white bg-sky-500 px-4 py-2 rounded-md mt-5">
+            Add Product{" "}
+          </button>
+        </Modal.Open>
+        <Modal.Window name="Products">
+          <div>ss</div>
+        </Modal.Window>
+      </Modal>
     </>
   );
 }

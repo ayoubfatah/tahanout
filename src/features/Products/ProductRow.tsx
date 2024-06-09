@@ -1,6 +1,7 @@
 import React from "react";
-import { HiEllipsisVertical } from "react-icons/hi2";
 import Table from "../../ui/Tabel";
+import Actions from "../../ui/Actions";
+import { formatCurrency } from "../../utils/helpers";
 
 export default function ProductRow({ data }: any) {
   return (
@@ -16,16 +17,16 @@ export default function ProductRow({ data }: any) {
       </div>
       <span className="">{data.sku}</span>
       <span className="text-[14px]">{data.name}</span>
-      <span className="font-[500]">{data.price}$</span>
-      <span className="font-[500] ">{data.discount}$</span>
+      <span className="font-[500]">{formatCurrency(data.price)} </span>
+      <span className="font-[500] ">{formatCurrency(data.discount)} </span>
       <span className="font-[500]">{data.quantity}</span>
       <div className="text-[14px]">
         <span className="  ">{data.warehouse}</span>
       </div>
       <div className="flex justify-end ">
-        <span className=" cursor-pointer">
-          <HiEllipsisVertical size={25} />
-        </span>
+        <button>
+          <Actions />
+        </button>
       </div>
     </Table.Body>
   );
