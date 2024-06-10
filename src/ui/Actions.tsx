@@ -8,7 +8,7 @@ import {
 
 export default function Actions() {
   const [open, setOpen] = useState(false);
-  const actionsRef = useRef(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: any) {

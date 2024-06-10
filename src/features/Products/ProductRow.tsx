@@ -7,7 +7,7 @@ export default function ProductRow({ data }: any) {
   return (
     <Table.Body>
       {" "}
-      <div className="flex items-center justify-start">
+      <div className="flex items-center ml-3">
         {" "}
         <img
           className="object-cover bg-no-repeat bg-center w-[60px] h-[60px]"
@@ -17,9 +17,13 @@ export default function ProductRow({ data }: any) {
       </div>
       <span className="">{data.sku}</span>
       <span className="text-[14px]">{data.name}</span>
-      <span className="font-[500]">{formatCurrency(data.price)} </span>
-      <span className="font-[500] ">{formatCurrency(data.discount)} </span>
-      <span className="font-[500]">{data.quantity}</span>
+      <span className="font-[500] text-[14px]">
+        {formatCurrency(data.price)}{" "}
+      </span>
+      <span className="font-[500] text-[14px] ">
+        {formatCurrency(data.discount)}{" "}
+      </span>
+      <span className="font-[500] text-[14px]">{data.quantity}</span>
       <div className="text-[14px]">
         <span className="  ">{data.warehouse}</span>
       </div>

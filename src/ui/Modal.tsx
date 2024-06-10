@@ -37,11 +37,13 @@ function Window({ children, name }: any) {
       ref={overlyRef}
       className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-0 backdrop-blur-sm z-50 transition-all duration-500"
     >
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-12 transition-all duration-500">
+      <div className=" overflow-y-scroll fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-2 transition-all duration-500">
         <button className="absolute top-4 right-4" onClick={close}>
-          <HiXMark size={25} />
+          <HiXMark size={30} />
         </button>
-        <div>{cloneElement(children, { onClose: close })}</div>
+        <div className="overflow-y-scroll ">
+          {cloneElement(children, { onClose: close })}
+        </div>
       </div>
     </div>
   );

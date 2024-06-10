@@ -3,6 +3,7 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Tabel";
+import ProductForm from "./ProductForm";
 import ProductRow from "./ProductRow";
 import useProducts from "./useProducts";
 
@@ -51,7 +52,7 @@ const data: ProductType[] = [
 
 export default function ProductTables() {
   const { isLoading, products } = useProducts();
-  console.log(products);
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -69,7 +70,7 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {products?.data.map((product: any) => (
+            {products?.map((product: any) => (
               <>
                 {" "}
                 <ProductRow key={product.sku} data={product} />
@@ -86,7 +87,7 @@ export default function ProductTables() {
           </button>
         </Modal.Open>
         <Modal.Window name="Products">
-          <div>ss</div>
+          <ProductForm />
         </Modal.Window>
       </Modal>
     </>

@@ -1,3 +1,4 @@
+import ProductForm from "../features/Products/ProductForm";
 import ProductTables from "../features/Products/ProductTables";
 export default function Products() {
   return (
