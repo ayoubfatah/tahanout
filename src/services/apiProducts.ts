@@ -1,6 +1,6 @@
 import supabase from "./supabase";
 
-export default async function getProducts() {
+export async function getProducts() {
   let { data, error }: { data: any; error: any } = await supabase
     .from("products")
     .select("*");
@@ -10,4 +10,15 @@ export default async function getProducts() {
   }
 
   return { data };
+}
+
+export async function createProduct(product: any) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("products")
+    .insert([product]);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
 }

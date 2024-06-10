@@ -1,27 +1,35 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAddProduct from "./useAddProduct";
+import Spinner from "../../ui/Spinner";
 
-const ProductForm = () => {
+const ProductForm = ({ onClose }: any) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const { mutate, isLoading } = useAddProduct();
   const onSubmit = (data: any) => {
-    console.log(data);
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
+  if (isLoading) return <Spinner />;
   return (
     <div className="overflow-y-scroll min-w-[500px] max-h-[500px]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto w-full flex flex-col gap-2 p-10"
+        className="mx-auto w-full flex flex-col gap-4 p-10"
       >
         <div className="flex flex-col gap-2">
           <label>SKU:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("sku", { required: "SKU is required" })}
           />
@@ -35,7 +43,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Name:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("name", { required: "Name is required" })}
           />
@@ -49,7 +57,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Price:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("price", { required: "Price is required" })}
           />
@@ -63,7 +71,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Discount:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("discount")}
           />
@@ -72,7 +80,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Quantity:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("quantity", { required: "Quantity is required" })}
           />
@@ -86,7 +94,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Description:</label>
           <textarea
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("description", {
               required: "Description is required",
             })}
@@ -101,7 +109,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Min Order:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("minOrder", {
               required: "min order is required",
@@ -113,7 +121,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Category:</label>
           <select
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("category", { required: "Category is required" })}
           >
             <option value="">Select a category</option>
@@ -138,7 +146,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Warehouse:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("warehouse", { required: "Warehouse is required" })}
           />
@@ -151,7 +159,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Colors:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("colors")}
           />
@@ -160,7 +168,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Brand:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("brand")}
           />
@@ -169,7 +177,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Weight:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("weight", {
               required: "Weight is required",
@@ -186,7 +194,7 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Image:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("image", { required: "Image is required" })}
           />
@@ -200,15 +208,22 @@ const ProductForm = () => {
         <div className="flex flex-col gap-2">
           <label>Additional Images:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("additional_images")}
           />
         </div>
 
-        <div>
+        <div className="flex gap-2">
           <button className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3">
             Update Product
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-black bg-white border border-black px-4 py-2 rounded-md mt-3"
+          >
+            Close
           </button>
         </div>
       </form>
