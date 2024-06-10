@@ -1,4 +1,3 @@
-import React from "react";
 import Table from "../../ui/Tabel";
 import Actions from "../../ui/Actions";
 import { formatCurrency } from "../../utils/helpers";
@@ -29,7 +28,7 @@ export default function ProductRow({ data }: any) {
       </div>
       <div className="flex justify-end ">
         <button>
-          <Actions />
+          <Actions data={data} />
         </button>
       </div>
     </Table.Body>

@@ -72,11 +72,11 @@ export default function ProductTables() {
           <div>
             {products?.map((product: any) => (
               <>
-                {" "}
-                <ProductRow key={product.sku} data={product} />
+                <ProductRow key={product.id} data={product} />
               </>
             ))}
           </div>
+
           <Table.Footer></Table.Footer>
         </Table>
       </div>

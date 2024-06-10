@@ -22,3 +22,15 @@ export async function createProduct(product: any) {
   }
   return data;
 }
+
+export async function deleteProduct(id: any) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("products")
+    .delete()
+    .eq("id", id);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}

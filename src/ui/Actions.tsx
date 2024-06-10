@@ -5,8 +5,10 @@ import {
   HiMiniSquare2Stack,
   HiMiniTrash,
 } from "react-icons/hi2";
+import Modal from "./Modal";
+import DeleteMsg from "./DeleteMsg";
 
-export default function Actions() {
+export default function Actions({ data }: any) {
   const [open, setOpen] = useState(false);
   const actionsRef = useRef<HTMLDivElement>(null);
 
@@ -24,26 +26,36 @@ export default function Actions() {
   }, []);
 
   return (
-    <div className="relative" ref={actionsRef}>
-      <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
-      {open && (
-        <div className="  bg-white shadow-sm flex flex-col gap-4 py-5 px-10 right-[50%] absolute border border-gray-50 z-40 ">
-          <span className="flex items-center   gap-2 font-light text-[14px]">
-            <HiMiniPencilSquare size={20} />
-            Edit
-          </span>
-          <span className="flex items-center  gap-2 font-light text-[14px]">
-            <span className="text-[20px]">
-              <HiMiniSquare2Stack />
+    <Modal>
+      <div className="relative" ref={actionsRef}>
+        <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
+        {open && (
+          <div className="  bg-white shadow-sm flex flex-col gap-4   right-[50%] absolute border border-gray-50 z-40 ">
+            <button
+              onClick={() => console.log(data)}
+              className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]"
+            >
+              <HiMiniPencilSquare size={20} />
+              Edit
+            </button>
+            <span className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]">
+              <button className="text-[20px]">
+                <HiMiniSquare2Stack />
+              </button>
+              Duplicate
             </span>
-            Duplicate
-          </span>
-          <span className="flex items-center  gap-2 font-light text-[14px]">
-            <HiMiniTrash size={20} />
-            delete
-          </span>
-        </div>
-      )}
-    </div>
+            <Modal.Open opens="delete">
+              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]">
+                <HiMiniTrash size={20} />
+                delete
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete">
+              <DeleteMsg data={data} />
+            </Modal.Window>
+          </div>
+        )}
+      </div>
+    </Modal>
   );
 }
