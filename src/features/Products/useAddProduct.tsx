@@ -10,7 +10,7 @@ export default function useAddProduct() {
   const queryClient = useQueryClient();
 
   const { isLoading, mutate } = useMutation({
-    mutationFn: (product) => createProduct(product),
+    mutationFn: (product) => createProduct(product) ,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },

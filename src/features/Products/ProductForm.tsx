@@ -13,13 +13,15 @@ const ProductForm = ({ onClose }: any) => {
 
   const { mutate, isLoading } = useAddProduct();
   const onSubmit = (data: any) => {
-    mutate(data, {
-      onSuccess: () => {
-        toast.success("Product created successfully");
-
-        onClose();
-      },
-    });
+    mutate(
+      { ...data, image: data.image[0] },
+      {
+        onSuccess: () => {
+          toast.success("Product created successfully");
+          onClose();
+        },
+      }
+    );
   };
 
   return (
@@ -195,9 +197,19 @@ const ProductForm = ({ onClose }: any) => {
 
         <div className="flex flex-col gap-2">
           <label>Image:</label>
-          <input
+          {/* <input
             className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
+            {...register("image", { required: "Image is required" })}
+          /> */}
+          <input
+            type="file"
+            className="text-sm text-black
+   file:mr-5 file:py-2 file:px-4 file:border-[0px] 
+   file:text-xs file:font-medium
+   file:bg-sky-500 file:text-white
+   hover:file:cursor-pointer hover:file:bg-sky-600
+   hover:file:text-white"
             {...register("image", { required: "Image is required" })}
           />
           {errors.image && (
