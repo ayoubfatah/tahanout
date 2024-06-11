@@ -13,7 +13,6 @@ export default function useAddProduct() {
     mutationFn: (product) => createProduct(product),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
-      toast.success("Product created successfully");
     },
   });
 

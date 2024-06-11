@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAddProduct from "./useAddProduct";
 import Spinner from "../../ui/Spinner";
+import toast from "react-hot-toast";
 
 const ProductForm = ({ onClose }: any) => {
   const {
@@ -14,12 +15,13 @@ const ProductForm = ({ onClose }: any) => {
   const onSubmit = (data: any) => {
     mutate(data, {
       onSuccess: () => {
+        toast.success("Product created successfully");
+
         onClose();
       },
     });
   };
 
-  if (isLoading) return <Spinner />;
   return (
     <div className="overflow-y-scroll min-w-[500px] max-h-[500px]">
       <form
@@ -215,10 +217,14 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex gap-2">
-          <button className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3">
+          <button
+            disabled={isLoading}
+            className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
+          >
             Update Product
           </button>
           <button
+            disabled={isLoading}
             type="button"
             onClick={onClose}
             className="text-black bg-white border border-black px-4 py-2 rounded-md mt-3"

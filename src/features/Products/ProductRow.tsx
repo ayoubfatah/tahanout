@@ -1,6 +1,8 @@
 import Table from "../../ui/Tabel";
 import Actions from "../../ui/Actions";
 import { formatCurrency } from "../../utils/helpers";
+import useAddProduct from "./useAddProduct";
+import toast from "react-hot-toast";
 
 export default function ProductRow({ data }: any) {
   return (

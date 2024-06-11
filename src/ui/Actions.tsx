@@ -7,14 +7,44 @@ import {
 } from "react-icons/hi2";
 import Modal from "./Modal";
 import DeleteMsg from "./DeleteMsg";
+import useDeleteProduct from "../features/Products/useDeleteProduct";
+import toast from "react-hot-toast";
+import useAddProduct from "../features/Products/useAddProduct";
+import Spinner from "./Spinner";
 
-export default function Actions({ data }: any) {
+type ProductType = {
+  additional_images: string;
+  brand: string;
+  category: string;
+  colors: string;
+  created_at: string;
+  description: string;
+  discount: number;
+  id: number;
+  image: string;
+  minOrder: number;
+  name: string;
+  price: number;
+  quantity: number;
+  sku: string;
+  warehouse: string;
+  weight: number;
+};
+
+type ActionsProps = {
+  data: ProductType;
+};
+
+export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
   const actionsRef = useRef<HTMLDivElement>(null);
-
+  const { mutate, isLoading } = useAddProduct();
   useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (actionsRef.current && !actionsRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        actionsRef.current &&
+        !actionsRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -25,29 +55,76 @@ export default function Actions({ data }: any) {
     };
   }, []);
 
+  const {
+    additional_images,
+    brand,
+    category,
+    colors,
+    created_at,
+    description,
+    discount,
+    id,
+    image,
+    minOrder,
+    name,
+    price,
+    quantity,
+    sku,
+    warehouse,
+    weight,
+  } = data;
+
+  function handleDuplicate() {
+    const duplicatedData: ProductType = {
+      additional_images,
+      brand,
+      category,
+      colors,
+      created_at,
+      description,
+      discount,
+      id: Math.floor(Math.random() * 1000),
+      image,
+      minOrder,
+      name: `Copy of ${name}`,
+      price,
+      quantity,
+      sku,
+      warehouse,
+      weight,
+    };
+
+    mutate(duplicatedData as unknown as void, {
+      onSuccess: () => {
+        toast.success("Product duplicated successfully");
+        setOpen(false);
+      },
+    });
+  }
+
   return (
     <Modal>
       <div className="relative" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
-          <div className="  bg-white shadow-sm flex flex-col gap-4   right-[50%] absolute border border-gray-50 z-40 ">
-            <button
-              onClick={() => console.log(data)}
-              className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]"
-            >
+          <div className="bg-white shadow-sm flex flex-col gap-4 right-[50%] absolute border border-gray-50 z-40">
+            <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
               <HiMiniPencilSquare size={20} />
               Edit
             </button>
-            <span className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]">
-              <button className="text-[20px]">
+            <span className="">
+              <button
+                onClick={handleDuplicate}
+                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+              >
                 <HiMiniSquare2Stack />
+                Duplicate
               </button>
-              Duplicate
             </span>
             <Modal.Open opens="delete">
-              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2 font-light text-[14px]">
+              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} />
-                delete
+                Delete
               </button>
             </Modal.Open>
             <Modal.Window name="delete">
