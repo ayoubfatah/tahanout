@@ -7,10 +7,9 @@ import {
 } from "react-icons/hi2";
 import Modal from "./Modal";
 import DeleteMsg from "./DeleteMsg";
-import useDeleteProduct from "../features/Products/useDeleteProduct";
+
 import toast from "react-hot-toast";
-import useAddProduct from "../features/Products/useAddProduct";
-import Spinner from "./Spinner";
+import useDuplicateProduct from "../features/Products/useDuplicateProduct";
 
 type ProductType = {
   additional_images: string;
@@ -37,8 +36,9 @@ type ActionsProps = {
 
 export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
+
   const actionsRef = useRef<HTMLDivElement>(null);
-  const { mutate, isLoading } = useAddProduct();
+  const { mutate, isLoading } = useDuplicateProduct();
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -94,7 +94,7 @@ export default function Actions({ data }: ActionsProps) {
       weight,
     };
 
-    mutate(duplicatedData as unknown as void, {
+    mutate(duplicatedData, {
       onSuccess: () => {
         toast.success("Product duplicated successfully");
         setOpen(false);

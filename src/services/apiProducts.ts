@@ -1,5 +1,5 @@
 import supabase from "./supabase";
-
+import { Product } from "../Types/types";
 export async function getProducts() {
   let { data, error }: { data: any; error: any } = await supabase
     .from("products")
@@ -11,24 +11,9 @@ export async function getProducts() {
 
   return { data };
 }
-type Product = {
-  id: number;
-  sku: string;
-  name: string;
-  image: any;
-  price: number;
-  discount: number;
-  quantity: number;
-  warehouse: string;
-  category: string;
-  brand: string;
-  created_at: string;
-};
+
 export async function createProduct(product: Product) {
-  const imageName = `${Math.random()}-${product.image.name}`?.replaceAll(
-    "/",
-    ""
-  ); // so supabase wont create folders cause if there is a / in the name it will create a folder
+  const imageName = `${Math.random()}-${product.image.name}`?.replace("/", ""); // so supabase wont create folders cause if there is a / in the name it will create a folder
   const imagePath = product.image?.startsWith?.(
     "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/productImages/"
   )
@@ -72,5 +57,18 @@ export async function deleteProduct(id: any) {
     console.log(error);
     throw new Error(error.message);
   }
+  return data;
+}
+
+export async function duplicateProduct(product: Product): Promise<Product> {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("products")
+    .insert([{ ...product }]);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  // 2 uploading image
+
   return data;
 }
