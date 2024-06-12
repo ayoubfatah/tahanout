@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 import { Product } from "../Types/types";
 export async function getProducts() {
   let { data, error }: { data: any; error: any } = await supabase
@@ -91,40 +91,38 @@ export async function duplicateProduct(product: Product): Promise<Product> {
 }
 
 export async function editProduct(product: Product, id: number) {
-  const hasImagePath = product.image?.startsWith?.(
-    "https://abpbmrevqhrumbygedav.supabase.co"
-  );
-  const randomInt = Math.floor(Math.random() * 1000000); // Generates a random integer between 0 and 999999
-  const imageName = `${randomInt}-${product.image.name}`.replace("/", ""); // Combines random integer with image name
+  const imageName = `${Math.random()}-${product.image.name}`?.replaceAll(
+    "/",
+    ""
+  ); // so supabase wont create folders cause if there is a / in the name it will create a folder
+  const hasImagePath = product.image?.startsWith?.(supabaseUrl);
   const imagePath = hasImagePath
     ? product.image
-    : `https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/productImages/${imageName}`;
+    : `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
 
-  // 1 updating  the cabin
-
-  console.log(imagePath);
   const { data, error } = await supabase
-    .from("product")
+    .from("products")
     .update({ ...product, image: imagePath })
     .eq("id", id)
     .select();
 
   if (error) {
     console.error(error);
-    throw new Error("cabins couldn't be added");
+    throw new Error("product couldn't be added");
   }
   // 2 Upload the image
   const { error: storageError } = await supabase.storage
     .from("productImages")
     .upload(imageName, product.image);
+
   // 3 delete cabin if there is was an error uploading the image
   if (storageError) {
-    await supabase.from("cabins").delete().eq("id", product.id);
+    await supabase.from("products").delete().eq("id", product.id);
     console.error(storageError);
     throw new Error(
       "cabins image could't be uploaded and cabin wasn't created "
     );
   }
-
+  console.log(data, " api");
   return data;
 }

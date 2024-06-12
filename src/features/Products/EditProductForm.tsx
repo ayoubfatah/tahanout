@@ -41,10 +41,9 @@ const ProductForm = ({
     const imageType =
       typeof data.image === "string" ? data.image : data.image[0];
     mutate(
-      { ...data, image: imageType },
+      { newProductData: { ...data, image: imageType }, id: product.id },
       {
         onSuccess: () => {
-          toast.success("Product updated successfully");
           onClose();
         },
       }

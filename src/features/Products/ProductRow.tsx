@@ -29,9 +29,7 @@ export default function ProductRow({ data }: any) {
         <span className="  ">{data.warehouse}</span>
       </div>
       <div className="flex justify-end ">
-        <button>
-          <Actions data={data} />
-        </button>
+        <Actions data={data} />
       </div>
     </Table.Body>
   );

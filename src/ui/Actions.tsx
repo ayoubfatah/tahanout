@@ -105,7 +105,7 @@ export default function Actions({ data }: ActionsProps) {
 
   return (
     <Modal>
-      <div className="relative" ref={actionsRef}>
+      <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col gap-4 right-[50%] absolute border border-gray-50 z-40">
