@@ -30,12 +30,16 @@ export async function getProduct(id: number) {
 }
 
 export async function createProduct(product: Product) {
-  const imageName = `${Math.random()}-${product.image.name}`?.replace("/", ""); // so supabase wont create folders cause if there is a / in the name it will create a folder
-  const imagePath = product.image?.startsWith?.(
-    "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/productImages/"
-  )
+  const imageName = `${Math.random()}-${product.image.name}`?.replaceAll(
+    "/",
+    ""
+  ); // so supabase wont create folders cause if there is a / in the name it will create a folder
+  const hasImagePath = product.image?.startsWith?.(supabaseUrl);
+
+  const imagePath = hasImagePath
     ? product.image
-    : ` https://jmvbwhvpdounmufynkwd.supabase.co/storage/v1/object/public/productImages/${imageName}`;
+    : `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+
   // 1 creating a product
   let { data, error }: { data: any; error: any } = await supabase
     .from("products")
@@ -45,21 +49,17 @@ export async function createProduct(product: Product) {
     throw new Error(error.message);
   }
   // 2 uploading image
-  if (
-    product.image?.startsWith?.(
-      "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/productImages/"
-    )
-  )
-    return;
+  if (product.image?.startsWith?.(supabaseUrl)) return;
+
   const { error: storageError } = await supabase.storage
     .from("productImages")
     .upload(imageName, product.image);
   //
   if (storageError) {
-    await supabase.from("cabins").delete().eq("cabinId", data.cabinId);
+    await supabase.from("products").delete().eq("id", data.id);
     console.error(storageError);
     throw new Error(
-      "cabins image could't be uploaded and cabin wasn't created "
+      "product image could't be uploaded and cabin wasn't created "
     );
   }
   return data;
@@ -85,7 +85,6 @@ export async function duplicateProduct(product: Product): Promise<Product> {
     console.log(error);
     throw new Error(error.message);
   }
-  // 2 uploading image
 
   return data;
 }
@@ -96,6 +95,7 @@ export async function editProduct(product: Product, id: number) {
     ""
   ); // so supabase wont create folders cause if there is a / in the name it will create a folder
   const hasImagePath = product.image?.startsWith?.(supabaseUrl);
+
   const imagePath = hasImagePath
     ? product.image
     : `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
@@ -111,6 +111,8 @@ export async function editProduct(product: Product, id: number) {
     throw new Error("product couldn't be added");
   }
   // 2 Upload the image
+
+  if (hasImagePath) return;
   const { error: storageError } = await supabase.storage
     .from("productImages")
     .upload(imageName, product.image);
@@ -120,9 +122,9 @@ export async function editProduct(product: Product, id: number) {
     await supabase.from("products").delete().eq("id", product.id);
     console.error(storageError);
     throw new Error(
-      "cabins image could't be uploaded and cabin wasn't created "
+      "product image could't be uploaded and cabin wasn't created "
     );
   }
-  console.log(data, " api");
+
   return data;
 }

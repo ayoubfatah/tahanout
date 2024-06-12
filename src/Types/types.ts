@@ -15,6 +15,8 @@ export type Product = {
   colors?: string;
   minOrder: number;
   weight: number;
+  additional_images?: string;
+  created_at?: string | Date;
 };
 
 export type ChildrenType = {

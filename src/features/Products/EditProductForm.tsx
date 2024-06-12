@@ -35,8 +35,9 @@ const ProductForm = ({
       ...product,
     },
   });
+
   const { isEditing, mutate } = useUpdateProduct();
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: Product) => {
     // Handle the form submission
     const imageType =
       typeof data.image === "string" ? data.image : data.image[0];
@@ -246,6 +247,7 @@ const ProductForm = ({
 
       <div className="flex gap-2 ">
         <button
+          disabled={isEditing}
           onClick={onSubmit}
           className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
         >
@@ -253,6 +255,7 @@ const ProductForm = ({
         </button>
 
         <button
+          disabled={isEditing}
           type="button"
           onClick={onCloseForm}
           className="text-black bg-white border border-black px-4 py-2 rounded-md mt-3"

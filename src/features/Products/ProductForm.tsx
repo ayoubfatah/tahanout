@@ -13,6 +13,7 @@ const ProductForm = ({ onClose }: any) => {
 
   const { mutate, isLoading } = useAddProduct();
   const onSubmit = (data: any) => {
+    console.log(data);
     mutate(
       { ...data, image: data.image[0] },
       {

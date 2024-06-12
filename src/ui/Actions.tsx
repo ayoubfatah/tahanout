@@ -12,8 +12,9 @@ import toast from "react-hot-toast";
 import useDuplicateProduct from "../features/Products/useDuplicateProduct";
 import { useNavigate } from "react-router-dom";
 import EditProductForm from "../features/Products/EditProductForm";
+import { Product } from "../Types/types";
 type ProductType = {
-  additional_images: string;
+  additional_images?: string;
   brand: string;
   category: string;
   colors: string;
@@ -76,7 +77,7 @@ export default function Actions({ data }: ActionsProps) {
   } = data;
 
   function handleDuplicate() {
-    const duplicatedData: ProductType = {
+    const duplicatedData: Product = {
       additional_images,
       brand,
       category,
@@ -94,7 +95,7 @@ export default function Actions({ data }: ActionsProps) {
       warehouse,
       weight,
     };
-
+    console.log(duplicatedData);
     mutate(duplicatedData, {
       onSuccess: () => {
         toast.success("Product duplicated successfully");
@@ -110,10 +111,7 @@ export default function Actions({ data }: ActionsProps) {
         {open && (
           <div className="bg-white shadow-sm flex flex-col gap-4 right-[50%] absolute border border-gray-50 z-40">
             <Modal.Open opens="edit">
-              <button
-                onClick={() => navigate(`/products/${id}`)}
-                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
-              >
+              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
                 Edit
               </button>
