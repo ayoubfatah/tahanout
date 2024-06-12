@@ -10,7 +10,8 @@ import DeleteMsg from "./DeleteMsg";
 
 import toast from "react-hot-toast";
 import useDuplicateProduct from "../features/Products/useDuplicateProduct";
-
+import { useNavigate } from "react-router-dom";
+import EditProductForm from "../features/Products/EditProductForm";
 type ProductType = {
   additional_images: string;
   brand: string;
@@ -36,7 +37,7 @@ type ActionsProps = {
 
 export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const actionsRef = useRef<HTMLDivElement>(null);
   const { mutate, isLoading } = useDuplicateProduct();
   useEffect(() => {
@@ -108,10 +109,18 @@ export default function Actions({ data }: ActionsProps) {
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col gap-4 right-[50%] absolute border border-gray-50 z-40">
-            <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
-              <HiMiniPencilSquare size={20} />
-              Edit
-            </button>
+            <Modal.Open opens="edit">
+              <button
+                onClick={() => navigate(`/products/${id}`)}
+                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+              >
+                <HiMiniPencilSquare size={20} />
+                Edit
+              </button>
+            </Modal.Open>
+            <Modal.Window name="edit">
+              <EditProductForm data={data} />
+            </Modal.Window>
             <span className="">
               <button
                 onClick={handleDuplicate}

@@ -1,7 +1,12 @@
 import useDeleteProduct from "../features/Products/useDeleteProduct";
 import Button from "./Button";
+import { Product } from "../Types/types";
 
-export default function DeleteMsg({ onClose, data }: any) {
+type DeleteMsgProps = {
+  data: Product;
+  onClose: () => any;
+};
+export default function DeleteMsg({ onClose, data }: DeleteMsgProps) {
   const { mutate, isDeleting } = useDeleteProduct();
   return (
     <div className="flex flex-col gap-3 items-center py-5 px-7 ">

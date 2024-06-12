@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 import useCloseModal from "../hooks/useCloseModal";
 import { HiXMark } from "react-icons/hi2";
 
-const ModalContext = createContext();
+const ModalContext = createContext({});
 
 export default function Modal({ children }: any) {
   const [openName, setOpenName] = useState("");

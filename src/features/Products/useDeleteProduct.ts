@@ -6,7 +6,7 @@ import { deleteProduct } from "../../services/apiProducts";
 export default function useDeleteCabin() {
   const queryClient = useQueryClient();
   const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: (productId) => deleteProduct(productId),
+    mutationFn: (productId: number) => deleteProduct(productId),
     onSuccess: () => {
       toast.success("cabin has been successfully deleted  ");
       queryClient.invalidateQueries({

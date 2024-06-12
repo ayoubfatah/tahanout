@@ -12,5 +12,11 @@ export type Product = {
   brand?: string;
   sku: string;
   id: number;
-  color?: string;
+  colors?: string;
+  minOrder: number;
+  weight: number;
+};
+
+export type ChildrenType = {
+  children: React.ReactNode;
 };
