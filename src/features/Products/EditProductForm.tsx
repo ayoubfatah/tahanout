@@ -132,7 +132,7 @@ const ProductForm = ({
       <div className="flex flex-col gap-2 items-start">
         <label>Description:</label>
         <textarea
-          className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="h-[200px] rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           {...register("description", {
             required: "Description is required",
           })}
@@ -242,7 +242,6 @@ const ProductForm = ({
           className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2 file:mr-5 file:py-2 file:px-4 file:border-[0px] file:text-xs file:font-medium file:bg-sky-500 file:text-white hover:file:cursor-pointer hover:file:bg-sky-600 hover:file:text-white"
           type="file"
           {...register("image")}
-          defaultValue={product.image}
         />
       </div>
 
