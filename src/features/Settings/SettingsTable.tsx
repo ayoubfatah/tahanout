@@ -23,19 +23,7 @@ export default function SettingsForm() {
 
   return (
     <form className="flex flex-col  w-[800px] items-center justify-center">
-      <div className="w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4">
-        <label htmlFor="Shipping" className="w-1/2">
-          Shipping Price:
-        </label>
-        <input
-          disabled={isUpdating}
-          type="number"
-          id="Shipping"
-          defaultValue={shippingPrice}
-          onBlur={(e) => handleUpdate({ shippingPrice: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
-        />
-      </div>
+      {/* Support Email */}
       <div className="w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4">
         <label htmlFor="email" className="w-1/2">
           Support Email:
@@ -49,6 +37,21 @@ export default function SettingsForm() {
           className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
         />
       </div>
+      {/* Shipping Price */}
+      <div className="w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4">
+        <label htmlFor="Shipping" className="w-1/2">
+          Shipping Price:
+        </label>
+        <input
+          disabled={isUpdating}
+          type="number"
+          id="Shipping"
+          defaultValue={shippingPrice}
+          onBlur={(e) => handleUpdate({ shippingPrice: e.target.value })}
+          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+        />
+      </div>
+      {/* Free Shipping Threshold */}
       <div className=" w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="FreeShippingThreshold" className="w-1/2">
           Free Shipping Threshold:
@@ -64,6 +67,7 @@ export default function SettingsForm() {
           className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
         />
       </div>
+      {/* number of warehouses */}
       <div className=" w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="numberOfWarehouses" className="w-1/2">
           Number of warehouses :
@@ -77,6 +81,7 @@ export default function SettingsForm() {
           className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
         />
       </div>
+      {/* return policy duration */}
       <div className=" w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="returnPolicyDuration" className="w-1/2">
           Return policy duration:
@@ -90,6 +95,7 @@ export default function SettingsForm() {
           className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
         />
       </div>
+      {/* maintenance mode */}
       <div className="w-full border-b border-dashed border-black flex justify-between items-center py-6 px-6 gap-4">
         <label htmlFor="maintenanceMode" className="w-1/2">
           Maintenance Mode:
