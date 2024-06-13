@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Product } from "../../Types/types";
 import useUpdateProduct from "./useUpdateProduct";
-import toast from "react-hot-toast";
 const ProductForm = ({
   data: product,
   onClose,
@@ -10,22 +8,6 @@ const ProductForm = ({
   data: Product;
   onClose: any;
 }) => {
-  // const {
-  //   id,
-  //   name,
-  //   description,
-  //   price,
-  //   image,
-  //   discount,
-  //   quantity,
-  //   warehouse,
-  //   category,
-  //   brand,
-  //   sku,
-  //   colors,
-  //   minOrder,
-  // } = data ?? {};
-
   const {
     register,
     handleSubmit,
@@ -37,7 +19,7 @@ const ProductForm = ({
   });
 
   const { isEditing, mutate } = useUpdateProduct();
-  const onSubmit = (data: Product) => {
+  const onSubmit = (data: any) => {
     // Handle the form submission
     const imageType =
       typeof data.image === "string" ? data.image : data.image[0];

@@ -8,12 +8,12 @@ import Employees from "./pages/Employees";
 import Login from "./pages/Login";
 import Orders from "./pages/Orders";
 import PageNotFound from "./pages/PageNotFound";
+import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Sourcing from "./pages/Sourcing";
 import AppLayout from "./ui/AppLayout";
-import Product from "./pages/Product";
 
 const queryClient = new QueryClient({
   defaultOptions: {

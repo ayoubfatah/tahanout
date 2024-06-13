@@ -21,8 +21,8 @@ export default function ProductRow({ data }: any) {
       <span className="font-[500] text-[14px]">
         {formatCurrency(data.price)}{" "}
       </span>
-      <span className="font-[500] text-[14px] ">
-        {formatCurrency(data.discount)}{" "}
+      <span className="font-[500] opacity-90 text-green-500 text-[14px] ">
+        {data.discount === 0 ? "-" : `${formatCurrency(data.discount)}`}
       </span>
       <span className="font-[500] text-[14px]">{data.quantity}</span>
       <div className="text-[14px]">

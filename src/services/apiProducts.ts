@@ -1,5 +1,5 @@
-import supabase, { supabaseUrl } from "./supabase";
 import { Product } from "../Types/types";
+import supabase, { supabaseUrl } from "./supabase";
 export async function getProducts() {
   let { data, error }: { data: any; error: any } = await supabase
     .from("products")

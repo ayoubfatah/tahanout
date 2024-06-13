@@ -12,6 +12,8 @@ const ProductForm = ({ onClose }: any) => {
   } = useForm();
 
   const { mutate, isLoading } = useAddProduct();
+
+// data dyal lform kayhzha 
   const onSubmit = (data: any) => {
     console.log(data);
     mutate(

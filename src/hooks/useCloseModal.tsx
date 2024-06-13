@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 export default function useCloseModal(closeModalFunction: any) {
-  const overlyRef = useRef();
+  const overlyRef = useRef(null);
 
   useEffect(() => {
     if (!overlyRef.current) return;

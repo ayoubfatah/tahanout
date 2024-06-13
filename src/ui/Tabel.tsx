@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { ChildrenType } from "../Types/types";
 
 // Define the type for the context value
 type TableContextType = {
@@ -13,10 +14,6 @@ type TableProps = {
   children: React.ReactNode;
 };
 
-type RowProps = {
-  children: React.ReactNode;
-};
-
 type FooterProps = {
   children: any;
 };
@@ -27,7 +24,7 @@ function Table({ col, children }: TableProps) {
   );
 }
 
-function Header({ children }: RowProps) {
+function Header({ children }: ChildrenType) {
   const { col } = useContext(TableContext);
 
   return (
@@ -83,3 +80,6 @@ Table.Header = Header;
 Table.Body = Body;
 Table.Footer = Footer;
 export default Table;
+
+
+// DABA HADA kaytsma pattern daba hada gharad dyalo hwa ishl lik t9ad 7wayj matalan table 
