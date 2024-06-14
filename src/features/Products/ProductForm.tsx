@@ -13,7 +13,7 @@ const ProductForm = ({ onClose }: any) => {
 
   const { mutate, isLoading } = useAddProduct();
 
-// data dyal lform kayhzha 
+  // data dyal lform kayhzha
   const onSubmit = (data: any) => {
     console.log(data);
     mutate(

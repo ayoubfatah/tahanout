@@ -20,6 +20,7 @@ const ProductForm = ({
 
   const { isEditing, mutate } = useUpdateProduct();
   const onSubmit = (data: any) => {
+    console.log(data);
     // Handle the form submission
     const imageType =
       typeof data.image === "string" ? data.image : data.image[0];
@@ -41,7 +42,7 @@ const ProductForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" w-[600px] h-[600px] py-10 px-8 flex flex-col gap-8 "
+      className="  overflow-y-scroll  w-[600px] h-[600px] py-10 px-8 flex flex-col gap-8 "
     >
       <div className="flex flex-col gap-2 items-start">
         <label>SKU:</label>
