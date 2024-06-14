@@ -1,6 +1,9 @@
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Product } from "../../Types/types";
 import useUpdateProduct from "./useUpdateProduct";
+import { MdDelete } from "react-icons/md";
+
 const ProductForm = ({
   data: product,
   onClose,
@@ -8,6 +11,11 @@ const ProductForm = ({
   data: Product;
   onClose: any;
 }) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageName, setImageName] = useState<string>("");
+  const [imageSize, setImageSize] = useState<number>(0);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -19,6 +27,7 @@ const ProductForm = ({
   });
 
   const { isEditing, mutate } = useUpdateProduct();
+
   const onSubmit = (data: any) => {
     console.log(data);
     // Handle the form submission
@@ -33,16 +42,32 @@ const ProductForm = ({
       }
     );
   };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImagePreview(imageUrl);
+      setImageName(file.name);
+      setImageSize(file.size);
+    }
+  };
+
+  const handleImageReset = () => {
+    setImagePreview(null);
+    setImageName("");
+    setImageSize(0);
+  };
+
   const onCloseForm = () => {
     // Handle close action
-
     onClose();
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="  overflow-y-scroll  w-[600px] h-[600px] py-10 px-8 flex flex-col gap-8 "
+      className="overflow-y-scroll w-[600px] h-[600px] py-10 px-8 flex flex-col gap-8"
     >
       <div className="flex flex-col gap-2 items-start">
         <label>SKU:</label>
@@ -225,8 +250,28 @@ const ProductForm = ({
           className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2 file:mr-5 file:py-2 file:px-4 file:border-[0px] file:text-xs file:font-medium file:bg-sky-500 file:text-white hover:file:cursor-pointer hover:file:bg-sky-600 hover:file:text-white"
           type="file"
           {...register("image")}
+          onChange={handleImageChange}
         />
       </div>
+
+      {imagePreview && (
+        <div className="flex items-center justify-between">
+          <img
+            src={imagePreview}
+            alt="Image Preview"
+            className="w-20 h-14 object-cover"
+          />
+          <span>{imageName}</span>
+          <span>Size: {Math.round(imageSize / 1024)}kb</span>
+          <button
+            type="button"
+            className="text-gray-600 rounded-md"
+            onClick={handleImageReset}
+          >
+            <MdDelete />
+          </button>
+        </div>
+      )}
 
       <div className="flex gap-2 ">
         <button

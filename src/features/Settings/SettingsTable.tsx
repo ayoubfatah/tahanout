@@ -1,8 +1,4 @@
-import React from "react";
 import useGetSettings from "./useGetSettings";
-import Table from "../../ui/Tabel";
-import Modal from "../../ui/Modal";
-import ProductTables from "../Products/ProductTables";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export default function SettingsForm() {
@@ -34,7 +30,7 @@ export default function SettingsForm() {
           id="email"
           defaultValue={supportEmail}
           onBlur={(e) => handleUpdate({ supportEmail: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
+          className="bg-gray-50 py-3 px-4 rounded-md w-1/2  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* Shipping Price */}
@@ -48,10 +44,11 @@ export default function SettingsForm() {
           id="Shipping"
           defaultValue={shippingPrice}
           onBlur={(e) => handleUpdate({ shippingPrice: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
+          className="bg-gray-50 py-3 px-4 rounded-md w-1/2  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* Free Shipping Threshold */}
+
       <div className=" w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="FreeShippingThreshold" className="w-1/2">
           Free Shipping Threshold:
@@ -64,7 +61,7 @@ export default function SettingsForm() {
           onBlur={(e) =>
             handleUpdate({ FreeShippingThreshold: e.target.value })
           }
-          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
+          className="bg-gray-50 py-3 px-4 rounded-md w-1/2  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* number of warehouses */}
@@ -78,7 +75,7 @@ export default function SettingsForm() {
           id="numberOfWarehouses"
           defaultValue={numberOfWarehouses}
           onBlur={(e) => handleUpdate({ numberOfWarehouses: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500   "
+          className="bg-gray-50 py-3 px-4 rounded-md w-1/2  outline-dashed        focus:outline-blue-500   "
         />
       </div>
       {/* return policy duration */}
@@ -92,7 +89,7 @@ export default function SettingsForm() {
           id="returnPolicyDuration"
           defaultValue={returnPolicyDuration}
           onBlur={(e) => handleUpdate({ returnPolicyDuration: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
+          className="bg-gray-50 py-3 px-4 rounded-md w-1/2  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* maintenance mode */}

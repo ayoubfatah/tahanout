@@ -47,9 +47,6 @@ const ProductForm = ({ onClose }: any) => {
     setImagePreview(null);
     setImageName("");
     setImageSize(0);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
 
   return (
@@ -227,15 +224,16 @@ const ProductForm = ({ onClose }: any) => {
 
           <input
             type="file"
-            className={`${imagePreview ? "hidden" : "block"} text-sm text-black
+            className={` ${
+              imagePreview ? "hidden" : "block"
+            }  text-sm text-black
             file:mr-5 file:py-2 file:px-4 file:border-[0px] 
             file:text-xs file:font-medium
             file:bg-sky-500 file:text-white
             hover:file:cursor-pointer hover:file:bg-sky-600
             hover:file:text-white`}
-            {...register("image", { required: "Image is required" })}
+            {...register("image")}
             onChange={handleImageChange}
-            ref={fileInputRef}
           />
 
           {errors.image && (
