@@ -34,7 +34,7 @@ export default function SettingsForm() {
           id="email"
           defaultValue={supportEmail}
           onBlur={(e) => handleUpdate({ supportEmail: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* Shipping Price */}
@@ -48,7 +48,7 @@ export default function SettingsForm() {
           id="Shipping"
           defaultValue={shippingPrice}
           onBlur={(e) => handleUpdate({ shippingPrice: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* Free Shipping Threshold */}
@@ -64,7 +64,7 @@ export default function SettingsForm() {
           onBlur={(e) =>
             handleUpdate({ FreeShippingThreshold: e.target.value })
           }
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* number of warehouses */}
@@ -78,7 +78,7 @@ export default function SettingsForm() {
           id="numberOfWarehouses"
           defaultValue={numberOfWarehouses}
           onBlur={(e) => handleUpdate({ numberOfWarehouses: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500   "
         />
       </div>
       {/* return policy duration */}
@@ -92,7 +92,7 @@ export default function SettingsForm() {
           id="returnPolicyDuration"
           defaultValue={returnPolicyDuration}
           onBlur={(e) => handleUpdate({ returnPolicyDuration: e.target.value })}
-          className="bg-gray-50 py-3 px-4 rounded-md w-full outline outline-dashed"
+          className="bg-gray-50 py-3 px-4 rounded-md w-full  outline-dashed        focus:outline-blue-500  "
         />
       </div>
       {/* maintenance mode */}
@@ -106,7 +106,7 @@ export default function SettingsForm() {
           id="maintenanceMode"
           defaultChecked={maintenanceMode}
           onChange={(e) => handleUpdate({ maintenanceMode: e.target.checked })}
-          className="bg-gray-50 py-3 px-4 rounded-md h-[20px]  w-[20px] outline-dashed "
+          className="bg-gray-50 py-3 px-4 rounded-md h-[20px]  w-[20px] outline-dashed  accent-blue-500        focus:outline-blue-500   "
         />
       </div>
     </form>

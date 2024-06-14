@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import useAddProduct from "./useAddProduct";
 import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
 
 const ProductForm = ({ onClose }: any) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageSize, setImageSize] = useState(0);
+  const [imageName, setImageName] = useState("");
   const {
     register,
     handleSubmit,
@@ -13,9 +17,9 @@ const ProductForm = ({ onClose }: any) => {
 
   const { mutate, isLoading } = useAddProduct();
 
-  // data dyal lform kayhzha
   const onSubmit = (data: any) => {
     console.log(data);
+
     mutate(
       { ...data, image: data.image[0] },
       {
@@ -25,6 +29,27 @@ const ProductForm = ({ onClose }: any) => {
         },
       }
     );
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    console.log(file);
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      setImageSize(file.size);
+      setImageName(file.name);
+    }
+  };
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageReset = () => {
+    setImagePreview(null);
+    setImageName("");
+    setImageSize(0);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
@@ -197,28 +222,44 @@ const ProductForm = ({ onClose }: any) => {
             </span>
           )}
         </div>
-
         <div className="flex flex-col gap-2">
           <label>Image:</label>
-          {/* <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            type="text"
-            {...register("image", { required: "Image is required" })}
-          /> */}
+
           <input
             type="file"
-            className="text-sm text-black
-   file:mr-5 file:py-2 file:px-4 file:border-[0px] 
-   file:text-xs file:font-medium
-   file:bg-sky-500 file:text-white
-   hover:file:cursor-pointer hover:file:bg-sky-600
-   hover:file:text-white"
+            className={`${imagePreview ? "hidden" : "block"} text-sm text-black
+            file:mr-5 file:py-2 file:px-4 file:border-[0px] 
+            file:text-xs file:font-medium
+            file:bg-sky-500 file:text-white
+            hover:file:cursor-pointer hover:file:bg-sky-600
+            hover:file:text-white`}
             {...register("image", { required: "Image is required" })}
+            onChange={handleImageChange}
+            ref={fileInputRef}
           />
+
           {errors.image && (
             <span className="text-red-500 text-[12px]">
               {errors.image.message as string}
             </span>
+          )}
+          {imagePreview && (
+            <div className="flex items-center justify-between">
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="w-20 h-14 object-cover"
+              />
+              <span>{imageName}</span>
+              <span>Size : {Math.round(imageSize / 1024)}kb</span>
+              <button
+                type="button"
+                className="text-gray-600 rounded-md"
+                onClick={handleImageReset}
+              >
+                <MdDelete />
+              </button>
+            </div>
           )}
         </div>
 

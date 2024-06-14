@@ -90,7 +90,7 @@ export async function duplicateProduct(product: Product): Promise<Product> {
 }
 
 export async function editProduct(product: Product, id: number) {
-  const imageName = `${Math.random()}-${product.image.name}`?.replaceAll(
+  const imageName = `${product.image.name}-${Math.random()}`?.replaceAll(
     "/",
     ""
   ); // so supabase wont create folders cause if there is a / in the name it will create a folder
