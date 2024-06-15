@@ -51,12 +51,19 @@ export default function Actions({ data }: ActionsProps) {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape" || event.keyCode === 27) {
+        setOpen(false);
+      }
+    }
+
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
-
+  }, [actionsRef, setOpen]);
   const {
     additional_images,
     brand,

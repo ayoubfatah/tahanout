@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 export default function ProductRow({ data }: any) {
   return (
-    <Table.Body>
+    <Table.Row>
       {" "}
       <div className="flex items-center ml-3">
         {" "}
@@ -31,6 +31,6 @@ export default function ProductRow({ data }: any) {
       <div className="flex justify-end ">
         <Actions data={data} />
       </div>
-    </Table.Body>
+    </Table.Row>
   );
 }

@@ -38,7 +38,7 @@ function Header({ children }: ChildrenType) {
   );
 }
 
-function Body({ children }: FooterProps) {
+function Row({ children }: FooterProps) {
   const { col } = useContext(TableContext);
 
   return (
@@ -77,9 +77,8 @@ function Footer() {
   }
 }
 Table.Header = Header;
-Table.Body = Body;
+Table.Row = Row;
 Table.Footer = Footer;
 export default Table;
 
-
-// DABA HADA kaytsma pattern daba hada gharad dyalo hwa ishl lik t9ad 7wayj matalan table 
+// DABA HADA kaytsma pattern daba hada gharad dyalo hwa ishl lik t9ad 7wayj matalan table

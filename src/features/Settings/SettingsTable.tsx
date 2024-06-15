@@ -18,7 +18,7 @@ export default function SettingsForm() {
   }
 
   return (
-    <form className="flex flex-col  w-[800px] items-center justify-center">
+    <form className="flex flex-col   w-[800px] items-center justify-center">
       {/* Support Email */}
       <div className="w-full border-b border-dashed border-black flex items-center py-3 px-6 gap-4">
         <label htmlFor="email" className="w-1/2">

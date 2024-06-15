@@ -39,6 +39,7 @@ export default function App() {
 
               <Route path="/sourcing" element={<Sourcing />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/customers" element={<Customers />} />
               <Route path="/products/:id" element={<Product />} />
 
               <Route path="/profile" element={<Profile />} />
