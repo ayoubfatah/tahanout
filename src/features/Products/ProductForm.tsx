@@ -7,9 +7,11 @@ import { MdDelete } from "react-icons/md";
 
 const ProductForm = ({ onClose }: any) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState(0);
+  const [imageSize, setImageSize] = useState<string | number>(0);
   const [imageName, setImageName] = useState("");
+  let file: any;
   const {
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -19,20 +21,27 @@ const ProductForm = ({ onClose }: any) => {
 
   const onSubmit = (data: any) => {
     console.log(data);
-
     mutate(
-      { ...data, image: data.image[0] },
+      {
+        ...data,
+        image: data.image[0],
+        imgDetails: [imageSize + "", imageName],
+      },
       {
         onSuccess: () => {
           toast.success("Product created successfully");
           onClose();
+          URL.revokeObjectURL(file);
+        },
+        onError: (err: any) => {
+          toast.error(err.message);
         },
       }
     );
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    file = event.target.files?.[0];
     console.log(file);
     if (file) {
       setImagePreview(URL.createObjectURL(file));
@@ -44,6 +53,7 @@ const ProductForm = ({ onClose }: any) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageReset = () => {
+    setValue("image", null);
     setImagePreview(null);
     setImageName("");
     setImageSize(0);
@@ -204,7 +214,7 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Weight:</label>
+          <label>Weight(kg):</label>
           <input
             className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
@@ -249,7 +259,7 @@ const ProductForm = ({ onClose }: any) => {
                 className="w-20 h-14 object-cover"
               />
               <span>{imageName}</span>
-              <span>Size : {Math.round(imageSize / 1024)}kb</span>
+              <span>Size : {Math.round(+imageSize / 1024)}kb</span>
               <button
                 type="button"
                 className="text-gray-600 rounded-md"

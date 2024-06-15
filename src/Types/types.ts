@@ -17,6 +17,7 @@ export type Product = {
   weight: number;
   additional_images?: string;
   created_at?: string | Date;
+  imgDetails?: any ;
 };
 
 export type ChildrenType = {
