@@ -7,7 +7,7 @@ import {
 } from "react-icons/hi2";
 import Modal from "./Modal";
 import DeleteMsg from "./DeleteMsg";
-
+import useDeleteProduct from "../features/Products/useDeleteProduct";
 import toast from "react-hot-toast";
 import useDuplicateProduct from "../features/Products/useDuplicateProduct";
 import { useNavigate } from "react-router-dom";
@@ -102,7 +102,7 @@ export default function Actions({ data }: ActionsProps) {
       warehouse,
       weight,
     };
-    console.log(duplicatedData);
+
     mutate(duplicatedData, {
       onSuccess: () => {
         toast.success("Product duplicated successfully");
@@ -110,6 +110,8 @@ export default function Actions({ data }: ActionsProps) {
       },
     });
   }
+
+  const { mutate: deleteProduct, isDeleting } = useDeleteProduct();
 
   return (
     <Modal>
@@ -124,7 +126,7 @@ export default function Actions({ data }: ActionsProps) {
               </button>
             </Modal.Open>
             <Modal.Window name="edit">
-              <EditProductForm data={data} />
+              <EditProductForm onClose={() => setOpen(false)} data={data} />
             </Modal.Window>
             <span className="">
               <button
@@ -142,7 +144,13 @@ export default function Actions({ data }: ActionsProps) {
               </button>
             </Modal.Open>
             <Modal.Window name="delete">
-              <DeleteMsg data={data} />
+              <DeleteMsg
+                onClose={() => setOpen(false)}
+                isDeleting={isDeleting}
+                deleteFunction={deleteProduct}
+                type="Product"
+                data={data}
+              />
             </Modal.Window>
           </div>
         )}

@@ -1,8 +1,12 @@
-import React from "react";
 import Table from "../../ui/Tabel";
+import CustomerActions from "../../ui/CustomersActions";
+import { CustomersType } from "../../Types/types";
 
-export default function CustomerRow({ data }: any) {
-  console.log(data);
+interface CustomerRowProps {
+  data: CustomersType;
+}
+
+export default function CustomerRow({ data }: CustomerRowProps) {
   return (
     <Table.Row>
       <span> {data?.fullName} </span>
@@ -11,6 +15,7 @@ export default function CustomerRow({ data }: any) {
       <span> 🇲🇦 {data?.country} </span>
       <span> {data?.city}</span>
       <span>{data?.zipCode}</span>
+      <CustomerActions data={data} />
     </Table.Row>
   );
 }

@@ -9,22 +9,25 @@ export default function CustomersDetails() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="border border-gray-200 rounded-md text-gray-600">
-      <Table col="1fr 1.2fr 1.2fr 1fr 1fr 1fr">
-        <Table.Header>
-          <span className="">Full name</span>
-          <span className="">email</span>
-          <span className="">Phone number</span>
-          <span className="">Country </span>
-          <span className="">City</span>
-          <span className="">Zip code</span>
-        </Table.Header>
-        {customers?.map((customer: any) => (
-          <CustomerRow key={customer.id || customer.email} data={customer} />
-        ))}
+    <>
+      <div className="border border-gray-200 rounded-md text-gray-600">
+        <Table col="1fr 1.2fr 1.2fr 1fr 1fr 1fr 0.5fr">
+          <Table.Header>
+            <span className="">Full name</span>
+            <span className="">email</span>
+            <span className="">Phone number</span>
+            <span className="">Country </span>
+            <span className="">City</span>
+            <span className="">Zip code</span>
+            <span></span>
+          </Table.Header>
+          {customers?.map((customer: any) => (
+            <CustomerRow key={customer.id || customer.email} data={customer} />
+          ))}
 
-        <Table.Footer></Table.Footer>
-      </Table>
-    </div>
+          <Table.Footer></Table.Footer>
+        </Table>
+      </div>
+    </>
   );
 }

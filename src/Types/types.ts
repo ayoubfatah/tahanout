@@ -17,9 +17,20 @@ export type Product = {
   weight: number;
   additional_images?: string;
   created_at?: string | Date;
-  imgDetails?: any ;
+  imgDetails?: any;
 };
 
 export type ChildrenType = {
   children: React.ReactNode;
+};
+
+export type CustomersType = {
+  id: number;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  country: string;
+  city: string;
+  zipCode: string;
+  address: string;
 };

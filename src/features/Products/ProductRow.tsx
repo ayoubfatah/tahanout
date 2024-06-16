@@ -1,5 +1,5 @@
 import Table from "../../ui/Tabel";
-import Actions from "../../ui/Actions";
+import Actions from "../../ui/ProductActions";
 import { formatCurrency } from "../../utils/helpers";
 import useAddProduct from "./useAddProduct";
 import toast from "react-hot-toast";

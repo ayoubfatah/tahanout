@@ -83,14 +83,14 @@ const ProductForm = ({
         {!imagePreview && (
           <input
             disabled={isEditing}
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2 file:mr-5 file:py-2 file:px-4 file:border-[0px] file:text-xs file:font-medium file:bg-sky-500 file:text-white hover:file:cursor-pointer hover:file:bg-sky-600 hover:file:text-white"
+            className="rounded-md border  border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2 file:mr-5 file:py-2 file:px-4 file:border-[0px] file:text-xs file:font-medium file:bg-sky-500 file:text-white hover:file:cursor-pointer hover:file:bg-sky-600 hover:file:text-white"
             type="file"
             {...register("image")}
             onChange={handleImageChange}
           />
         )}
         {imagePreview && (
-          <div className="flex  border border-dashed border-gray-300    w-full items-center justify-between">
+          <div className="flex rounded-md  border border-dashed border-gray-300    w-full items-center justify-between">
             <img
               src={imagePreview}
               alt="Image Preview"

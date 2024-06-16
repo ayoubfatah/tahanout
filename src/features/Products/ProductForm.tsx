@@ -20,7 +20,6 @@ const ProductForm = ({ onClose }: any) => {
   const { mutate, isLoading } = useAddProduct();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     mutate(
       {
         ...data,
@@ -35,7 +34,7 @@ const ProductForm = ({ onClose }: any) => {
         },
         onError: (err: any) => {
           toast.error(err.message);
-        },
+        }
       }
     );
   };
@@ -49,8 +48,6 @@ const ProductForm = ({ onClose }: any) => {
       setImageName(file.name);
     }
   };
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageReset = () => {
     setValue("image", null);

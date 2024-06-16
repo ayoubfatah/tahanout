@@ -35,6 +35,7 @@ export default function ProductTables() {
             <span className="">Discount</span>
             <span className="">Quantity</span>
             <span className="">WareHouse </span>
+           
           </Table.Header>
 
           <div>
