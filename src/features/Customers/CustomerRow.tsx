@@ -1,5 +1,5 @@
 import Table from "../../ui/Tabel";
-import CustomerActions from "../../ui/CustomersActions";
+import CustomerActions from "./CustomersActions";
 import { CustomersType } from "../../Types/types";
 
 interface CustomerRowProps {
@@ -9,12 +9,12 @@ interface CustomerRowProps {
 export default function CustomerRow({ data }: CustomerRowProps) {
   return (
     <Table.Row>
-      <span> {data?.fullName} </span>
-      <span> {data?.email}</span>
-      <span> {data?.phoneNumber}</span>
-      <span> 🇲🇦 {data?.country} </span>
-      <span> {data?.city}</span>
-      <span>{data?.zipCode}</span>
+      <span className="text-[14px] w-full "> {data?.fullName} </span>
+      <span className="text-[14px] w-full "> {data?.email}</span>
+      <span className="text-[14px] w-full "> {data?.phoneNumber}</span>
+      <span className="text-[14px] w-full "> 🇲🇦 {data?.country} </span>
+      <span className="text-[14px] w-full "> {data?.city}</span>
+      <span className="text-[14px] w-full ">{data?.zipCode}</span>
       <CustomerActions data={data} />
     </Table.Row>
   );

@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import {
   HiEllipsisVertical,
   HiMiniPencilSquare,
   HiMiniSquare2Stack,
   HiMiniTrash,
 } from "react-icons/hi2";
-import Modal from "./Modal";
-import DeleteMsg from "./DeleteMsg";
-import useDeleteProduct from "../features/Products/useDeleteProduct";
-import toast from "react-hot-toast";
-import useDuplicateProduct from "../features/Products/useDuplicateProduct";
 import { useNavigate } from "react-router-dom";
-import EditProductForm from "../features/Products/EditProductForm";
-import { Product } from "../Types/types";
+import { Product } from "../../Types/types";
+import DeleteMsg from "../../ui/DeleteMsg";
+import Modal from "../../ui/Modal";
+import EditProductForm from "./EditProductForm";
+import useDeleteProduct from "./useDeleteProduct";
+import useDuplicateProduct from "./useDuplicateProduct";
 type ProductType = {
   additional_images?: string;
   brand: string;

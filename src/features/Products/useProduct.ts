@@ -12,7 +12,7 @@ export default function useProduct() {
     error,
   } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProduct(id),
+    queryFn: (id: any) => getProduct(id),
     retry: false,
   });
 

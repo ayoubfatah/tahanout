@@ -1,4 +1,5 @@
 import CustomersDetails from "../features/Customers/CustomersTable";
+import Button from "../ui/Button";
 
 export default function Customers() {
   return (

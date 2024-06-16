@@ -6,15 +6,16 @@ import {
   HiMiniSquare2Stack,
   HiMiniTrash,
 } from "react-icons/hi2";
-import Modal from "./Modal";
-import DeleteMsg from "./DeleteMsg";
+import Modal from "../../ui/Modal";
+import DeleteMsg from "../../ui/DeleteMsg";
 
 import toast from "react-hot-toast";
-import useDuplicateProduct from "../features/Products/useDuplicateProduct";
+import useDuplicateProduct from "../Products/useDuplicateProduct";
 import { useNavigate } from "react-router-dom";
-import EditProductForm from "../features/Products/EditProductForm";
-import { CustomersType, Product } from "../Types/types";
-import CustomerInfo from "../features/Customers/CustomerInfo";
+import EditProductForm from "../Products/EditProductForm";
+import { CustomersType, Product } from "../../Types/types";
+import CustomerInfo from "./CustomerInfo";
+import { useDeleteCustomer } from "./useDeleteCustomer";
 
 type ActionsProps = {
   data: CustomersType;
@@ -48,6 +49,8 @@ export default function Actions({ data }: ActionsProps) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [actionsRef, setOpen]);
+
+  const { isDeleting, deletingCustomer } = useDeleteCustomer();
   return (
     <Modal>
       <div className="relative cursor-pointer" ref={actionsRef}>
@@ -73,8 +76,8 @@ export default function Actions({ data }: ActionsProps) {
                 data={data}
                 type="Customer"
                 onClose={() => {}}
-                isDeleting={false}
-                deleteFunction={() => {}}
+                isDeleting={isDeleting}
+                deleteFunction={deletingCustomer}
               />
             </Modal.Window>
           </div>

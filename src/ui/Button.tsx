@@ -1,16 +1,7 @@
 import React from "react";
+import { ButtonType } from "../Types/types";
 
-interface ButtonProps {
-  text: string;
-  textColor: string;
-  bgColor: string;
-  borderColor?: string;
-  border?: string;
-  disabled?: boolean;
-  onClick?: () => void;
-}
-
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonType> = ({
   text,
   textColor = "text-white",
   bgColor = "bg-blue-500",

@@ -34,3 +34,13 @@ export type CustomersType = {
   zipCode: string;
   address: string;
 };
+
+export type ButtonType = {
+  onClick: () => void;
+  text: string;
+  textColor: string;
+  bgColor: string;
+  disabled?: boolean;
+  borderColor?: string;
+  border?: string; 
+};
