@@ -3,9 +3,8 @@ import Products from "./Products";
 
 import Modal from "../ui/Modal";
 import Button from "../ui/Button";
+import OrdersTable from "../features/Orders/OrdersTable";
 
 export default function Orders() {
-  return (
-    <div>orders</div>
-  );
+  return <OrdersTable />;
 }
