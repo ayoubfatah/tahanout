@@ -15,7 +15,9 @@ export default function CustomerRow({ data }: CustomerRowProps) {
       <span className="text-[14px] w-full "> 🇲🇦 {data?.country} </span>
       <span className="text-[14px] w-full "> {data?.city}</span>
       <span className="text-[14px] w-full ">{data?.zipCode}</span>
-      <CustomerActions data={data} />
+      <div className="flex justify-end ">
+        <CustomerActions data={data} />
+      </div>
     </Table.Row>
   );
 }

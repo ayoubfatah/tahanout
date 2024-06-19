@@ -2,18 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import {
   HiEllipsisVertical,
   HiEye,
-  HiMiniPencilSquare,
-  HiMiniSquare2Stack,
-  HiMiniTrash,
+  HiMiniTrash
 } from "react-icons/hi2";
-import Modal from "../../ui/Modal";
 import DeleteMsg from "../../ui/DeleteMsg";
+import Modal from "../../ui/Modal";
 
-import toast from "react-hot-toast";
-import useDuplicateProduct from "../Products/useDuplicateProduct";
-import { useNavigate } from "react-router-dom";
-import EditProductForm from "../Products/EditProductForm";
-import { CustomersType, Product } from "../../Types/types";
+import { CustomersType } from "../../Types/types";
 import CustomerInfo from "./CustomerInfo";
 import { useDeleteCustomer } from "./useDeleteCustomer";
 

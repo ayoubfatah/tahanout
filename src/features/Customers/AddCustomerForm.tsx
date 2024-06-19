@@ -10,6 +10,7 @@ type CustomerFormProps = {
 
 const CustomerForm = ({ onClose }: CustomerFormProps) => {
   const { isLoading, addCustomerFun } = useAddCustomer();
+
   const {
     register,
     handleSubmit,

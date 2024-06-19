@@ -118,7 +118,7 @@ export default function Actions({ data }: ActionsProps) {
       <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
-          <div className="bg-white shadow-sm flex flex-col gap-4 right-[50%] absolute border border-gray-50 z-40">
+          <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
             <Modal.Open opens="edit">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
