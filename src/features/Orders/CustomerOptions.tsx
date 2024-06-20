@@ -12,7 +12,7 @@ export default function CustomerOptions({
     item.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
-    <div className="absolute mt-2 w-full bg-white border border-gray-200 rounded shadow-lg z-10">
+    <div className="absolute mt-2 w-full   bg-white border border-gray-200 rounded shadow-lg z-10">
       <div className="p-2">
         <input
           type="text"

@@ -42,5 +42,12 @@ export type ButtonType = {
   bgColor: string;
   disabled?: boolean;
   borderColor?: string;
-  border?: string; 
+  border?: string;
 };
+
+export type OrderStatusTypes =
+  | "canceled"
+  | "in-progress"
+  | "delivered"
+  | "returned"
+  | "pending";

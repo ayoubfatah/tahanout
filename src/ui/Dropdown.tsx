@@ -1,4 +1,10 @@
-import React, { cloneElement, useEffect, useRef, useState } from "react";
+import React, {
+  cloneElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { HiChevronDown } from "react-icons/hi2";
 import { CustomersType, Product } from "../Types/types";
 
@@ -65,7 +71,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div
-      className="relative inline-block text-left w-[500px] ]"
+      className="relative inline-block text-left w-[500px] "
       ref={dropdownRef}
     >
       <div
@@ -89,6 +95,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           <HiChevronDown />{" "}
         </span>
       </div>
+
       {isOpen &&
         cloneElement(children, {
           handleSelect,
