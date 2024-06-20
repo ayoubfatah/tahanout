@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Sourcing from "./pages/Sourcing";
 import AppLayout from "./ui/AppLayout";
+import { TahanoutProvider } from "./contextApi/useTahanoutCA";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +26,7 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <>
+    <TahanoutProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
 
@@ -72,6 +73,6 @@ export default function App() {
           }}
         />
       </QueryClientProvider>
-    </>
+    </TahanoutProvider>
   );
 }

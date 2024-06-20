@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { HiChevronDown } from "react-icons/hi2";
 import { CustomersType, Product } from "../Types/types";
+import { useTahanout } from "../contextApi/useTahanoutCA";
 
 type DropdownProps = {
   data: CustomersType[] | Product[];
@@ -26,16 +27,15 @@ const Dropdown: React.FC<DropdownProps> = ({
     CustomersType | Product | null
   >(null);
 
-  const [customerOptions, setCustomerOptions] = useState<CustomersType | null>(
-    null
-  );
-  const [productOptions, setProductOptions] = useState<Product | null>(null);
+  const {
+    customerOptions,
+    setCustomerOptions,
+    productOptions,
+    setProductOptions,
+  } = useTahanout();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  console.log(productOptions, "productOptions");
-  console.log(customerOptions, "customerOptions");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

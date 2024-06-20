@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi2";
+import { useTahanout } from "../contextApi/useTahanoutCA";
 
 const PaymentMethodDropDown = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [paymentMethod, setPaymentMethod] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(paymentMethod);
+  const { paymentMethod, setPaymentMethod } = useTahanout();
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };

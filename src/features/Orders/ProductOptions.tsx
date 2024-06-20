@@ -9,7 +9,6 @@ export default function CustomerOptions({
   isLoading,
   data,
 }: any) {
-  console.log(data);
   const filteredData = data.filter((item: Product) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -51,4 +50,3 @@ export default function CustomerOptions({
     </div>
   );
 }
-
