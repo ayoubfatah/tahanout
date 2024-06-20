@@ -5,7 +5,6 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import StatusBadge from "../../ui/StatusBadge";
 
 export default function OrdersRow({ order }: any) {
-  console.log(order);
   return (
     <Table.Row>
       <span className="text-[14px] text-gray-700 ">{order.id} </span>

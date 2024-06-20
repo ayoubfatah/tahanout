@@ -7,7 +7,6 @@ import { useOrders } from "../../features/Orders/useOrders";
 export default function OrdersDetails() {
   const { orders, isLoading } = useOrders();
 
-  console.log(orders);
   return (
     <>
       <OrdersTable orders={orders} />

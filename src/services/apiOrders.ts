@@ -20,3 +20,14 @@ export async function getOrders() {
     throw error;
   }
 }
+
+export async function createOrder(order: any) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("orders")
+    .insert([{ ...order }]);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
