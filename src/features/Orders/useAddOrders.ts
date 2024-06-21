@@ -11,7 +11,7 @@ export default function useAddProduct() {
   const { isLoading, mutate } = useMutation<any, unknown, any>({
     mutationFn: (order) => createOrder(order),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders "] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
     },
   });
 

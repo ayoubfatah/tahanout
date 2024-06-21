@@ -128,3 +128,17 @@ export async function editProduct(product: Product, id: number) {
 
   return data;
 }
+
+export async function updateQuantity(newQuantity: number, id: number) {
+  const { data, error } = await supabase
+    .from("products")
+    .update({ quantity: newQuantity })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("product couldn't be added");
+  }
+  return data;
+}

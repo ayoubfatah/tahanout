@@ -1,32 +1,67 @@
 import Table from "../../ui/Tabel";
 import Actions from "./ProductActions";
 import { formatCurrency } from "../../utils/helpers";
+import { Product } from "../../Types/types";
 
-export default function ProductRow({ data }: any) {
+type ProductRowProps = {
+  data: Product;
+};
+
+export default function ProductRow({ data }: ProductRowProps) {
+  const isOutOfStock = data.quantity === 0;
+
   return (
     <Table.Row>
-      {" "}
       <div className="flex items-center ml-3">
-        {" "}
         <img
-          className="object-cover bg-no-repeat bg-center w-[60px] h-[60px]"
+          className={`   object-cover bg-no-repeat bg-center w-[60px] h-[60px] ${
+            isOutOfStock ? "opacity-50" : ""
+          }`}
           src={data.image}
           alt=""
         />
       </div>
-      <span className="">{data.sku}</span>
-      <span className="text-[14px]">{data.name}</span>
-      <span className="font-[500] text-[14px]">
-        {formatCurrency(data.price)}{" "}
+      <span className={`${isOutOfStock ? "line-through text-gray-400" : ""}`}>
+        {data.sku}
       </span>
-      <span className="font-[500] opacity-90 text-green-500 text-[14px] ">
+      <span
+        className={`${
+          isOutOfStock ? "line-through text-gray-400" : "text-[14px]"
+        }`}
+      >
+        {data.name}
+      </span>
+      <span
+        className={`${
+          isOutOfStock ? "line-through text-gray-400" : "font-[500] text-[14px]"
+        }`}
+      >
+        {formatCurrency(data.price)}
+      </span>
+      <span
+        className={`${
+          isOutOfStock
+            ? "line-through text-gray-400"
+            : "font-[500] opacity-90 text-green-500 text-[14px]"
+        }`}
+      >
         {data.discount === 0 ? "-" : `${formatCurrency(data.discount)}`}
       </span>
-      <span className="font-[500] text-[14px]">{data.quantity}</span>
-      <div className="text-[14px]">
-        <span className="  ">{data.warehouse}</span>
+      <span
+        className={`${
+          isOutOfStock ? "line-through text-gray-400" : "font-[500] text-[14px]"
+        }`}
+      >
+        {data.quantity}
+      </span>
+      <div
+        className={`${
+          isOutOfStock ? "line-through text-gray-400" : "text-[14px]"
+        }`}
+      >
+        <span>{data.warehouse}</span>
       </div>
-      <div className="flex justify-end ">
+      <div className="flex justify-end">
         <Actions data={data} />
       </div>
     </Table.Row>

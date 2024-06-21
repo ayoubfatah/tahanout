@@ -11,13 +11,25 @@ const Button: React.FC<ButtonType> = ({
   disabled = false,
 }) => {
   return (
-    <button
-      disabled={disabled}
-      className={`px-4 py-2  rounded-md mt-3 ${textColor} ${bgColor} ${borderColor} ${border} `}
-      onClick={onClick}
-    >
-      {text}
-    </button>
+    <div>
+      {!disabled && (
+        <button
+          onClick={onClick}
+          className={`${textColor} ${bgColor} ${borderColor} ${border} px-4 py-2 rounded-lg`}
+        >
+          {text}
+        </button>
+      )}
+
+      {disabled && (
+        <button
+          disabled
+          className={`${textColor} cursor-not-allowed bg-gray-500 px-4 py-2 rounded-lg`}
+        >
+          {text}
+        </button>
+      )}
+    </div>
   );
 };
 

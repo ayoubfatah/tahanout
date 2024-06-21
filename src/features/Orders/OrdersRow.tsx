@@ -22,6 +22,7 @@ export default function OrdersRow({ order }: any) {
         {" "}
         {formatDate(order.created_at)}
       </span>
+      <span className="text-[14px] text-gray-700 ">{order.quantity}</span>
       <span className="text-[14px] text-gray-700 ">
         {formatCurrency(order.totalPrice)}
       </span>

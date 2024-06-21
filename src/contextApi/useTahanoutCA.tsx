@@ -16,6 +16,8 @@ interface TahanoutContextType {
   setProductOptions: React.Dispatch<React.SetStateAction<Product | null>>;
   paymentMethod: any;
   setPaymentMethod: React.Dispatch<React.SetStateAction<any>>;
+  OrderQuantity: number;
+  setOrderQuantity: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface TahanoutProvider {
@@ -30,6 +32,7 @@ const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
     null
   );
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [OrderQuantity, setOrderQuantity] = useState(1);
 
   // values
 
@@ -40,6 +43,8 @@ const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
     setProductOptions,
     paymentMethod,
     setPaymentMethod,
+    OrderQuantity,
+    setOrderQuantity,
   };
 
   return (

@@ -13,28 +13,11 @@ import Modal from "../../ui/Modal";
 import EditProductForm from "./EditProductForm";
 import useDeleteProduct from "./useDeleteProduct";
 import useDuplicateProduct from "./useDuplicateProduct";
-type ProductType = {
-  additional_images?: string;
-  brand: string;
-  category: string;
-  colors: string;
-  created_at: string;
-  description: string;
-  discount: number;
-  id: number;
-  image: string;
-  minOrder: number;
-  name: string;
-  price: number;
-  quantity: number;
-  sku: string;
-  warehouse: string;
-  weight: number;
-};
 
 type ActionsProps = {
-  data: ProductType;
+  data: Product;
 };
+
 
 export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);

@@ -23,7 +23,6 @@ export default function ProductTables() {
   if (isLoading) return <Spinner />;
 
   return (
-    // a9wad o as3ab haja t3lm ndir hya hadi
     <>
       <div className="border border-gray-200 rounded-md text-gray-600">
         <Table col="1.3fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr">
@@ -35,7 +34,6 @@ export default function ProductTables() {
             <span className="">Discount</span>
             <span className="">Quantity</span>
             <span className="">WareHouse </span>
-           
           </Table.Header>
 
           <div>
