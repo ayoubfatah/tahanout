@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { CustomersType } from "../../Types/types";
+import PaymentMethodDropDown from "../../ui/PaymentMethodDropDown";
 
 type Order = {
   id: number;
@@ -11,6 +13,8 @@ type Order = {
   productPrice: number;
   paymentMethod: string;
   quantity: number;
+  customerName: string;
+  customers?: CustomersType;
 };
 
 type EditOrderProps = {
@@ -39,27 +43,45 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       setValue("productPrice", order.productPrice);
       setValue("paymentMethod", order.paymentMethod);
       setValue("quantity", order.quantity);
+      setValue("customerName", order.customers ? order.customers.fullName : "");
     }
   }, [order, setValue]);
 
   const onSubmit = (data: Order) => {
-    onSave(data);
-    onClose();
+    console.log(data, " edit form");
   };
-
+  console.log(order, " edit form");
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-4 bg-white rounded shadow-md w-[600px] h-[600px] overflow-y-scroll"
+      className="p-4   w-[500px] h-[600px] overflow-y-scroll"
     >
       <h2 className="text-xl font-bold mb-4">Edit Order</h2>
+
+      <div className="mb-4 ">
+        <label className=" block text-sm font-medium mb-1">
+          Customer Name:
+        </label>
+        <input
+          disabled
+          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          type="text"
+          {...register("customerName")}
+        />
+        {errors.customerId && (
+          <span className="text-red-500 text-sm">
+            {errors.customerId.message}
+          </span>
+        )}
+      </div>
 
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Customer ID:</label>
         <input
-          className="w-full border border-gray-300 p-2 rounded"
+          disabled
+          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
           type="number"
-          {...register("customerId", { required: "Customer ID is required" })}
+          {...register("customerId")}
         />
         {errors.customerId && (
           <span className="text-red-500 text-sm">
@@ -71,9 +93,10 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Product ID:</label>
         <input
-          className="w-full border border-gray-300 p-2 rounded"
+          disabled
+          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
           type="number"
-          {...register("productId", { required: "Product ID is required" })}
+          {...register("productId")}
         />
         {errors.productId && (
           <span className="text-red-500 text-sm">
@@ -89,9 +112,11 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
           {...register("status", { required: "Status is required" })}
         >
           <option value="pending">Pending</option>
-          <option value="shipped">Shipped</option>
+
           <option value="delivered">Delivered</option>
           <option value="cancelled">Cancelled</option>
+          <option value="in-progress">In Progress</option>
+          <option value="returned">Returned </option>
         </select>
         {errors.status && (
           <span className="text-red-500 text-sm">{errors.status.message}</span>
@@ -101,6 +126,7 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Shipping Cost:</label>
         <input
+          step={0.1}
           className="w-full border border-gray-300 p-2 rounded"
           type="number"
           {...register("shippingCost", {
@@ -117,6 +143,7 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Total Price:</label>
         <input
+          step={0.1}
           className="w-full border border-gray-300 p-2 rounded"
           type="number"
           {...register("totalPrice", { required: "Total Price is required" })}
@@ -131,6 +158,7 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Product Price:</label>
         <input
+          step={0.1}
           className="w-full border border-gray-300 p-2 rounded"
           type="number"
           {...register("productPrice", {
@@ -145,21 +173,7 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">
-          Payment Method:
-        </label>
-        <input
-          className="w-full border border-gray-300 p-2 rounded"
-          type="text"
-          {...register("paymentMethod", {
-            required: "Payment Method is required",
-          })}
-        />
-        {errors.paymentMethod && (
-          <span className="text-red-500 text-sm">
-            {errors.paymentMethod.message}
-          </span>
-        )}
+        <PaymentMethodDropDown />
       </div>
 
       <div className="mb-4">

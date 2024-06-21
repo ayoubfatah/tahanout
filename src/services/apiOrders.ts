@@ -31,3 +31,15 @@ export async function createOrder(order: any) {
   }
   return data;
 }
+
+export async function deleteOrder(id: number) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("orders")
+    .delete()
+    .eq("id", id);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}

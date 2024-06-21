@@ -19,7 +19,7 @@ type ActionsProps = {
 };
 
 
-export default function Actions({ data }: ActionsProps) {
+export default function ProductActions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const actionsRef = useRef<HTMLDivElement>(null);

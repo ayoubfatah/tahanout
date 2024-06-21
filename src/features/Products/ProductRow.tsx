@@ -1,5 +1,5 @@
 import Table from "../../ui/Tabel";
-import Actions from "./ProductActions";
+import ProductActions from "./ProductActions";
 import { formatCurrency } from "../../utils/helpers";
 import { Product } from "../../Types/types";
 
@@ -62,7 +62,7 @@ export default function ProductRow({ data }: ProductRowProps) {
         <span>{data.warehouse}</span>
       </div>
       <div className="flex justify-end">
-        <Actions data={data} />
+        <ProductActions data={data} />
       </div>
     </Table.Row>
   );

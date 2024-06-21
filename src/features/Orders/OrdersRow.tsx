@@ -1,9 +1,7 @@
-import React from "react";
+import StatusBadge from "../../ui/StatusBadge";
 import Table from "../../ui/Tabel";
 import { formatCurrency, formatDate } from "../../utils/helpers";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import StatusBadge from "../../ui/StatusBadge";
-
+import OrderActions from "./OrdersActions";
 export default function OrdersRow({ order }: any) {
   return (
     <Table.Row>
@@ -31,7 +29,7 @@ export default function OrdersRow({ order }: any) {
         <StatusBadge status={order.status} />
       </div>
       <div className="flex justify-end">
-        <HiEllipsisVertical size={20} />
+        <OrderActions data={order} />
       </div>
     </Table.Row>
   );

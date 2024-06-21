@@ -36,7 +36,7 @@ const PaymentMethodDropDown = () => {
     <div className="flex flex-col">
       <div>Payment Method :</div>
       <div
-        className="relative inline-block text-left w-[500px] ]"
+        className="relative inline-block text-left w-full ]"
         ref={dropdownRef}
       >
         <div
