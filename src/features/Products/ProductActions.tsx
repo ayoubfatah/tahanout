@@ -5,6 +5,7 @@ import {
   HiMiniPencilSquare,
   HiMiniSquare2Stack,
   HiMiniTrash,
+  HiOutlinePlus,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../Types/types";
@@ -13,11 +14,12 @@ import Modal from "../../ui/Modal";
 import EditProductForm from "./EditProductForm";
 import useDeleteProduct from "./useDeleteProduct";
 import useDuplicateProduct from "./useDuplicateProduct";
+import OrderForm from "../Orders/OrderForm";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 
 type ActionsProps = {
   data: Product;
 };
-
 
 export default function ProductActions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
@@ -95,13 +97,30 @@ export default function ProductActions({ data }: ActionsProps) {
   }
 
   const { mutate: deleteProduct, isDeleting } = useDeleteProduct();
-
+  const dataFromProduct = { ...data };
   return (
     <Modal>
       <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
+            {/* make order */}
+            {data.quantity > 0 ? (
+              <Modal.Open opens="make_order">
+                <button className=" flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
+                  <HiOutlinePlus size={20} />
+                  Order
+                </button>
+              </Modal.Open>
+            ) : null}
+            <Modal.Window name="make_order">
+              <OrderForm
+                type="productTable"
+                dataFromProductActions={dataFromProduct}
+                onClose={() => setOpen(false)}
+              />
+            </Modal.Window>
+            {/* edit */}
             <Modal.Open opens="edit">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
@@ -111,15 +130,7 @@ export default function ProductActions({ data }: ActionsProps) {
             <Modal.Window name="edit">
               <EditProductForm onClose={() => setOpen(false)} data={data} />
             </Modal.Window>
-            <span className="">
-              <button
-                onClick={handleDuplicate}
-                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
-              >
-                <HiMiniSquare2Stack />
-                Duplicate
-              </button>
-            </span>
+            {/* delete */}
             <Modal.Open opens="delete">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} />
@@ -135,6 +146,13 @@ export default function ProductActions({ data }: ActionsProps) {
                 data={data}
               />
             </Modal.Window>
+            <button
+              onClick={handleDuplicate}
+              className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+            >
+              <HiMiniSquare2Stack />
+              Duplicate
+            </button>
           </div>
         )}
       </div>

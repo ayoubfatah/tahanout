@@ -1,6 +1,7 @@
 import React from "react";
 import { CustomersType, Product } from "../../Types/types";
 import { formatCurrency } from "../../utils/helpers";
+import ProductOptionsRow from "./ProductOptionsRow";
 
 export default function CustomerOptions({
   handleSelect,
@@ -17,7 +18,7 @@ export default function CustomerOptions({
       <div className="p-2">
         <input
           type="text"
-          placeholder="Search by Name..."
+          placeholder="Search by Name..."  
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full px-3 py-2 border rounded"
@@ -35,17 +36,11 @@ export default function CustomerOptions({
         <div className="p-2 py-3 ">No products found</div>
       )}
       {filteredData.map((item: any) => (
-        <div
+        <ProductOptionsRow
           key={item.id}
-          className=" py-3  grid gap-2 grid-cols-[60px_1fr_1fr_1fr]   justify-around items-center  hover:bg-gray-200 cursor-pointer"
-          onClick={() => handleSelect(item)}
-        >
-          <img src={item.image} className="  object-fill h-12 " alt="" />
-          <div className=" ">{item.name}</div>
-          <div className="   text-green-500">{formatCurrency(item.price)}</div>
-
-          <div className="  ">{item.warehouse}</div>
-        </div>
+          item={item}
+          handleSelect={handleSelect}
+        />
       ))}
     </div>
   );

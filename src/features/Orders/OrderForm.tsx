@@ -10,8 +10,14 @@ import ProductOptions from "./ProductOptions";
 import useAddOrder from "../Orders/useAddOrders";
 import toast from "react-hot-toast";
 import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
+import ProductOptionsRow from "./ProductOptionsRow";
+import { useEffect } from "react";
 
-export default function OrderForm({ onClose: onclose }: any) {
+export default function OrderForm({
+  onClose: onclose,
+  type,
+  dataFromProductActions,
+}: any) {
   const { isLoading, customers } = useCustomers();
   const { isLoading: isLoading2, products } = useProducts();
   const {
@@ -25,6 +31,13 @@ export default function OrderForm({ onClose: onclose }: any) {
     setOrderQuantity,
   } = useTahanout();
   const { data: settings } = useGetSettings();
+  // CREATING ORDER FROM THE PRODUCT TABLE
+
+  useEffect(() => {
+    if (dataFromProductActions) {
+      setProductOptions(dataFromProductActions);
+    }
+  }, [dataFromProductActions]);
 
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
@@ -76,6 +89,7 @@ export default function OrderForm({ onClose: onclose }: any) {
       }
     );
   }
+
   return (
     <form
       onClick={(e) => e.preventDefault()}
@@ -89,9 +103,13 @@ export default function OrderForm({ onClose: onclose }: any) {
       </div>
       <div className="flex  flex-col ">
         <div>Product : </div>
-        <Dropdown type="product" data={products} isLoading={isLoading2}>
-          <ProductOptions />
-        </Dropdown>
+        {type !== "productTable" ? (
+          <Dropdown type="product" data={products} isLoading={isLoading2}>
+            <ProductOptions />
+          </Dropdown>
+        ) : (
+          <ProductOptionsRow item={dataFromProductActions} />
+        )}
       </div>
 
       <div className="flex  flex-col ">
@@ -103,9 +121,15 @@ export default function OrderForm({ onClose: onclose }: any) {
           className="rounded-md border w-[80px] border-[#e0e0e0] bg-white py-2 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md  p-1 px-2"
           type="number"
         />
-        {productOptions && productOptions.minOrder && (
+        {productOptions && productOptions.minOrder > OrderQuantity && (
           <span className="text-red-500 text-[12px] w-full">
             min order is {productOptions.minOrder}
+          </span>
+        )}
+        {productOptions && productOptions.quantity < OrderQuantity && (
+          <span className="text-red-500 text-[12px] w-full  ">
+            {" "}
+            Max quantity is {productOptions.quantity}{" "}
           </span>
         )}
       </div>
@@ -117,7 +141,8 @@ export default function OrderForm({ onClose: onclose }: any) {
             OrderQuantity < (productOptions?.minOrder ?? 1) ||
             !productOptions ||
             !customerOptions ||
-            !paymentMethod
+            !paymentMethod ||
+            productOptions.quantity < OrderQuantity
           }
           text="Submit "
           onClick={handleOnClick}
