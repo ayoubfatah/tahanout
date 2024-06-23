@@ -1,5 +1,6 @@
 import React from "react";
 import { OrderStatusTypes } from "../Types/types";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 
 interface StatusBadgeProps {
   status: OrderStatusTypes;
@@ -24,13 +25,20 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   };
 
   return (
-    <span
-      className={`text-[12px] uppercase py-1 px-3 rounded-full ${getStatusStyles(
-        status
-      )}`}
-    >
-      {status.split("-").join(" ")}
-    </span>
+    <>
+      <div
+        className={`flex justify-center items-center gap-1 text-[12px] uppercase py-1 px-3 rounded-full ${getStatusStyles(
+          status
+        )}`}
+      >
+        {status === "returned" && (
+          <span>
+            <HiOutlineArrowUturnLeft />
+          </span>
+        )}
+        <span>{status.split("-").join(" ")}</span>
+      </div>
+    </>
   );
 };
 

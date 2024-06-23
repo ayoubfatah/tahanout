@@ -5,11 +5,11 @@ const ImageSwitcher = ({ images }: { images: string[] }) => {
 
   return (
     <div className="md:flex-1 ">
-      <div className="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
+      <div className="h-64 md:h-80 rounded-lg  mb-4">
         {images.map((img, index) => (
           <div
             key={index}
-            className={`h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center ${
+            className={`h-64 md:h-80 rounded-lg  mb-4 flex items-center justify-center ${
               selectedImage === index ? "block" : "hidden"
             }`}
           >

@@ -61,7 +61,7 @@ export default function ProductDetails() {
             <span className="font-semibold ">Price</span>:{" "}
             {formatCurrency(product.price)}
           </div>
-          <div className="text-xl text-green-500">
+          <div className="text-xl text-gray-700">
             <span className="font-semibold ">Discount Price</span>:{" "}
             {formatCurrency(product.discountPrice)}
           </div>
