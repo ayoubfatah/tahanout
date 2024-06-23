@@ -1,9 +1,7 @@
-import React from "react";
-import { CustomersType, Product } from "../../Types/types";
-import { formatCurrency } from "../../utils/helpers";
-import ProductOptionsRow from "./ProductOptionsRow";
+import { Product } from "../../Types/types";
+import ProductOptionsRow from "./OrderProductOptionsRow";
 
-export default function CustomerOptions({
+export default function OrderProductOptions({
   handleSelect,
   setSearchTerm,
   searchTerm,
@@ -18,7 +16,7 @@ export default function CustomerOptions({
       <div className="p-2">
         <input
           type="text"
-          placeholder="Search by Name..."  
+          placeholder="Search by Name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full px-3 py-2 border rounded"

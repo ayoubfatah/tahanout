@@ -5,18 +5,20 @@ import PaymentMethodDropDown from "../../ui/PaymentMethodDropDown";
 import { useCustomers } from "../Customers/useCutomers";
 import useProducts from "../Products/useProducts";
 import useGetSettings from "../Settings/useGetSettings";
-import CustomerOptions from "./CustomerOptions";
-import ProductOptions from "./ProductOptions";
+import CustomerOptions from "./OrderCustomerOptions";
+import ProductOptions from "./OrderProductOptions";
 import useAddOrder from "../Orders/useAddOrders";
 import toast from "react-hot-toast";
 import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
-import ProductOptionsRow from "./ProductOptionsRow";
+import ProductOptionsRow from "./OrderProductOptionsRow";
 import { useEffect } from "react";
+import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 
 export default function OrderForm({
   onClose: onclose,
   type,
   dataFromProductActions,
+  dataFromCustomerActions,
 }: any) {
   const { isLoading, customers } = useCustomers();
   const { isLoading: isLoading2, products } = useProducts();
@@ -38,6 +40,12 @@ export default function OrderForm({
       setProductOptions(dataFromProductActions);
     }
   }, [dataFromProductActions]);
+
+  useEffect(() => {
+    if (dataFromCustomerActions) {
+      setProductOptions(dataFromCustomerActions);
+    }
+  }, [dataFromCustomerActions]);
 
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
@@ -97,9 +105,16 @@ export default function OrderForm({
     >
       <div className="delete flex-col  ">
         <div>Customer : </div>
-        <Dropdown type="customer" data={customers} isLoading={isLoading}>
-          <CustomerOptions />
-        </Dropdown>
+        {type !== "customerTable" ? (
+          <Dropdown type="customer" data={customers} isLoading={isLoading}>
+            <CustomerOptions />
+          </Dropdown>
+        ) : (
+          <CustomerOptionsRow
+            fromCustomerTable={true}
+            item={dataFromCustomerActions}
+          />
+        )}
       </div>
       <div className="flex  flex-col ">
         <div>Product : </div>
@@ -108,7 +123,11 @@ export default function OrderForm({
             <ProductOptions />
           </Dropdown>
         ) : (
-          <ProductOptionsRow item={dataFromProductActions} />
+          <ProductOptionsRow
+            fromProductTable={true}
+            key={productOptions?.id}
+            item={dataFromProductActions}
+          />
         )}
       </div>
 

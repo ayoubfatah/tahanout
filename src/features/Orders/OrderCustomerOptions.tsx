@@ -1,7 +1,8 @@
 import React from "react";
 import { CustomersType } from "../../Types/types";
+import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 
-export default function CustomerOptions({
+export default function OrdercustomerOptions({
   handleSelect,
   setSearchTerm,
   searchTerm,
@@ -26,20 +27,11 @@ export default function CustomerOptions({
         <div className="p-2">Loading...</div>
       ) : (
         filteredData.map((item: any) => (
-          <div
+          <CustomerOptionsRow
             key={item.id}
-            className=" py-3 flex justify-between hover:bg-gray-200  cursor-pointer"
-            onClick={() => handleSelect(item)}
-          >
-            <div>
-              <div className="px-4">{item.fullName}</div>
-              <div className="px-4 text-[10px]">{item.email}</div>
-            </div>
-            <div>
-              <div className="px-4 text-[12px]">{item.city}</div>
-              <div className="px-4 text-[10px]">{item.zipCode}</div>
-            </div>
-          </div>
+            item={item}
+            handleSelect={handleSelect}
+          />
         ))
       )}
     </div>

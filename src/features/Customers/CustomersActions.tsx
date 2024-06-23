@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import {
   HiEllipsisVertical,
   HiEye,
-  HiMiniTrash
+  HiMiniTrash,
+  HiOutlinePlus,
 } from "react-icons/hi2";
 import DeleteMsg from "../../ui/DeleteMsg";
 import Modal from "../../ui/Modal";
@@ -10,6 +11,7 @@ import Modal from "../../ui/Modal";
 import { CustomersType } from "../../Types/types";
 import CustomerInfo from "./CustomerInfo";
 import { useDeleteCustomer } from "./useDeleteCustomer";
+import OrderForm from "../Orders/OrderForm";
 
 type ActionsProps = {
   data: CustomersType;
@@ -51,6 +53,20 @@ export default function Actions({ data }: ActionsProps) {
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
+            <Modal.Open opens="make_order">
+              <button className=" flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
+                <HiOutlinePlus size={20} />
+                Order
+              </button>
+            </Modal.Open>
+
+            <Modal.Window name="make_order">
+              <OrderForm
+                dataFromCustomerActions={data}
+                type="customerTable"
+                onClose={() => setOpen(false)}
+              />
+            </Modal.Window>
             <Modal.Open opens="moreDetails">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px]  gap-2  font-light text-[14px]">
                 <HiEye size={20} /> details
