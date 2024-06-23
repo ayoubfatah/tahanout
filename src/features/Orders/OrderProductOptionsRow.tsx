@@ -4,6 +4,7 @@ import { formatCurrency } from "../../utils/helpers";
 export default function OrderProductOptionsRow({
   item,
   handleSelect,
+
   fromProductTable,
 }: any) {
   return (

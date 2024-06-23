@@ -43,3 +43,28 @@ export async function deleteOrder(id: number) {
   }
   return data;
 }
+
+export async function editOrder(newOrderData: any, id: number) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("orders")
+    .update(newOrderData)
+    .eq("id", id);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+
+export async function getOrder(id: number) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
