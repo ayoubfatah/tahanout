@@ -68,3 +68,17 @@ export async function getOrder(id: number) {
   }
   return data;
 }
+
+export async function delivered(id: number) {
+  const { data, error } = await supabase
+    .from("orders")
+    .update({ status: "delivered" })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}

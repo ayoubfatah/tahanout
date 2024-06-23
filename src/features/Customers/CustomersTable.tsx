@@ -30,20 +30,22 @@ export default function CustomersDetails() {
           <Table.Footer></Table.Footer>
         </Table>
       </div>
-      <Modal>
-        <Modal.Open opens="addCustomer">
-          <Button
-            text="Add Customer"
-            onClick={() => {}}
-            bgColor="bg-sky-500"
-            textColor="text-white"
-            borderColor="border-sky-500"
-          />
-        </Modal.Open>
-        <Modal.Window name="addCustomer">
-          <AddCustomerForm onClose={() => {}} onSubmit={() => {}} />
-        </Modal.Window>
-      </Modal>
+      <div className="mt-5">
+        <Modal>
+          <Modal.Open opens="addCustomer">
+            <Button
+              text="Add Customer"
+              onClick={() => {}}
+              bgColor="bg-sky-500"
+              textColor="text-white"
+              borderColor="border-sky-500"
+            />
+          </Modal.Open>
+          <Modal.Window name="addCustomer">
+            <AddCustomerForm onClose={() => {}} onSubmit={() => {}} />
+          </Modal.Window>
+        </Modal>
+      </div>
     </>
   );
 }

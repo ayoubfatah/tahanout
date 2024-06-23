@@ -1,4 +1,4 @@
-import ProductDetails from "../features/Products/ProductDetails";
+import ProductDetails from "../features/Product/ProductDetails";
 export default function Product() {
   //   const { isLoading, product } = useProduct();
 
