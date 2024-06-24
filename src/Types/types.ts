@@ -33,6 +33,7 @@ export type CustomersType = {
   city: string;
   zipCode: string;
   address: string;
+  nationalId: string;
 };
 
 export type ButtonType = {

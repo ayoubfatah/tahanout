@@ -17,6 +17,10 @@ export default function CustomerInfo({ data: customers }: CustomersType) {
       </div>
       <div className="p-3 flex items-center w-full gap-3">
         <span className="w-1/4">Phone number:</span>
+        <span className="w-1/2">{customers?.nationalId}</span>
+      </div>
+      <div className="p-3 flex items-center w-full gap-3">
+        <span className="w-1/4">Phone number:</span>
         <span className="w-1/2">{customers?.phoneNumber}</span>
       </div>
       <div className="p-3 flex items-center w-full gap-3">

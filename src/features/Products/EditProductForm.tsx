@@ -37,7 +37,7 @@ const ProductForm = ({
 
   const onSubmit = (data: any) => {
     // Handle the form submission
-    console.log(data);
+
     const imageType =
       typeof data.image === "string" ? data.image : data.image[0];
     mutate(

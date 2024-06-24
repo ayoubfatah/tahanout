@@ -6,7 +6,7 @@ const ImageSwitcher = ({ images }: { images: string[] }) => {
   return (
     <div className="md:flex-1 ">
       <div className="h-64 md:h-80 rounded-lg  mb-4">
-        {images.map((img, index) => (
+        {images?.map((img, index) => (
           <div
             key={index}
             className={`h-64 md:h-80 rounded-lg  mb-4 flex items-center justify-center ${
@@ -23,7 +23,7 @@ const ImageSwitcher = ({ images }: { images: string[] }) => {
       </div>
 
       <div className="flex -mx-2 mb-4">
-        {images.map((img, index) => (
+        {images?.map((img, index) => (
           <div key={index} className="bg-gray-100">
             <div className=" px-2">
               <button

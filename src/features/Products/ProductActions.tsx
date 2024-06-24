@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
   HiEllipsisVertical,
+  HiEye,
   HiMiniPencilSquare,
   HiMiniSquare2Stack,
   HiMiniTrash,
@@ -98,6 +99,10 @@ export default function ProductActions({ data }: ActionsProps) {
 
   const { mutate: deleteProduct, isDeleting } = useDeleteProduct();
   const dataFromProduct = { ...data };
+
+  function handleDetails() {
+    navigate(`/products/${id}`);
+  }
   return (
     <Modal>
       <div className="relative cursor-pointer" ref={actionsRef}>
@@ -105,6 +110,13 @@ export default function ProductActions({ data }: ActionsProps) {
         {open && (
           <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
             {/* make order */}
+            <button
+              onClick={handleDetails}
+              className=" flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+            >
+              <HiEye size={20} />
+              Details
+            </button>
             {data.quantity > 0 ? (
               <Modal.Open opens="make_order">
                 <button className=" flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">

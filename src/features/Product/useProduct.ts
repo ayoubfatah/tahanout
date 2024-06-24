@@ -5,7 +5,6 @@ import { useParams, useSearchParams } from "react-router-dom";
 export default function useProduct() {
   // Prefetching
   const { id } = useParams();
-  const productId = id;
 
   const {
     isLoading,
@@ -13,7 +12,7 @@ export default function useProduct() {
     error,
   } = useQuery({
     queryKey: ["product", id],
-    queryFn: (productId: any) => getProduct(productId),
+    queryFn: () => getProduct(Number(id)),
     retry: false,
   });
 

@@ -13,13 +13,14 @@ export default function CustomersDetails() {
   return (
     <>
       <div className="border border-gray-200 rounded-md text-gray-600">
-        <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 0.5fr">
+        <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 0.5fr">
           <Table.Header>
             <span className="">Full name</span>
             <span className="">email</span>
             <span className="">Phone number</span>
             <span className="">Country </span>
             <span className="">City</span>
+            <span className="">National ID</span>
             <span className="">Zip code</span>
             <span></span>
           </Table.Header>
