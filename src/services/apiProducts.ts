@@ -49,6 +49,7 @@ export async function createProduct(product: Product) {
     throw new Error(error.message);
   }
   // 2 uploading image
+  
   if (product.image?.startsWith?.(supabaseUrl)) return;
 
   const { error: storageError } = await supabase.storage

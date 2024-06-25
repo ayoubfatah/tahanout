@@ -1,5 +1,5 @@
-import React from "react";
+import DragDropImages from "../ui/DragDropImages";
 
 export default function Employees() {
-  return <div>Employees</div>;
+  return <DragDropImages />;
 }

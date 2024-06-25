@@ -20,23 +20,7 @@ const ProductForm = ({ onClose }: any) => {
   const { mutate, isLoading } = useAddProduct();
 
   const onSubmit = (data: any) => {
-    mutate(
-      {
-        ...data,
-        image: data.image[0],
-        imgDetails: [imageSize + "", imageName],
-      },
-      {
-        onSuccess: () => {
-          toast.success("Product created successfully");
-          onClose();
-          URL.revokeObjectURL(file);
-        },
-        onError: (err: any) => {
-          toast.error(err.message);
-        }
-      }
-    );
+    console.log(data);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -233,7 +217,7 @@ const ProductForm = ({ onClose }: any) => {
             type="file"
             className={` ${
               imagePreview ? "hidden" : "block"
-            }  text-sm text-black
+            }  text-sm text-black  
             file:mr-5 file:py-2 file:px-4 file:border-[0px] 
             file:text-xs file:font-medium
             file:bg-sky-500 file:text-white
