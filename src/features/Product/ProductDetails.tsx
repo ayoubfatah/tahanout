@@ -4,11 +4,12 @@ import { formatCurrency } from "../../utils/helpers";
 import useProduct from "./useProduct";
 import Spinner from "../../ui/Spinner";
 import ProductInfo from "./ProductInfo";
+import EditDragDropImages from "../../ui/EditDragDropImages";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const { isLoading, product } = useProduct();
-
+  const imageUrl = product?.images?.[0];
   // Fake data for demonstration
   const testing = {
     name: "Razer BlackWidow Elite",
@@ -27,7 +28,7 @@ export default function ProductDetails() {
       weight: "1.5kg",
     },
     images: [
-      product?.image,
+      imageUrl,
       "https://s.alicdn.com/@sc04/kf/Ae04591227db446fab2969a9cca38a104i.jpeg",
       "https://s.alicdn.com/@sc04/kf/A0f91cc77efdb44fbae4fd4586848183eP.jpeg",
       "https://s.alicdn.com/@sc04/kf/A98302d792312401cb1548669f652df4ec.jpeg",
@@ -46,12 +47,15 @@ export default function ProductDetails() {
   return (
     <div className=" bg-white px-4 py-6 relative">
       <div className="grid grid-cols-2 gap-10 ">
-        <ImageSwitcher images={testing.images} />
+        <ImageSwitcher images={product.images} />
         <ProductInfo
           product={product}
           testing={testing}
           handleEdit={handleEdit}
         />
+      </div>
+      <div>
+        <EditDragDropImages images={product.images} />
       </div>
     </div>
   );

@@ -37,9 +37,15 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {products?.map((product: any) => (
-              <ProductRow key={product.id || product.sku} data={product} />
-            ))}
+            {products.length > 0 ? (
+              products?.map((product: any) => (
+                <ProductRow key={product.id || product.sku} data={product} />
+              ))
+            ) : (
+              <div className="px-3 py-4 border-b border-gray-200">
+                No Products available...
+              </div>
+            )}
           </div>
 
           <Table.Footer></Table.Footer>

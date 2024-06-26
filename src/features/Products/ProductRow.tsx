@@ -17,7 +17,7 @@ export default function ProductRow({ data }: ProductRowProps) {
           className={`   object-cover bg-no-repeat bg-center w-[60px] h-[60px] ${
             isOutOfStock ? "opacity-50" : ""
           }`}
-          src={data.image}
+          src={data && data.images && data.images[0]}
           alt=""
         />
       </div>

@@ -1,19 +1,21 @@
 import React, { useState, ChangeEvent, DragEvent } from "react";
 import { MdDelete } from "react-icons/md";
+import { Reorder } from "framer-motion";
+import toast from "react-hot-toast";
 
 interface ImageItem {
   id: string;
-  file: File;
+  file: File | null; // Allow for File or null (for existing images)
   name: string;
   size: number;
 }
 
-interface DragDropImagesProps {
-  onChange: (items: ImageItem[]) => void;
+interface EditDragDropImagesProps {
+  images: ImageItem[];
 }
 
-const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
-  const [items, setItems] = useState<ImageItem[]>([]);
+const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
+  const [items, setItems] = useState<ImageItem[]>(images);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -24,11 +26,7 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
       name: file.name,
       size: file.size,
     }));
-    setItems((prevItems) => {
-      const updatedItems = [...prevItems, ...newItems];
-      onChange(updatedItems);
-      return updatedItems;
-    });
+    setItems((prevItems) => [...prevItems, ...newItems]);
   };
 
   const handleImageDrop = (event: DragEvent<HTMLDivElement>) => {
@@ -40,11 +38,7 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
       name: file.name,
       size: file.size,
     }));
-    setItems((prevItems) => {
-      const updatedItems = [...prevItems, ...newItems];
-      onChange(updatedItems);
-      return updatedItems;
-    });
+    setItems((prevItems) => [...prevItems, ...newItems]);
   };
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -52,11 +46,21 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
   };
 
   const handleDelete = (id: string) => {
-    setItems((prevItems) => {
-      const updatedItems = prevItems.filter((item) => item.id !== id);
-      onChange(updatedItems);
-      return updatedItems;
-    });
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const handleSave = () => {
+    const data = items.map((item) => ({
+      name: item.name,
+      size: item.size,
+      file: item.file,
+    }));
+
+    const files = data
+      .map((item) => item.file)
+      .filter((file) => file !== null) as File[];
+    console.log(files);
+    toast.success("Images uploaded successfully");
   };
 
   return (
@@ -75,9 +79,18 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
       >
         Drop your images here
       </div>
-      <div className="mb-4">
+      <Reorder.Group
+        as="div"
+        values={items}
+        onReorder={setItems}
+        className="mb-4"
+      >
         {items.map((item, i) => (
-          <div className="list-none shadow-sm" key={item.id}>
+          <Reorder.Item
+            className="list-none shadow-sm"
+            key={item.id}
+            value={item}
+          >
             <div className="flex items-center justify-between border p-1 mb-2 bg-white">
               <img
                 src={item.id}
@@ -86,7 +99,9 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
               />
               <span className="flex-1 ml-4">{item.name}</span>
               <span className="flex-1 ml-4">
-                {Math.round(item.size / 1024)} KB
+                {item.file
+                  ? Math.round(item.size / 1024) + " KB"
+                  : "Existing Image"}
               </span>
               <div className="flex items-center">
                 <span>Image {i + 1}</span>
@@ -95,11 +110,17 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
                 </button>
               </div>
             </div>
-          </div>
+          </Reorder.Item>
         ))}
-      </div>
+      </Reorder.Group>
+      <button
+        onClick={handleSave}
+        className="text-white bg-sky-500 px-4 py-2 rounded-md"
+      >
+        Save
+      </button>
     </main>
   );
 };
 
-export default DragDropImages;
+export default EditDragDropImages;

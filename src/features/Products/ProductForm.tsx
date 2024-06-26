@@ -1,15 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAddProduct from "./useAddProduct";
 import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import DragDropImages from "../../ui/DragDropImages";
 
 const ProductForm = ({ onClose }: any) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState<string | number>(0);
-  const [imageName, setImageName] = useState("");
-  let file: any;
+  const [items, setItems] = useState([]);
   const {
     setValue,
     register,
@@ -19,25 +17,25 @@ const ProductForm = ({ onClose }: any) => {
 
   const { mutate, isLoading } = useAddProduct();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
+    // Prepare data to include images array
+    data.images = items.map((item: any) => item.file);
+
     console.log(data);
+
+    mutate(data, {
+      onSuccess: () => {
+        toast.success("Product created successfully");
+        onClose();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    file = event.target.files?.[0];
-    console.log(file);
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      setImageSize(file.size);
-      setImageName(file.name);
-    }
-  };
-
-  const handleImageReset = () => {
-    setValue("image", null);
-    setImagePreview(null);
-    setImageName("");
-    setImageSize(0);
+  const handleImageChangeFromDragDrop = (newItems: any) => {
+    setItems(newItems);
   };
 
   return (
@@ -210,71 +208,29 @@ const ProductForm = ({ onClose }: any) => {
             </span>
           )}
         </div>
-        <div className="flex flex-col gap-2">
-          <label>Image:</label>
-
-          <input
-            type="file"
-            className={` ${
-              imagePreview ? "hidden" : "block"
-            }  text-sm text-black  
-            file:mr-5 file:py-2 file:px-4 file:border-[0px] 
-            file:text-xs file:font-medium
-            file:bg-sky-500 file:text-white
-            hover:file:cursor-pointer hover:file:bg-sky-600
-            hover:file:text-white`}
-            {...register("image")}
-            onChange={handleImageChange}
-          />
-
-          {errors.image && (
-            <span className="text-red-500 text-[12px]">
-              {errors.image.message as string}
-            </span>
-          )}
-          {imagePreview && (
-            <div className="flex items-center justify-between">
-              <img
-                src={imagePreview}
-                alt="Image Preview"
-                className="w-20 h-14 object-cover"
-              />
-              <span>{imageName}</span>
-              <span>Size : {Math.round(+imageSize / 1024)}kb</span>
-              <button
-                type="button"
-                className="text-gray-600 rounded-md"
-                onClick={handleImageReset}
-              >
-                <MdDelete />
-              </button>
-            </div>
-          )}
-        </div>
 
         <div className="flex flex-col gap-2">
-          <label>Additional Images:</label>
-          <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-900 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            type="text"
-            {...register("additional_images")}
+          <label>Images:</label>
+          <DragDropImages
+            items={items}
+            setItems={setItems}
+            onChange={handleImageChangeFromDragDrop}
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-4 mt-4">
           <button
-            disabled={isLoading}
-            className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
+            type="submit"
+            className="px-6 py-2 bg-[#6A64F1] text-white rounded-md shadow-md transition duration-300 hover:bg-[#553C9A] focus:outline-none focus:ring-2 focus:ring-[#6A64F1]"
           >
-            Update Product
+            {isLoading ? "Submitting..." : "Submit"}
           </button>
           <button
-            disabled={isLoading}
             type="button"
             onClick={onClose}
-            className="text-black bg-white border border-black px-4 py-2 rounded-md mt-3"
+            className="px-6 py-2 bg-gray-300 text-gray-800 rounded-md shadow-md transition duration-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
-            Close
+            Cancel
           </button>
         </div>
       </form>

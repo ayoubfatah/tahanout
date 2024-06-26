@@ -15,7 +15,7 @@ export default function OrderProductOptionsRow({
         handleSelect(item);
       }}
     >
-      <img src={item.image} className="object-fill h-12" alt="" />
+      <img src={item.images[0]} className="object-fill h-12" alt="" />
       <div>{item.name}</div>
       <div className="text-green-500">{formatCurrency(item.price)}</div>
       <div>{item.warehouse}</div>

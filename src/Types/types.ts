@@ -4,7 +4,7 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  image?: any;
+  images?: string[];
   discount: number;
   quantity: number;
   warehouse: string;
