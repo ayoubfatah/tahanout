@@ -1,84 +1,49 @@
-import React, { useState, ChangeEvent, DragEvent } from "react";
+import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { Reorder } from "framer-motion";
 import toast from "react-hot-toast";
 
 interface ImageItem {
   id: string;
-  file: File | null; // Allow for File or null (for existing images)
   name: string;
   size: number;
+  url: string;
 }
 
 interface EditDragDropImagesProps {
-  images: ImageItem[];
+  images: string[];
 }
 
 const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
-  const [items, setItems] = useState<ImageItem[]>(images);
+  const [items, setItems] = useState<ImageItem[]>([]);
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    const files = Array.from(event.target.files);
-    const newItems = files.map((file) => ({
-      id: URL.createObjectURL(file),
-      file,
-      name: file.name,
-      size: file.size,
-    }));
-    setItems((prevItems) => [...prevItems, ...newItems]);
-  };
-
-  const handleImageDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    const files = Array.from(event.dataTransfer.files);
-    const newItems = files.map((file) => ({
-      id: URL.createObjectURL(file),
-      file,
-      name: file.name,
-      size: file.size,
-    }));
-    setItems((prevItems) => [...prevItems, ...newItems]);
-  };
-
-  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
+  useEffect(() => {
+    const initialItems = images.map((url) => {
+      const name = url.split("/").pop() || "unknown";
+      return {
+        id: url, // use URL as ID for initial images
+        url,
+        name,
+        size: 0, // initial size is unknown
+      };
+    });
+    setItems(initialItems);
+  }, [images]);
 
   const handleDelete = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   const handleSave = () => {
-    const data = items.map((item) => ({
-      name: item.name,
-      size: item.size,
-      file: item.file,
-    }));
+    const imageUrls = items.map((item) => item.url);
+    console.log(imageUrls);
 
-    const files = data
-      .map((item) => item.file)
-      .filter((file) => file !== null) as File[];
-    console.log(files);
-    toast.success("Images uploaded successfully");
+    // You can use the `imageUrls` as needed
+    toast.success("Images processed successfully");
   };
 
   return (
     <main className="flex flex-col gap-4 p-4">
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleImageUpload}
-        className="mb-4"
-      />
-      <div
-        onDrop={handleImageDrop}
-        onDragOver={handleDragOver}
-        className="border-dashed border-2 border-gray-300 p-4 mb-4"
-      >
-        Drop your images here
-      </div>
       <Reorder.Group
         as="div"
         values={items}
@@ -93,15 +58,15 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
           >
             <div className="flex items-center justify-between border p-1 mb-2 bg-white">
               <img
-                src={item.id}
+                src={item.url}
                 alt={item.name}
                 className="w-20 h-20 object-cover"
               />
               <span className="flex-1 ml-4">{item.name}</span>
               <span className="flex-1 ml-4">
-                {item.file
-                  ? Math.round(item.size / 1024) + " KB"
-                  : "Existing Image"}
+                {item.size
+                  ? `${Math.round(item.size / 1024)} KB`
+                  : "Unknown size"}
               </span>
               <div className="flex items-center">
                 <span>Image {i + 1}</span>

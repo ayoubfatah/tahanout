@@ -38,7 +38,6 @@ export default function ProductDetails() {
 
   const handleEdit = () => {
     // Handle edit action, e.g., navigate to edit form
-    console.log("Edit button clicked");
   };
 
   if (isLoading) {

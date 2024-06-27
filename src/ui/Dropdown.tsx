@@ -41,7 +41,6 @@ const Dropdown: React.FC<DropdownProps> = ({
     setIsOpen(!isOpen);
   };
 
-  console.log(type, "type ");
   const handleSelect = (item: CustomersType | Product) => {
     setSelectedOption(item);
     if (type === "customer") {

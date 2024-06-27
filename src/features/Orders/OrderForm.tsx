@@ -13,13 +13,15 @@ import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
 import ProductOptionsRow from "./OrderProductOptionsRow";
 import { useEffect } from "react";
 import CustomerOptionsRow from "./OrderCustomerOptionsRow";
-
+import { useNavigate } from "react-router-dom";
 export default function OrderForm({
   onClose: onclose,
   type,
   dataFromProductActions,
   dataFromCustomerActions,
 }: any) {
+  const navigate = useNavigate();
+
   const { isLoading, customers } = useCustomers();
   const { isLoading: isLoading2, products } = useProducts();
   const {
@@ -32,6 +34,7 @@ export default function OrderForm({
     OrderQuantity,
     setOrderQuantity,
   } = useTahanout();
+
   const { data: settings } = useGetSettings();
   // CREATING ORDER FROM THE PRODUCT TABLE
 
@@ -51,17 +54,19 @@ export default function OrderForm({
   const { isLoading: isLoading3, mutate } = useAddOrder();
   const { upQuantity } = useUpdateProductQuantity();
   function handleOnClick() {
+    console.log(dataFromCustomerActions);
     if (productOptions && productOptions.price !== undefined) {
       const orderData = {
         id: Math.floor(Math.random() * 1000),
-        customerId: customerOptions?.id,
+        customerId: dataFromCustomerActions?.id,
         productId: productOptions?.id,
         productPrice: productOptions.price - productOptions.discount,
         shippingCost: settings[0].shippingPrice,
         totalPrice:
-          productOptions.price -
-          productOptions.discount +
-          settings[0].shippingPrice,
+          (productOptions.price -
+            productOptions.discount +
+            settings[0].shippingPrice) *
+          Number(OrderQuantity),
         quantity: Number(OrderQuantity),
         paymentMethod: paymentMethod,
         status: "pending",
@@ -74,8 +79,12 @@ export default function OrderForm({
           onclose();
           setPaymentMethod(null);
           setCustomerOptions(null);
+          navigate("/orders");
         },
       });
+      console.log(dataFromCustomerActions);
+
+      console.log(orderData);
     } else {
       onclose();
       setPaymentMethod(null);
@@ -156,13 +165,13 @@ export default function OrderForm({
       <PaymentMethodDropDown />
       <div className="flex gap-4">
         <Button
-          disabled={
-            OrderQuantity < (productOptions?.minOrder ?? 1) ||
-            !productOptions ||
-            !customerOptions ||
-            !paymentMethod ||
-            productOptions.quantity < OrderQuantity
-          }
+          // disabled={
+          //   OrderQuantity < (productOptions?.minOrder ?? 1) ||
+          //   !productOptions ||
+          //   !customerOptions ||
+          //   !paymentMethod ||
+          //   productOptions.quantity < OrderQuantity
+          // }
           text="Submit "
           onClick={handleOnClick}
           textColor="text-white"

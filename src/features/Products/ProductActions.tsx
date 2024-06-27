@@ -51,7 +51,6 @@ export default function ProductActions({ data }: ActionsProps) {
     };
   }, [actionsRef, setOpen]);
   const {
-    additional_images,
     brand,
     category,
     colors,
@@ -59,7 +58,7 @@ export default function ProductActions({ data }: ActionsProps) {
     description,
     discount,
     id,
-    image,
+    images,
     minOrder,
     name,
     price,
@@ -71,7 +70,6 @@ export default function ProductActions({ data }: ActionsProps) {
 
   function handleDuplicate() {
     const duplicatedData: Product = {
-      additional_images,
       brand,
       category,
       colors,
@@ -79,7 +77,7 @@ export default function ProductActions({ data }: ActionsProps) {
       description,
       discount,
       id: Math.floor(Math.random() * 1000),
-      image,
+      images,
       minOrder,
       name: `Copy of ${name}`,
       price,

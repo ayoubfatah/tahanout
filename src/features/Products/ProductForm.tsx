@@ -21,8 +21,6 @@ const ProductForm = ({ onClose }: any) => {
     // Prepare data to include images array
     data.images = items.map((item: any) => item.file);
 
-    console.log(data);
-
     mutate(data, {
       onSuccess: () => {
         toast.success("Product created successfully");
