@@ -7,8 +7,11 @@ export default function OrderProductOptionsRow({
 
   fromProductTable,
 }: any) {
+  if (item?.quantity === 0) {
+    return null;
+  }
   return (
-    <div
+    <div   
       className="py-3 grid gap-2 grid-cols-[60px_1fr_1fr_1fr] justify-around items-center hover:bg-gray-50 cursor-pointer"
       onClick={() => {
         if (fromProductTable) return null;

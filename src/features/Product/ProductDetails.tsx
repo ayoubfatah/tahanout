@@ -46,7 +46,7 @@ export default function ProductDetails() {
   return (
     <div className=" bg-white px-4 py-6 relative">
       <div className="grid grid-cols-2 gap-10 ">
-        <ImageSwitcher images={product.images} />
+        <ImageSwitcher images={product && product.images} />
         <ProductInfo
           product={product}
           testing={testing}
@@ -54,7 +54,7 @@ export default function ProductDetails() {
         />
       </div>
       <div>
-        <EditDragDropImages images={product.images} />
+        <EditDragDropImages images={product && product.images} />
       </div>
     </div>
   );

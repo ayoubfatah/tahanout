@@ -67,6 +67,7 @@ export default function ProductInfo({
           <span className="font-[600]  text-[16px]   ">Colors:</span>
           {product?.colors?.split(",").map((color) => (
             <div
+              key={color}
               className={`w-5 h-5 shadow-md rounded-full ${
                 color === "white" ? "border border-black" : ""
               }`}

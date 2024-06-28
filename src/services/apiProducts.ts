@@ -147,7 +147,10 @@ export async function createProduct(product: any) {
 
     if (storageError) {
       // Clean up: delete product entry if image upload fails
-      await supabase.from("products").delete().eq("id", data[0].id); // Assuming data is an array
+      await supabase
+        .from("products")
+        .delete()
+        .eq("id", data && data[0]?.id); // Assuming data is an array
       console.error(storageError);
       throw new Error(
         "One or more product images couldn't be uploaded, and the product was not created."
@@ -156,4 +159,18 @@ export async function createProduct(product: any) {
   }
 
   return data; // Return the created product data
+}
+
+export async function updateImages({ imageUrls, productId }) {
+  const { data, error } = await supabase
+    .from("products")
+    .update({ images: imageUrls })
+    .eq("id", Number(productId))
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
 }

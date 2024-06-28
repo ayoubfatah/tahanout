@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { Reorder } from "framer-motion";
 import toast from "react-hot-toast";
+import { useUpdateImages } from "../features/Product/UseUpdateImages";
+import { useParams } from "react-router-dom";
 
 interface ImageItem {
   id: string;
@@ -16,7 +18,8 @@ interface EditDragDropImagesProps {
 
 const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
   const [items, setItems] = useState<ImageItem[]>([]);
-
+  const { id: productId } = useParams();
+  const { orderingImages, isLoading } = useUpdateImages();
   useEffect(() => {
     const initialItems = images.map((url) => {
       const name = url.split("/").pop() || "unknown";
@@ -36,10 +39,12 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
 
   const handleSave = () => {
     const imageUrls = items.map((item) => item.url);
-    console.log(imageUrls);
 
+    orderingImages({
+      imageUrls,
+      productId,
+    });
     // You can use the `imageUrls` as needed
-    toast.success("Images processed successfully");
   };
 
   return (
