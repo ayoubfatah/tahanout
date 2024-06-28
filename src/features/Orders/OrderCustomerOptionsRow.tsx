@@ -11,8 +11,8 @@ export default function OrderCustomerOptionsRow({
       className=" py-3 flex justify-between hover:bg-gray-50  cursor-pointer"
       onClick={() => {
         if (fromCustomerTable) return null;
-
         handleSelect(item);
+        console.log(item);
       }}
     >
       <div>

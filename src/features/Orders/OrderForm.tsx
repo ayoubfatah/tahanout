@@ -50,15 +50,15 @@ export default function OrderForm({
     }
   }, [dataFromCustomerActions]);
 
+  console.log(customerOptions, "cus");
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
   const { upQuantity } = useUpdateProductQuantity();
   function handleOnClick() {
-    console.log(dataFromCustomerActions);
     if (productOptions && productOptions.price !== undefined) {
       const orderData = {
         id: Math.floor(Math.random() * 1000),
-        customerId: dataFromCustomerActions?.id,
+        customerId: dataFromCustomerActions?.id || customerOptions?.id,
         productId: productOptions?.id,
         productPrice: productOptions.price - productOptions.discount,
         shippingCost: settings[0].shippingPrice,
@@ -82,9 +82,6 @@ export default function OrderForm({
           navigate("/orders");
         },
       });
-      console.log(dataFromCustomerActions);
-
-      console.log(orderData);
     } else {
       onclose();
       setPaymentMethod(null);

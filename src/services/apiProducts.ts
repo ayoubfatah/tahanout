@@ -127,7 +127,7 @@ export async function createProduct(product: any) {
   });
 
   // Insert product entry in the database with image paths
-  let { data, error } = await supabase.from("products").insert([
+  let { data, error }: any = await supabase.from("products").insert([
     {
       ...product,
       images: images.map((img: any) => img.path), // Store only paths in the database
@@ -161,7 +161,7 @@ export async function createProduct(product: any) {
   return data; // Return the created product data
 }
 
-export async function updateImages({ imageUrls, productId }) {
+export async function updateImages(imageUrls: string[], productId: number) {
   const { data, error } = await supabase
     .from("products")
     .update({ images: imageUrls })

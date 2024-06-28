@@ -3,11 +3,9 @@ import toast from "react-hot-toast";
 import { updateImages } from "../../services/apiProducts";
 import { useParams } from "react-router-dom";
 
-export function useUpdateImages() {
+export default function useUpdateImages() {
   const queryClient = useQueryClient();
   const { id } = useParams();
-
-  console.log("Product ID from params:", id); // Add this line to debug
 
   const { mutate: orderingImages, isLoading } = useMutation({
     mutationFn: ({ imageUrls, productId }: any) =>

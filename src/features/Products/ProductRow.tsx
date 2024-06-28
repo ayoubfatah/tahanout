@@ -9,7 +9,6 @@ type ProductRowProps = {
 
 export default function ProductRow({ data }: ProductRowProps) {
   const isOutOfStock = data.quantity === 0;
-  console.log(data, isOutOfStock);
 
   return (
     <Table.Row>

@@ -1,8 +1,7 @@
+import useUpdateImages from "../features/Product/useUpdateImages";
 import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { Reorder } from "framer-motion";
-import toast from "react-hot-toast";
-import { useUpdateImages } from "../features/Product/UseUpdateImages";
 import { useParams } from "react-router-dom";
 
 interface ImageItem {
@@ -32,6 +31,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
     });
     setItems(initialItems);
   }, [images]);
+
 
   const handleDelete = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));

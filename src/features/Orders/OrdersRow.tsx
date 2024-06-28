@@ -8,25 +8,27 @@ export default function OrdersRow({ order }: any) {
       <span className="text-[14px] text-gray-700 ">{order.id} </span>
       <div className="flex flex-col">
         <span className="text-[14px] text-gray-700 ">
-          {order.customers.fullName}
+          {order?.customers?.fullName}
         </span>
         <span className="text-[10px] text-gray-700 ">
-          {order.customers.email}
+          {order?.customers?.email}
         </span>
       </div>
-      <span className="text-[14px] text-gray-700 ">{order.products.name}</span>
-      <span className="text-[14px] text-gray-700 ">{order.products.sku}</span>
+      <span className="text-[14px] text-gray-700 ">
+        {order?.products?.name}
+      </span>
+      <span className="text-[14px] text-gray-700 ">{order?.products?.sku}</span>
       <span className="text-[14px] text-gray-700 ">
         {" "}
-        {formatDate(order.created_at)}
+        {formatDate(order?.created_at)}
       </span>
       <span className="text-[14px] text-gray-700 ">{order.quantity}</span>
       <span className="text-[14px] text-gray-700 ">
-        {formatCurrency(order.totalPrice)}
+        {formatCurrency(order?.totalPrice)}
       </span>
       <div>
         {" "}
-        <StatusBadge status={order.status} />
+        <StatusBadge status={order?.status} />
       </div>
       <div className="flex justify-end">
         <OrderActions data={order} />

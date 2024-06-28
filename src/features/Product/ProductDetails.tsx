@@ -10,6 +10,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const { isLoading, product } = useProduct();
   const imageUrl = product?.images?.[0];
+  console.log(product);
   // Fake data for demonstration
   const testing = {
     name: "Razer BlackWidow Elite",
@@ -27,13 +28,7 @@ export default function ProductDetails() {
       keyRollOver: "10-Key",
       weight: "1.5kg",
     },
-    images: [
-      imageUrl,
-      "https://s.alicdn.com/@sc04/kf/Ae04591227db446fab2969a9cca38a104i.jpeg",
-      "https://s.alicdn.com/@sc04/kf/A0f91cc77efdb44fbae4fd4586848183eP.jpeg",
-      "https://s.alicdn.com/@sc04/kf/A98302d792312401cb1548669f652df4ec.jpeg",
-      "https://s.alicdn.com/@sc04/kf/A621bfb21c7ca4185bc12aed7e2d397e6x.jpeg",
-    ],
+    images: product?.images,
   };
 
   const handleEdit = () => {
