@@ -7,13 +7,11 @@ import ProductInfo from "./ProductInfo";
 import EditDragDropImages from "../../ui/EditDragDropImages";
 import { MdEditNote } from "react-icons/md";
 import Modal from "../../ui/Modal";
-import AddProductImages from "./AddProductImages";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const { isLoading, product } = useProduct();
-  const imageUrl = product?.images?.[0];
-  console.log(product);
+
   // Fake data for demonstration
   const testing = {
     name: "Razer BlackWidow Elite",
@@ -41,14 +39,16 @@ export default function ProductDetails() {
   if (isLoading) {
     return <Spinner />;
   }
+
+  const handleUpload = (file: File) => {};
   return (
     <Modal>
       <div className="  px-4 py-6 relative">
         <div className="grid grid-cols-2 gap-10 ">
           <div className="relative">
-            <span className="absolute z-[10] text-sky-500 cursor-pointer top-2 right-0">
+            <span className="absolute z-[10]  text-sky-500 cursor-pointer top-[15px] right-[15px]">
               <Modal.Open opens="editProduct">
-                <MdEditNote size={30} />
+                <MdEditNote size={35} />
               </Modal.Open>
             </span>
             <ImageSwitcher images={product && product.images} />
@@ -60,9 +60,11 @@ export default function ProductDetails() {
           />
         </div>
         <Modal.Window name="editProduct">
-          <EditDragDropImages images={product && product.images} />
+          <EditDragDropImages
+            onClose={() => {}}
+            images={product && product.images}
+          />
         </Modal.Window>
-        <AddProductImages />
       </div>
     </Modal>
   );

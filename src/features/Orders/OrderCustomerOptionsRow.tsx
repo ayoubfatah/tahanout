@@ -12,7 +12,6 @@ export default function OrderCustomerOptionsRow({
       onClick={() => {
         if (fromCustomerTable) return null;
         handleSelect(item);
-        console.log(item);
       }}
     >
       <div>

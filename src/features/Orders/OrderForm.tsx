@@ -50,7 +50,6 @@ export default function OrderForm({
     }
   }, [dataFromCustomerActions]);
 
-  console.log(customerOptions, "cus");
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
   const { upQuantity } = useUpdateProductQuantity();

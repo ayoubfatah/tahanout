@@ -3,6 +3,7 @@ import { Product } from "../../Types/types";
 import { formatCurrency } from "../../utils/helpers";
 import Modal from "../../ui/Modal";
 import EditProductForm from "../Products/EditProductForm";
+import Button from "../../ui/Button";
 
 type ProductInfoType = {
   product: Product | undefined | null;
@@ -39,12 +40,12 @@ export default function ProductInfo({
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">{product?.name}</h2>
           <Modal.Open opens="editProduct">
-            <button
+            <Button
+              text="Edit"
               onClick={handleEdit}
-              className=" bg-blue-500 text-white px-4 py-2 rounded-md"
-            >
-              Edit
-            </button>
+              textColor="text-white"
+              bgColor="bg-sky-500"
+            />
           </Modal.Open>
           <Modal.Window name="editProduct">
             <EditProductForm onClose={() => {}} data={product as Product} />

@@ -26,7 +26,7 @@ const ProductForm = ({ onClose }: any) => {
         toast.success("Product created successfully");
         onClose();
       },
-      onError: (error) => {
+      onError: (error: any) => {
         toast.error(error.message);
       },
     });
@@ -209,11 +209,7 @@ const ProductForm = ({ onClose }: any) => {
 
         <div className="flex flex-col gap-2">
           <label>Images:</label>
-          <DragDropImages
-            items={items}
-            setItems={setItems}
-            onChange={handleImageChangeFromDragDrop}
-          />
+          <DragDropImages onChange={handleImageChangeFromDragDrop} />
         </div>
 
         <div className="flex justify-end gap-4 mt-4">

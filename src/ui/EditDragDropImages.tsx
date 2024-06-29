@@ -12,7 +12,7 @@ interface ImageItem {
 }
 
 interface EditDragDropImagesProps {
-  images: string[];
+  images: string[] | undefined | null | any;
   onClose: () => void;
 }
 
@@ -24,7 +24,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
   const { id: productId } = useParams();
   const { orderingImages, isLoading } = useUpdateImages();
   useEffect(() => {
-    const initialItems = images.map((url) => {
+    const initialItems = images.map((url: string) => {
       const name = url.split("/").pop() || "unknown";
       return {
         id: url, // use URL as ID for initial images
@@ -67,7 +67,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
       >
         {items.map((item, i) => (
           <Reorder.Item
-            className="list-none shadow-sm"
+            className="list-none w-full shadow-sm"
             key={item.id}
             value={item}
           >
@@ -78,15 +78,14 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
                 className="w-20 h-20 object-cover"
               />
               <span className="flex-1 ml-4">{item.name}</span>
-              <span className="flex-1 ml-4">
-                {item.size
-                  ? `${Math.round(item.size / 1024)} KB`
-                  : "Unknown size"}
-              </span>
+              <span className="flex-1 ml-4">Image {i + 1}</span>
               <div className="flex items-center">
-                <span>Image {i + 1}</span>
-                <button type="button" onClick={() => handleDelete(item.id)}>
-                  <MdDelete />
+                <button
+                  className="text-red-500 mr-5"
+                  type="button"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  <MdDelete size={20} />
                 </button>
               </div>
             </div>
