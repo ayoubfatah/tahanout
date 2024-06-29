@@ -17,7 +17,7 @@ const ImageSwitcher = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="md:flex-1 bg-red-50 p-4">
+    <div className="md:flex-1  p-4">
       <div className="relative h-64 md:h-80 rounded-lg mb-4">
         {images?.map((img, index) => (
           <div
