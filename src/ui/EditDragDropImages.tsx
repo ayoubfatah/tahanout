@@ -13,9 +13,13 @@ interface ImageItem {
 
 interface EditDragDropImagesProps {
   images: string[];
+  onClose: () => void;
 }
 
-const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
+const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
+  images,
+  onClose,
+}) => {
   const [items, setItems] = useState<ImageItem[]>([]);
   const { id: productId } = useParams();
   const { orderingImages, isLoading } = useUpdateImages();
@@ -32,7 +36,6 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
     setItems(initialItems);
   }, [images]);
 
-
   const handleDelete = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
@@ -40,15 +43,22 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({ images }) => {
   const handleSave = () => {
     const imageUrls = items.map((item) => item.url);
 
-    orderingImages({
-      imageUrls,
-      productId,
-    });
+    orderingImages(
+      {
+        imageUrls,
+        productId,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
     // You can use the `imageUrls` as needed
   };
 
   return (
-    <main className="flex flex-col gap-4 p-4">
+    <main className="flex flex-col gap-4 p-10 ">
       <Reorder.Group
         as="div"
         values={items}

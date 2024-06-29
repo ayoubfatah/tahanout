@@ -174,3 +174,62 @@ export async function updateImages(imageUrls: string[], productId: number) {
   }
   return data;
 }
+
+export async function addImages(images: any[], productId: number) {
+  // Prepare images with unique names and paths
+  const preparedImages = images.map((image: any) => {
+    const imageName = `${uuidv4()}-${image.name.replace("/", "")}`; // Ensure unique image name
+    const imagePath = `https://jmvbwhvpdounmufynkwd.supabase.co/storage/v1/object/public/productImages/${imageName}`;
+
+    return {
+      name: imageName,
+      path: imagePath,
+      file: image, // Assuming image here is the File object from input
+    };
+  });
+
+  // Fetch existing product data to get current images
+  const { data: existingData, error: fetchError } = await supabase
+    .from("products")
+    .select("images")
+    .eq("id", productId)
+    .single();
+
+  if (fetchError) {
+    console.error(fetchError);
+    throw new Error("Failed to fetch existing product data.");
+  }
+
+  const existingImages = existingData.images || [];
+  const newImagesPaths = preparedImages.map((img: any) => img.path);
+
+  // Update product entry in the database with new image paths
+  const { data, error } = await supabase
+    .from("products")
+    .update({ images: [...existingImages, ...newImagesPaths] })
+    .eq("id", productId)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+
+  // Upload images to Supabase storage
+  for (const image of preparedImages) {
+    const { error: storageError } = await supabase.storage
+      .from("productImages")
+      .upload(image.name, image.file);
+
+    if (storageError) {
+      // Clean up: delete product entry if image upload fails
+      await supabase.from("products").delete().eq("id", productId);
+      console.error(storageError);
+      throw new Error(
+        "One or more product images couldn't be uploaded, and the product was not updated."
+      );
+    }
+  }
+
+  return data; // Return the updated product data
+}

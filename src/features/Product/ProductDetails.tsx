@@ -5,6 +5,8 @@ import useProduct from "./useProduct";
 import Spinner from "../../ui/Spinner";
 import ProductInfo from "./ProductInfo";
 import EditDragDropImages from "../../ui/EditDragDropImages";
+import { MdEditNote } from "react-icons/md";
+import Modal from "../../ui/Modal";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -39,18 +41,27 @@ export default function ProductDetails() {
     return <Spinner />;
   }
   return (
-    <div className=" bg-white px-4 py-6 relative">
-      <div className="grid grid-cols-2 gap-10 ">
-        <ImageSwitcher images={product && product.images} />
-        <ProductInfo
-          product={product}
-          testing={testing}
-          handleEdit={handleEdit}
-        />
+    <Modal>
+      <div className="  px-4 py-6 relative">
+        <div className="grid grid-cols-2 gap-10 ">
+          <div className="relative">
+            <span className="absolute z-[1000] text-sky-500 cursor-pointer top-2 right-0">
+              <Modal.Open opens="editProduct">
+                <MdEditNote size={30} />
+              </Modal.Open>
+            </span>
+            <ImageSwitcher images={product && product.images} />
+          </div>
+          <ProductInfo
+            product={product}
+            testing={testing}
+            handleEdit={handleEdit}
+          />
+        </div>
+        <Modal.Window name="editProduct">
+          <EditDragDropImages images={product && product.images} />
+        </Modal.Window>
       </div>
-      <div>
-        <EditDragDropImages images={product && product.images} />
-      </div>
-    </div>
+    </Modal>
   );
 }
