@@ -37,6 +37,9 @@ export type CustomersType = {
 };
 
 export type ButtonType = {
+  icon?: React.ReactNode;
+  iconColor?: string;
+  hoverColor?: string;
   onClick: () => void;
   text: string;
   textColor: string;

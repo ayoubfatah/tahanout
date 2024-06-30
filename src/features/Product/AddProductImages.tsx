@@ -70,7 +70,7 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
   };
 
   return (
-    <main className="flex flex-col gap-4 p-10 w-[600px]">
+    <main className="flex flex-col gap-4 p-4   w-[600px]">
       <input
         type="file"
         accept="image/*"

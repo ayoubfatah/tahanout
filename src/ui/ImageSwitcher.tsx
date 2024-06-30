@@ -3,12 +3,11 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import Modal from "./Modal";
 import AddProductImages from "../features/Product/AddProductImages";
 
-const ImageSwitcher = ({
-  images,
-  onClose,
-}: {
+type ImageSwitcher = {
   images: string[] | undefined | null;
-}) => {
+  onClose?: () => void;
+};
+const ImageSwitcher = ({ images, onClose }: ImageSwitcher) => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   const handlePreviousImage = () => {
@@ -83,6 +82,7 @@ const ImageSwitcher = ({
             </button>
           </Modal.Open>
           <Modal.Window name="add-images">
+            {/* GETS a onClose function from the modal window cloned */}
             <AddProductImages />
           </Modal.Window>
         </div>
