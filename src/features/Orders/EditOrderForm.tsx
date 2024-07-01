@@ -1,48 +1,35 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { CustomersType } from "../../Types/types";
+import { CustomersType, OrderType } from "../../Types/types";
 import useEditOrder from "./useEditOrder";
 import { id } from "date-fns/locale";
 import Button from "../../ui/Button";
 
-type Order = {
-  id: number;
-  customerId: number;
-  productId: number;
-  status: string;
-  shippingCost: number;
-  totalPrice: number;
-  productPrice: number;
-  paymentMethod: string;
-  quantity: number;
-  customerName: string;
-  customers?: CustomersType;
-};
-
 type EditOrderProps = {
-  data: Order;
+  data: OrderType;
   onClose: () => void;
-  onSave: (updatedOrder: Order) => void;
-  closeAction: () => void;
+  onSave: (updatedOrder: OrderType) => void;
+  closeAction: any;
 };
 
 const EditOrder = ({
-  closeAction,
   data: order,
   onClose,
   onSave,
+  closeAction,
 }: EditOrderProps) => {
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<Order>({
+  } = useForm<OrderType>({
     defaultValues: { ...order },
   });
 
   useEffect(() => {
     if (order) {
+      setValue("id", order.id);
       setValue("customerId", order.customerId);
       setValue("productId", order.productId);
       setValue("status", order.status);
@@ -55,7 +42,7 @@ const EditOrder = ({
     }
   }, [order, setValue]);
   const { isEditing, mutate } = useEditOrder();
-  const onSubmit = (data: Order) => {
+  const onSubmit = (data: OrderType) => {
     const orderData = {
       customerId: data.customerId,
       productId: data.productId,
@@ -86,6 +73,20 @@ const EditOrder = ({
     >
       <h2 className="text-xl font-bold mb-4">Edit Order</h2>
 
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1"> Order ID:</label>
+        <input
+          disabled
+          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          type="text"
+          {...register("id")}
+        />
+        {errors.customerId && (
+          <span className="text-red-500 text-sm">
+            {errors.customerId.message}
+          </span>
+        )}
+      </div>
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Customer Name:</label>
         <input
@@ -246,14 +247,15 @@ const EditOrder = ({
           Save
         </button>
 
-        <button
+        <Button
           disabled={isEditing}
-          type="button"
+          text="cancel"
           onClick={onClose}
-          className="bg-gray-500 text-white px-4 py-2 rounded"
-        >
-          Cancel
-        </button>
+          textColor="text-black"
+          bgColor="bg-white"
+          border="border"
+          borderColor="border-gray-300"
+        />
       </div>
     </form>
   );

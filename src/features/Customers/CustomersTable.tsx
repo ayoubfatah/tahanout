@@ -5,13 +5,20 @@ import Table from "../../ui/Tabel";
 import CustomerRow from "./CustomerRow";
 import { useCustomers } from "./useCutomers";
 import AddCustomerForm from "./AddCustomerForm";
+import SearchInput from "../../ui/SearchInput";
+import { useState } from "react";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
-
+  const [filteredCustomers, setFilteredCustomers] = useState(customers);
   if (isLoading) return <Spinner />;
 
   return (
     <>
+      <SearchInput
+        items={customers}
+        filterKeys={["fullName", "phoneNumber", "nationalId", "email"]}
+        onFilter={setFilteredCustomers}
+      />
       <div className="border border-gray-200 rounded-md text-gray-600">
         <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 0.5fr">
           <Table.Header>
@@ -24,7 +31,7 @@ export default function CustomersDetails() {
             <span className="">Zip code</span>
             <span></span>
           </Table.Header>
-          {customers?.map((customer: any) => (
+          {filteredCustomers?.map((customer: any) => (
             <CustomerRow key={customer.id || customer.email} data={customer} />
           ))}
 

@@ -47,6 +47,20 @@ export type ButtonType = {
   disabled?: boolean;
   borderColor?: string;
   border?: string;
+  type?: any;
+};
+export type OrderType = {
+  id: number;
+  customerId: number;
+  productId: number;
+  status: string;
+  shippingCost: number;
+  totalPrice: number;
+  productPrice: number;
+  paymentMethod: string;
+  quantity: number;
+  customerName: string;
+  customers?: CustomersType;
 };
 
 export type OrderStatusTypes =

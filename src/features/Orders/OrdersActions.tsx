@@ -91,6 +91,16 @@ export default function Actions({ data }: ActionsProps) {
                 Edit
               </button>
             </Modal.Open>
+
+            <Modal.Window name="editCustomer">
+              <EditOrderForm
+                closeAction={() => setOpen(false)}
+                onClose={() => {}}
+                onSave={() => {}}
+                data={data}
+              />
+            </Modal.Window>
+
             <Modal.Open opens="deleteCustomer">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} /> Delete
@@ -105,10 +115,6 @@ export default function Actions({ data }: ActionsProps) {
                 deleteFunction={deletingOrder}
                 isDeleting={false}
               />
-            </Modal.Window>
-
-            <Modal.Window name="editCustomer">
-              <EditOrderForm onClose={() => {}} onSave={() => {}} data={data} />
             </Modal.Window>
           </div>
         )}

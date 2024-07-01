@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Products from "../../pages/Products";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
+import SearchInput from "../../ui/SearchInput";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Tabel";
 import ProductForm from "./ProductForm";
@@ -19,12 +21,19 @@ type ProductType = {
 
 export default function ProductTables() {
   const { isLoading, products } = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   if (isLoading) return <Spinner />;
 
   return (
     <>
-      <div className="border border-gray-200 rounded-md text-gray-600">
+      <SearchInput
+        items={products}
+        filterKeys={["sku", "name", "warehouse"]}
+        onFilter={setFilteredProducts}
+      />
+
+      <div className="border  border-gray-200 rounded-md text-gray-600">
         <Table col="1.3fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr">
           <Table.Header>
             <span className=""></span>
@@ -37,8 +46,8 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {products.length > 0 ? (
-              products?.map((product: any) => (
+            {filteredProducts?.length > 0 ? (
+              filteredProducts?.map((product: any) => (
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (

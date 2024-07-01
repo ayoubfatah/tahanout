@@ -62,10 +62,9 @@ export default function OrderForm({
         productPrice: productOptions.price - productOptions.discount,
         shippingCost: settings[0].shippingPrice,
         totalPrice:
-          (productOptions.price -
-            productOptions.discount +
-            settings[0].shippingPrice) *
-          Number(OrderQuantity),
+          (productOptions.price - productOptions.discount) *
+            Number(OrderQuantity) +
+          Number(settings[0].shippingPrice),
         quantity: Number(OrderQuantity),
         paymentMethod: paymentMethod,
         status: "pending",
