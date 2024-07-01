@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { OrderType } from "../Types/types";
 
-const SearchInput = ({ items, filterKeys, onFilter }: any) => {
+const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -16,9 +15,20 @@ const SearchInput = ({ items, filterKeys, onFilter }: any) => {
     const value = event.target.value.toLowerCase();
     setSearchTerm(value);
 
-    const filteredItems = items.filter((item: any) =>
-      filterKeys.some((key: any) => item[key]?.toLowerCase().includes(value))
-    );
+    let filteredItems = [];
+    if (order) {
+      // If order is true, filter by order.id
+      filteredItems = items.filter(
+        (item: any) =>
+          item?.id.toString().includes(value) ||
+          item?.customers.fullName.includes(value)
+      );
+    } else {
+      // Otherwise, filter by the specified keys
+      filteredItems = items.filter((item: any) =>
+        filterKeys.some((key: any) => item[key]?.toLowerCase().includes(value))
+      );
+    }
     onFilter(filteredItems);
   };
 
