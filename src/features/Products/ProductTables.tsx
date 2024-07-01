@@ -8,6 +8,9 @@ import Table from "../../ui/Tabel";
 import ProductForm from "./ProductForm";
 import ProductRow from "./ProductRow";
 import useProducts from "./useProducts";
+import Filter from "../../ui/Filter";
+import ProductTablesOperations from "./ProductTablesOperations";
+import { useSearchParams } from "react-router-dom";
 
 type ProductType = {
   image: string;
@@ -21,16 +24,34 @@ type ProductType = {
 
 export default function ProductTables() {
   const { isLoading, products } = useProducts();
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filteredValue = searchParams.get("filter") || "all";
+  let filteredProductsFromUrl;
 
+  if (filteredValue === "all") {
+    filteredProductsFromUrl = products;
+  }
+  if (filteredValue === "with-discount") {
+    filteredProductsFromUrl = products.filter(
+      (product: ProductType) => product.discount > 0
+    );
+  }
+  if (filteredValue === "no-discount") {
+    filteredProductsFromUrl = products.filter(
+      (product: ProductType) => product.discount === 0
+    );
+  }
+  console.log(products, filteredProductsFromUrl, filteredValue);
+
+  const [filteredProducts, setFilteredProducts] = useState(
+    filteredProductsFromUrl
+  );
   if (isLoading) return <Spinner />;
-
   return (
     <>
-      <SearchInput
-        items={products}
-        filterKeys={["sku", "name", "warehouse"]}
-        onFilter={setFilteredProducts}
+      <ProductTablesOperations
+        setFilteredProducts={setFilteredProducts}
+        products={filteredProductsFromUrl}
       />
 
       <div className="border  border-gray-200 rounded-md text-gray-600">

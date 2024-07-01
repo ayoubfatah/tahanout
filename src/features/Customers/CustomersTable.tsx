@@ -7,6 +7,7 @@ import { useCustomers } from "./useCutomers";
 import AddCustomerForm from "./AddCustomerForm";
 import SearchInput from "../../ui/SearchInput";
 import { useState } from "react";
+import Filter from "../../ui/Filter";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
@@ -19,6 +20,7 @@ export default function CustomersDetails() {
         filterKeys={["fullName", "phoneNumber", "nationalId", "email"]}
         onFilter={setFilteredCustomers}
       />
+
       <div className="border border-gray-200 rounded-md text-gray-600">
         <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 0.5fr">
           <Table.Header>

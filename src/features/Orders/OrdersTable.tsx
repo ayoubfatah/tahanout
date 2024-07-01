@@ -2,12 +2,17 @@ import { useState } from "react";
 import SearchInput from "../../ui/SearchInput";
 import Table from "../../ui/Tabel";
 import OrdersRow from "./OrdersRow";
+import Filter from "../../ui/Filter";
 export default function OrdersTable({ orders }: any) {
   const [filteredOrders, setFilteredOrders] = useState(orders);
 
   return (
     <>
-      <SearchInput items={orders} onFilter={setFilteredOrders} order={true} />
+      <div className="flex items-center justify-between">
+        <SearchInput items={orders} onFilter={setFilteredOrders} order={true} />
+        <Filter />
+      </div>
+
       <div className="border border-gray-200 rounded-md text-gray-600">
         <Table col="1fr 1.7fr 1.3fr 0.8fr 1fr 1fr  1fr 1fr 0.5fr">
           <Table.Header>
