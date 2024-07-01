@@ -23,9 +23,15 @@ type EditOrderProps = {
   data: Order;
   onClose: () => void;
   onSave: (updatedOrder: Order) => void;
+  closeAction: () => void;
 };
 
-const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
+const EditOrder = ({
+  closeAction,
+  data: order,
+  onClose,
+  onSave,
+}: EditOrderProps) => {
   const {
     register,
     handleSubmit,
@@ -66,6 +72,7 @@ const EditOrder = ({ data: order, onClose, onSave }: EditOrderProps) => {
       {
         onSuccess: () => {
           onClose();
+          closeAction();
         },
       }
     );

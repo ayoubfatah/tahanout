@@ -15,6 +15,7 @@ import Settings from "./pages/Settings";
 import Sourcing from "./pages/Sourcing";
 import AppLayout from "./ui/AppLayout";
 import { TahanoutProvider } from "./contextApi/useTahanoutCA";
+import Order from "./pages/Order";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +43,8 @@ export default function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/products/:id" element={<Product />} />
+
+              <Route path="/orders/:id" element={<Order />} />
 
               <Route path="/profile" element={<Profile />} />
               <Route path="/Settings" element={<Settings />} />

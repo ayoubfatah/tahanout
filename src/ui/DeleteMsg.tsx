@@ -34,6 +34,7 @@ export default function DeleteMsg({
           bgColor="bg-red-500"
           disabled={isDeleting}
         />
+
         <Button
           onClick={onClose}
           text="Cancel"

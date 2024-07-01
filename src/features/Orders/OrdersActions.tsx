@@ -12,7 +12,9 @@ import Modal from "../../ui/Modal";
 import { CustomersType } from "../../Types/types";
 import { useDeleteOrder } from "./useDeleteOrder";
 import EditOrderForm from "./EditOrderForm";
-import { useDelivered } from "./useOrderDelivered";
+import { useChangeOrderStatus } from "./useChangeOrderStatus";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type ActionsProps = {
   data: any;
@@ -47,18 +49,34 @@ export default function Actions({ data }: ActionsProps) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [actionsRef, setOpen]);
-
-  const { setToDelivered, isLoading } = useDelivered();
+  const navigate = useNavigate();
+  const { changeStatus, isLoading } = useChangeOrderStatus();
   return (
     <Modal>
       <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
+            <button
+              onClick={() => {
+                navigate(`/orders/${data.id}`);
+              }}
+              className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+            >
+              <HiEye size={20} />
+              Details
+            </button>
             {data && data.status !== "delivered" && (
               <button
                 onClick={() => {
-                  setToDelivered(data.id);
+                  changeStatus(
+                    { id: data.id, status: "delivered" },
+                    {
+                      onSuccess: () => {
+                        toast.success("Order has been delivered successfully");
+                      },
+                    }
+                  );
                   setOpen(false);
                 }}
                 className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"

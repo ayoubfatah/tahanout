@@ -59,7 +59,7 @@ export async function editOrder(newOrderData: any, id: number) {
 export async function getOrder(id: number) {
   let { data, error }: { data: any; error: any } = await supabase
     .from("orders")
-    .select("*")
+    .select("*, customers(*) , products(*)")
     .eq("id", id)
     .single();
   if (error) {
@@ -69,10 +69,10 @@ export async function getOrder(id: number) {
   return data;
 }
 
-export async function delivered(id: number) {
+export async function changeStatus(id: number, status: string) {
   const { data, error } = await supabase
     .from("orders")
-    .update({ status: "delivered" })
+    .update({ status: status })
     .eq("id", id)
     .select();
 

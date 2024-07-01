@@ -13,24 +13,21 @@ const Button: React.FC<ButtonType> = ({
   icon = null,
 }) => {
   return (
-    <div>
+    <span className="inline-block">
       {!disabled && (
         <div
-          className={`flex ${bgColor} hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
+          onClick={onClick}
+          className={`flex  ${borderColor} ${border} ${bgColor} cursor-pointer hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
         >
           <span className="text-green-400">{icon}</span>
-          <button
-            onClick={onClick}
-            className={`${textColor} ${borderColor} ${border} `}
-          >
-            {text}
-          </button>
+          <button className={`${textColor}  `}>{text}</button>
         </div>
       )}
 
       {disabled && (
         <div
-          className={`flex cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
+          onClick={onClick}
+          className={`flex ${borderColor} ${border} cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
         >
           <span className={"text-black cursor-not-allowed"}>{icon}</span>
           <button disabled className={`${textColor}  cursor-not-allowed `}>
@@ -38,7 +35,7 @@ const Button: React.FC<ButtonType> = ({
           </button>
         </div>
       )}
-    </div>
+    </span>
   );
 };
 
