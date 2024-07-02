@@ -61,6 +61,7 @@ export type OrderType = {
   quantity: number;
   customerName: string;
   customers?: CustomersType;
+  createdAt?: string | Date;
 };
 
 export type OrderStatusTypes =

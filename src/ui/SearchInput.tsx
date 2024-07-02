@@ -5,7 +5,7 @@ import { OrderType } from "../Types/types";
 const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const placeholder = order ? "Order ID" : "Search ...";
   useEffect(() => {
     // Initial filter to display all items when component mounts
     onFilter(items);
@@ -51,7 +51,7 @@ const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
       <FaSearch className="absolute left-3 text-gray-300 cursor-pointer" />
       <input
         type="text"
-        placeholder="Search ..."
+        placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearch}
         className="w-full transition-all duration-300 ease-in-out pl-10 pr-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring focus:ring-sky-500"

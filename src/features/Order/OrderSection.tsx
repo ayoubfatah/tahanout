@@ -19,11 +19,11 @@ export const OrderSection: React.FC<{
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">Order Date:</span>{" "}
-            {order.created_at}
+            {order.createdAt}
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">Delivery Date:</span>{" "}
-            {order.created_at}
+            {order.createdAt}
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">Total:</span>{" "}

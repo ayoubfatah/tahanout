@@ -68,7 +68,7 @@ export default function OrderForm({
         quantity: Number(OrderQuantity),
         paymentMethod: paymentMethod,
         status: "pending",
-        created_at: new Date(),
+        createdAt: new Date(),
       };
 
       mutate(orderData, {

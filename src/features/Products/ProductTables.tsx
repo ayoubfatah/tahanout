@@ -1,18 +1,15 @@
 import { useState } from "react";
-import Products from "../../pages/Products";
-import Button from "../../ui/Button";
+import { useSearchParams } from "react-router-dom";
 import Modal from "../../ui/Modal";
-import SearchInput from "../../ui/SearchInput";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Tabel";
 import ProductForm from "./ProductForm";
 import ProductRow from "./ProductRow";
-import useProducts from "./useProducts";
-import Filter from "../../ui/Filter";
 import ProductTablesOperations from "./ProductTablesOperations";
-import { useSearchParams } from "react-router-dom";
+import useProducts from "./useProducts";
 
 type ProductType = {
+  id: string;
   image: string;
   sku: string;
   name: string;
@@ -20,12 +17,13 @@ type ProductType = {
   discount: number;
   quantity: number;
   warehouse: string;
+  createdAt: string;
 };
 
 export default function ProductTables() {
   const { isLoading, products } = useProducts();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const filteredValue = searchParams.get("filter") || "all";
+  const [searchParams] = useSearchParams();
+  const filteredValue = searchParams.get("discount") || "all";
   let filteredProductsFromUrl;
 
   if (filteredValue === "all") {
@@ -41,11 +39,26 @@ export default function ProductTables() {
       (product: ProductType) => product.discount === 0
     );
   }
-  console.log(products, filteredProductsFromUrl, filteredValue);
 
-  const [filteredProducts, setFilteredProducts] = useState(
-    filteredProductsFromUrl
-  );
+  // sort by
+  const sortByValue = searchParams.get("sortBy") || "createdAt-asc";
+  const [field, direction] = sortByValue.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+
+  const sortedProducts = filteredProductsFromUrl?.sort((a: any, b: any) => {
+    if (field === "price" || field === "quantity") {
+      return (a[field] - b[field]) * modifier;
+    } else if (field === "createdAt") {
+      return (
+        (new Date(a[field]).getTime() - new Date(b[field]).getTime()) * modifier
+      );
+    } else {
+      return a[field].localeCompare(b[field]) * modifier;
+    }
+  });
+
+  const [filteredProducts, setFilteredProducts] = useState(sortedProducts);
+
   if (isLoading) return <Spinner />;
   return (
     <>
@@ -54,26 +67,26 @@ export default function ProductTables() {
         products={filteredProductsFromUrl}
       />
 
-      <div className="border  border-gray-200 rounded-md text-gray-600">
+      <div className="border border-gray-200 rounded-md text-gray-600">
         <Table col="1.3fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr">
           <Table.Header>
-            <span className=""></span>
-            <span className="">sku</span>
-            <span className="">Product</span>
-            <span className="">Price</span>
-            <span className="">Discount</span>
-            <span className="">Quantity</span>
-            <span className="">WareHouse </span>
+            <span></span>
+            <span>SKU</span>
+            <span>Product</span>
+            <span>Price</span>
+            <span>Discount</span>
+            <span>Quantity</span>
+            <span>Warehouse</span>
           </Table.Header>
 
           <div>
             {filteredProducts?.length > 0 ? (
-              filteredProducts?.map((product: any) => (
+              filteredProducts.map((product: any) => (
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (
               <div className="px-3 py-4 border-b border-gray-200">
-                No Products available...
+                No products available...
               </div>
             )}
           </div>
@@ -83,8 +96,8 @@ export default function ProductTables() {
       </div>
       <Modal>
         <Modal.Open opens="Products">
-          <button className=" text-white bg-sky-500 px-4 py-2 rounded-md mt-5">
-            Add Product{" "}
+          <button className="text-white bg-sky-500 px-4 py-2 rounded-md mt-5">
+            Add Product
           </button>
         </Modal.Open>
         <Modal.Window name="Products">

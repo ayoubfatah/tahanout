@@ -20,7 +20,7 @@ export default function OrdersRow({ order }: any) {
       <span className="text-[14px] text-gray-700 ">{order?.products?.sku}</span>
       <span className="text-[14px] text-gray-700 ">
         {" "}
-        {formatDate(order?.created_at)}
+        {formatDate(order?.createdAt)}
       </span>
       <span className="text-[14px] text-gray-700 ">{order.quantity}</span>
       <span className="text-[14px] text-gray-700 ">

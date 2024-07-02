@@ -1,39 +1,26 @@
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function Filter() {
+export default function Filter({ filterField, options }: any) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const filteredValue = searchParams.get("filter") || "all";
+  const filteredValue = searchParams.get(filterField) || "all";
   function handleClick(value: string) {
-    searchParams.set("filter", value);
+    searchParams.set(filterField, value);
     setSearchParams(searchParams);
   }
   return (
-    <div className="border border-gray-300 shadow-sm  rounded-lg p-2 flex gap-1 ">
-      <button
-        onClick={() => handleClick("all")}
-        className={`active:bg-sky-500 active:text-white px-2  rounded-md ${
-          filteredValue === "all" ? "bg-sky-500 text-white" : ""
-        }`}
-      >
-        All
-      </button>
-      <button
-        onClick={() => handleClick("with-discount")}
-        className={`active:bg-sky-500 active:text-white px-2  rounded-md ${
-          filteredValue === "with-discount" ? "bg-sky-500 text-white" : ""
-        }`}
-      >
-        Discount
-      </button>
-      <button
-        onClick={() => handleClick("no-discount")}
-        className={`active:bg-sky-500 active:text-white px-2  rounded-md ${
-          filteredValue === "no-discount" ? "bg-sky-500 text-white" : ""
-        }`}
-      >
-        No Discount
-      </button>
+    <div className="border border-gray-300 shadow-sm  rounded-lg px-2 py-1 flex gap-1 ">
+      {options.map((option: any) => (
+        <button
+          key={option.value}
+          onClick={() => handleClick(option.value)}
+          className={`active:bg-sky-500 active:text-white px-3 font-medium  py-1 rounded-md ${
+            filteredValue === option.value ? "bg-sky-500 text-white" : ""
+          }`}
+        >
+          {option.label}
+        </button>
+      ))}
     </div>
   );
 }
