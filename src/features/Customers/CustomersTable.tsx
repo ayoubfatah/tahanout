@@ -11,8 +11,21 @@ import Filter from "../../ui/Filter";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
-  if (isLoading) return <Spinner />;
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 5; // You can adjust this number as needed
+
+  // Get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage; // 5
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
+  const currentOrders = filteredCustomers?.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  if (isLoading) return <Spinner />;
   return (
     <>
       <SearchInput
@@ -33,11 +46,15 @@ export default function CustomersDetails() {
             <span className="">Zip code</span>
             <span></span>
           </Table.Header>
-          {filteredCustomers?.map((customer: any) => (
+          {currentOrders?.map((customer: any) => (
             <CustomerRow key={customer.id || customer.email} data={customer} />
           ))}
-
-          <Table.Footer></Table.Footer>
+          <Table.Footer
+            currentPage={currentPage}
+            ordersPerPage={ordersPerPage}
+            totalOrders={filteredCustomers?.length || 0}
+            paginate={paginate}
+          />
         </Table>
       </div>
       <div className="mt-5">

@@ -59,6 +59,19 @@ export default function ProductTables() {
 
   const [filteredProducts, setFilteredProducts] = useState(sortedProducts);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 10; // You can adjust this number as needed
+
+  // Get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage; // 5
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
+  const currentOrders = filteredProducts?.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   if (isLoading) return <Spinner />;
   return (
     <>
@@ -80,8 +93,8 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {filteredProducts?.length > 0 ? (
-              filteredProducts.map((product: any) => (
+            {currentOrders?.length > 0 ? (
+              currentOrders.map((product: any) => (
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (
@@ -91,7 +104,12 @@ export default function ProductTables() {
             )}
           </div>
 
-          <Table.Footer></Table.Footer>
+          <Table.Footer
+            currentPage={currentPage}
+            ordersPerPage={ordersPerPage}
+            totalOrders={filteredProducts?.length || 0}
+            paginate={paginate}
+          />
         </Table>
       </div>
       <Modal>

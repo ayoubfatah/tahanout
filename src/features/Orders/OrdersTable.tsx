@@ -23,18 +23,19 @@ export default function OrdersTable({ orders }: any) {
   });
 
   const [filteredOrders, setFilteredOrders] = useState(sortedOrders);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage] = useState(10); // You can adjust this number as needed
+  const [currentPage, setCurrentPage] = useState(1);  
+  const ordersPerPage = 5; // You can adjust this number as needed
 
   // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const indexOfLastOrder = currentPage * ordersPerPage;   // 5
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
   const currentOrders = filteredOrders?.slice(
     indexOfFirstOrder,
     indexOfLastOrder
   );
 
   // Change page
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {

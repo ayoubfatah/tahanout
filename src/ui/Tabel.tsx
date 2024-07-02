@@ -60,12 +60,12 @@ function Footer({ currentPage, ordersPerPage, totalOrders, paginate }: any) {
   return (
     <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px]">
       <span>
-        Showing {indexOfFirstOrder + 1} to {currentOrdersCount} of {totalOrders}{" "}
-        results
+        Showing {indexOfFirstOrder + 1 * 0 === 0 ? 1 : indexOfFirstOrder} to{" "}
+        {currentOrdersCount} of {totalOrders} results
       </span>
       <div className="flex gap-5 font-[500]">
         <button
-          className="flex gap-2 items-center"
+          className="flex items-center  cursor-pointer  hover:bg-sky-500 hover:text-white   py-1 px-2 rounded-lg "
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -75,7 +75,7 @@ function Footer({ currentPage, ordersPerPage, totalOrders, paginate }: any) {
           Previous
         </button>
         <button
-          className="flex gap-1 items-center"
+          className="flex items-center cursor-pointer hover:bg-sky-500 hover:text-white   py-1 px-2 rounded-lg "
           onClick={() => paginate(currentPage + 1)}
           disabled={indexOfLastOrder >= totalOrders}
         >
