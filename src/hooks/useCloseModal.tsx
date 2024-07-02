@@ -4,7 +4,7 @@ export default function useCloseModal(closeModalFunction: any) {
   const overlyRef = useRef(null);
 
   useEffect(() => {
-    if (!overlyRef.current) return;
+    if (!overlyRef.current) return;  
     function handleClick(e: any) {
       if (e.target === overlyRef.current) closeModalFunction();
     }

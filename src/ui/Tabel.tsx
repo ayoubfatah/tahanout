@@ -52,29 +52,41 @@ function Row({ children }: FooterProps) {
   );
 }
 
-function Footer() {
-  {
-    return (
-      <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px] ">
-        <span>Showing 1 to 4 of 7 results</span>
-        <div className="flex gap-5 font-[500]">
-          <button className="flex gap-2 items-center">
-            <span>
-              {" "}
-              <HiChevronLeft />
-            </span>{" "}
-            Previous{" "}
-          </button>
-          <button className="flex gap-1 items-center">
-            Next{" "}
-            <span>
-              <HiChevronRight />
-            </span>{" "}
-          </button>
-        </div>
+function Footer({ currentPage, ordersPerPage, totalOrders, paginate }: any) {
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrdersCount = Math.min(indexOfLastOrder, totalOrders);
+
+  return (
+    <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px]">
+      <span>
+        Showing {indexOfFirstOrder + 1} to {currentOrdersCount} of {totalOrders}{" "}
+        results
+      </span>
+      <div className="flex gap-5 font-[500]">
+        <button
+          className="flex gap-2 items-center"
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <span>
+            <HiChevronLeft />
+          </span>
+          Previous
+        </button>
+        <button
+          className="flex gap-1 items-center"
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastOrder >= totalOrders}
+        >
+          Next
+          <span>
+            <HiChevronRight />
+          </span>
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
 }
 Table.Header = Header;
 Table.Row = Row;

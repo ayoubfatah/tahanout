@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchInput from "../../ui/SearchInput";
 import Table from "../../ui/Tabel";
 import OrdersRow from "./OrdersRow";
-import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 import { useSearchParams } from "react-router-dom";
+
 export default function OrdersTable({ orders }: any) {
   const [searchParams] = useSearchParams();
   const sortByValue = searchParams.get("sortBy") || "createdAt-desc";
@@ -23,6 +23,24 @@ export default function OrdersTable({ orders }: any) {
   });
 
   const [filteredOrders, setFilteredOrders] = useState(sortedOrders);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(10); // You can adjust this number as needed
+
+  // Get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = filteredOrders?.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  // Change page
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredOrders]);
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -57,10 +75,15 @@ export default function OrdersTable({ orders }: any) {
             <span className="text-[16px] font-medium">AMOUNT</span>
             <span className="text-[16px] font-medium">Status</span>
           </Table.Header>
-          {filteredOrders?.map((order: any) => (
+          {currentOrders?.map((order: any) => (
             <OrdersRow key={order.id} order={order} />
           ))}
-          <Table.Footer></Table.Footer>
+          <Table.Footer
+            currentPage={currentPage}
+            ordersPerPage={ordersPerPage}
+            totalOrders={filteredOrders?.length || 0}
+            paginate={paginate}
+          />
         </Table>
       </div>
     </>
