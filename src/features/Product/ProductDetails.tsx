@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { MdEditNote } from "react-icons/md";
 import ImageSwitcher from "../../ui/ImageSwitcher";
-import { formatCurrency } from "../../utils/helpers";
 import useProduct from "./useProduct";
 import Spinner from "../../ui/Spinner";
 import ProductInfo from "./ProductInfo";
 import EditDragDropImages from "../../ui/EditDragDropImages";
-import { MdEditNote } from "react-icons/md";
 import Modal from "../../ui/Modal";
 
 export default function ProductDetails() {
@@ -37,21 +37,32 @@ export default function ProductDetails() {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
-  const handleUpload = (file: File) => {};
   return (
     <Modal>
-      <div className="  px-4 py-6 relative">
-        <div className="grid grid-cols-2 gap-10 ">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl bg-gray-50 mx-auto px-4 sm:px-6 lg:px-8 py-12"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="relative">
-            <span className="absolute z-[10]  text-sky-500 cursor-pointer top-[15px] right-[15px]">
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              className="absolute z-10 text-sky-500 cursor-pointer top-4 right-4"
+            >
               <Modal.Open opens="editProduct">
                 <MdEditNote size={35} />
               </Modal.Open>
-            </span>
-            <ImageSwitcher images={product && product.images} />
+            </motion.span>
+            <ImageSwitcher isLoading={isLoading} images={product?.images} />
           </div>
           <ProductInfo
             product={product}
@@ -60,12 +71,9 @@ export default function ProductDetails() {
           />
         </div>
         <Modal.Window name="editProduct">
-          <EditDragDropImages
-            onClose={() => {}}
-            images={product && product.images}
-          />
+          <EditDragDropImages onClose={() => {}} images={product?.images} />
         </Modal.Window>
-      </div>
+      </motion.div>
     </Modal>
   );
 }

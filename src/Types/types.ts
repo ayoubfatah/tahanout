@@ -16,7 +16,7 @@ export type Product = {
   minOrder: number;
   weight: number;
   additional_images?: string;
-  created_at?: string | Date;
+  createdAt?: string | Date;
   imgDetails?: any;
 };
 

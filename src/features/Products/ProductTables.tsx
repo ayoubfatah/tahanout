@@ -64,7 +64,7 @@ export default function ProductTables() {
   const [filteredProducts, setFilteredProducts] = useState(sortedProducts);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = PRODUCT_TABLE_PAGINATION ; // You can adjust this number as needed
+  const ordersPerPage = PRODUCT_TABLE_PAGINATION; // You can adjust this number as needed
 
   // Get current orders
   const indexOfLastOrder = currentPage * ordersPerPage; // 5
@@ -85,7 +85,7 @@ export default function ProductTables() {
       />
 
       <div className="border border-gray-200 rounded-md text-gray-600">
-        <Table col="1.3fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr">
+        <Table col="1.3fr 1fr 1.9fr 1fr 1fr 1fr 1fr 40px">
           <Table.Header>
             <span></span>
             <span>SKU</span>

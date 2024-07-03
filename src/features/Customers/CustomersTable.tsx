@@ -36,7 +36,7 @@ export default function CustomersDetails() {
       />
 
       <div className="border border-gray-200 rounded-md text-gray-600">
-        <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 0.5fr">
+        <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 20px">
           <Table.Header>
             <span className="">Full name</span>
             <span className="">email</span>

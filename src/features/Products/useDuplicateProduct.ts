@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { duplicateProduct } from "../../services/apiProducts";
 import { Product } from "../../Types/types";
 
-export default function useAddProduct() {
+export default function useDuplicateProduct() {
   const queryClient = useQueryClient();
 
   const { isLoading, mutate } = useMutation<Product, unknown, Product>({

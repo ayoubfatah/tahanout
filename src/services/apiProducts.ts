@@ -238,61 +238,67 @@ export async function updateImages(imageUrls: string[], productId: number) {
   return data;
 }
 
-export async function addImages(images: any[], productId: number) {
+export async function addImages(images: File[], productId: number) {
   // Prepare images with unique names and paths
-  const preparedImages = images.map((image: any) => {
-    const imageName = `${uuidv4()}-${image.name.replace("/", "")}`; // Ensure unique image name
+  const preparedImages = images.map((image: File) => {
+    const imageName = `${uuidv4()}-${image.name.replace("/", "")}`;
     const imagePath = `https://jmvbwhvpdounmufynkwd.supabase.co/storage/v1/object/public/productImages/${imageName}`;
-
-    return {
-      name: imageName,
-      path: imagePath,
-      file: image, // Assuming image here is the File object from input
-    };
+    return { name: imageName, path: imagePath, file: image };
   });
 
-  // Fetch existing product data to get current images
-  const { data: existingData, error: fetchError } = await supabase
-    .from("products")
-    .select("images")
-    .eq("id", productId)
-    .single();
+  try {
+    // Fetch existing product data to get current images
+    const { data: existingData, error: fetchError } = await supabase
+      .from("products")
+      .select("images")
+      .eq("id", productId)
+      .single();
 
-  if (fetchError) {
-    console.error(fetchError);
-    throw new Error("Failed to fetch existing product data.");
-  }
+    if (fetchError) throw new Error("Failed to fetch existing product data.");
 
-  const existingImages = existingData.images || [];
-  const newImagesPaths = preparedImages.map((img: any) => img.path);
+    const existingImages = existingData.images || [];
+    const newImagesPaths = preparedImages.map((img) => img.path);
 
-  // Update product entry in the database with new image paths
-  const { data, error } = await supabase
-    .from("products")
-    .update({ images: [...existingImages, ...newImagesPaths] })
-    .eq("id", productId)
-    .select();
+    // Update product entry in the database with new image paths
+    const { data, error: updateError } = await supabase
+      .from("products")
+      .update({ images: [...existingImages, ...newImagesPaths] })
+      .eq("id", productId)
+      .select();
 
-  if (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
+    if (updateError) throw new Error("Failed to update product data.");
 
-  // Upload images to Supabase storage
-  for (const image of preparedImages) {
-    const { error: storageError } = await supabase.storage
-      .from("productImages")
-      .upload(image.name, image.file);
+    // Upload images to Supabase storage in parallel
+    const uploadPromises = preparedImages.map((image) =>
+      supabase.storage.from("productImages").upload(image.name, image.file)
+    );
 
-    if (storageError) {
-      // Clean up: delete product entry if image upload fails
-      await supabase.from("products").delete().eq("id", productId);
-      console.error(storageError);
-      throw new Error(
-        "One or more product images couldn't be uploaded, and the product was not updated."
+    const uploadResults = await Promise.allSettled(uploadPromises);
+
+    // Check for any failed uploads
+    const failedUploads = uploadResults.filter(
+      (result) => result.status === "rejected"
+    );
+
+    if (failedUploads.length > 0) {
+      // Some uploads failed, update the product with only successful uploads
+      const successfulUploads = uploadResults
+        .filter((result) => result.status === "fulfilled")
+        .map((_, index) => newImagesPaths[index]);
+
+      await supabase
+        .from("products")
+        .update({ images: [...existingImages, ...successfulUploads] })
+        .eq("id", productId);
+
+      console.warn(
+        `${failedUploads.length} out of ${images.length} images failed to upload.`
       );
     }
-  }
 
-  return data; // Return the updated product data
+    return data;
+  } catch (error) {
+    console.error("Error in addImages:", error);
+    throw error;
+  }
 }
