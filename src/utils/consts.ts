@@ -1,0 +1,3 @@
+export const PRODUCT_TABLE_PAGINATION = 10;
+export const CUSTOMER_TABLE_PAGINATION = 10;
+export const ORDER_TABLE_PAGINATION = 10;

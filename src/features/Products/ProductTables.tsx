@@ -7,6 +7,10 @@ import ProductForm from "./ProductForm";
 import ProductRow from "./ProductRow";
 import ProductTablesOperations from "./ProductTablesOperations";
 import useProducts from "./useProducts";
+import {
+  ORDER_TABLE_PAGINATION,
+  PRODUCT_TABLE_PAGINATION,
+} from "../../utils/consts";
 
 type ProductType = {
   id: string;
@@ -60,7 +64,7 @@ export default function ProductTables() {
   const [filteredProducts, setFilteredProducts] = useState(sortedProducts);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 10; // You can adjust this number as needed
+  const ordersPerPage = PRODUCT_TABLE_PAGINATION ; // You can adjust this number as needed
 
   // Get current orders
   const indexOfLastOrder = currentPage * ordersPerPage; // 5

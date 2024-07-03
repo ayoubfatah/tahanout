@@ -8,12 +8,13 @@ import AddCustomerForm from "./AddCustomerForm";
 import SearchInput from "../../ui/SearchInput";
 import { useState } from "react";
 import Filter from "../../ui/Filter";
+import { CUSTOMER_TABLE_PAGINATION } from "../../utils/consts";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 5; // You can adjust this number as needed
+  const ordersPerPage = CUSTOMER_TABLE_PAGINATION;
 
   // Get current orders
   const indexOfLastOrder = currentPage * ordersPerPage; // 5

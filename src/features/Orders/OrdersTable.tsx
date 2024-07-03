@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import SearchInput from "../../ui/SearchInput";
-import Table from "../../ui/Tabel";
-import OrdersRow from "./OrdersRow";
-import SortBy from "../../ui/SortBy";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import SearchInput from "../../ui/SearchInput";
+import SortBy from "../../ui/SortBy";
+import Table from "../../ui/Tabel";
+import { ORDER_TABLE_PAGINATION } from "../../utils/consts";
+import OrdersRow from "./OrdersRow";
 
 export default function OrdersTable({ orders }: any) {
   const [searchParams] = useSearchParams();
@@ -23,11 +24,11 @@ export default function OrdersTable({ orders }: any) {
   });
 
   const [filteredOrders, setFilteredOrders] = useState(sortedOrders);
-  const [currentPage, setCurrentPage] = useState(1);  
-  const ordersPerPage = 5; // You can adjust this number as needed
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = ORDER_TABLE_PAGINATION;
 
   // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage;   // 5
+  const indexOfLastOrder = currentPage * ordersPerPage; // 5
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
   const currentOrders = filteredOrders?.slice(
     indexOfFirstOrder,
