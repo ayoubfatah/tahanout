@@ -1,7 +1,7 @@
 // ProtectedRoutes.tsx
 import React, { ReactNode, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useUser } from "../features/login/useUser";
+import { useUser } from "../features/authentication/useUser";
 import Spinner from "./Spinner";
 
 type ProtectedRoutesProps = {
@@ -11,12 +11,12 @@ type ProtectedRoutesProps = {
 const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
   const navigate = useNavigate();
   const { user, isLoading, isAuthenticated } = useUser();
-  console.log(isAuthenticated, user);
+
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate("/logi);
+    if (!isAuthenticated && !isLoading) {
+      navigate("/login");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isLoading]);
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-screen">

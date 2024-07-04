@@ -13,11 +13,12 @@ export function useLogin() {
         email: data.email,
         password: data.password,
       }),
+
     onSuccess: (result: any) => {
       if (result.success) {
+        console.log(result.data.user);
         queryClient.setQueriesData(["user"], result?.data.user);
         navigate("/dashboard ", { replace: true });
-        console.log(result);
       } else {
         toast.error("Invalid email or password");
       }
