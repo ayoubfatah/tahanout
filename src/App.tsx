@@ -16,6 +16,7 @@ import Sourcing from "./pages/Sourcing";
 import AppLayout from "./ui/AppLayout";
 import { TahanoutProvider } from "./contextApi/useTahanoutCA";
 import Order from "./pages/Order";
+import ProtectedRoutes from "./ui/ProtectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,27 +31,27 @@ export default function App() {
     <TahanoutProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
-
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoutes >
+                  <AppLayout />
+                </ProtectedRoutes>
+              }
+            >
               <Route index element={<Navigate replace to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/orders" element={<Orders />} />
-
               <Route path="/sourcing" element={<Sourcing />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
               <Route path="/products/:id" element={<Product />} />
-
               <Route path="/orders/:id" element={<Order />} />
-
               <Route path="/profile" element={<Profile />} />
-              <Route path="/Settings" element={<Settings />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/employees" element={<Employees />} />
             </Route>
-
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

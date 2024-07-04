@@ -61,11 +61,11 @@ export default function EmployeesTable() {
             <span className=" text-sm ">
               {employee.isOnline ? (
                 <span className=" flex gap-1 items-center text-green-500">
-                  <HiCheckCircle /> Online{" "}
+                  <HiCheckCircle size={16} /> Online{" "}
                 </span>
               ) : (
                 <span className=" flex gap-1 items-center text-red-500">
-                  <HiXCircle /> Offline
+                  <HiXCircle size={16} /> Offline
                 </span>
               )}
             </span>

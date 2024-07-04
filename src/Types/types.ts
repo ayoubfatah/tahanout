@@ -70,3 +70,8 @@ export type OrderStatusTypes =
   | "delivered"
   | "returned"
   | "pending";
+
+export type loginType = {
+  email: string;
+  password: string;
+};

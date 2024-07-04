@@ -14,14 +14,14 @@ export default function CustomersDetails() {
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = CUSTOMER_TABLE_PAGINATION;
+  const customersPerPage = CUSTOMER_TABLE_PAGINATION;
 
   // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage; // 5
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
-  const currentOrders = filteredCustomers?.slice(
-    indexOfFirstOrder,
-    indexOfLastOrder
+  const indexOfLastCustomer = currentPage * customersPerPage; // 5
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage; // 0
+  const currentCustomers = filteredCustomers?.slice(
+    indexOfFirstCustomer,
+    indexOfLastCustomer
   );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -47,12 +47,12 @@ export default function CustomersDetails() {
             <span className="">Zip code</span>
             <span></span>
           </Table.Header>
-          {currentOrders?.map((customer: any) => (
+          {currentCustomers?.map((customer: any) => (
             <CustomerRow key={customer.id || customer.email} data={customer} />
           ))}
           <Table.Footer
             currentPage={currentPage}
-            ordersPerPage={ordersPerPage}
+            customersPerPage={customersPerPage}
             totalOrders={filteredCustomers?.length || 0}
             paginate={paginate}
           />

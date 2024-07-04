@@ -64,14 +64,14 @@ export default function ProductTables() {
   const [filteredProducts, setFilteredProducts] = useState(sortedProducts);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = PRODUCT_TABLE_PAGINATION; // You can adjust this number as needed
+  const productsPerPage = PRODUCT_TABLE_PAGINATION; // You can adjust this number as needed
 
   // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage; // 5
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage; // 0
-  const currentOrders = filteredProducts?.slice(
-    indexOfFirstOrder,
-    indexOfLastOrder
+  const indexOfLastProduct = currentPage * productsPerPage; // 5
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
+  const currentProducts = filteredProducts?.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
   );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -97,8 +97,8 @@ export default function ProductTables() {
           </Table.Header>
 
           <div>
-            {currentOrders?.length > 0 ? (
-              currentOrders.map((product: any) => (
+            {currentProducts?.length > 0 ? (
+              currentProducts.map((product: any) => (
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (
@@ -110,7 +110,7 @@ export default function ProductTables() {
 
           <Table.Footer
             currentPage={currentPage}
-            ordersPerPage={ordersPerPage}
+            productsPerPage={productsPerPage}
             totalOrders={filteredProducts?.length || 0}
             paginate={paginate}
           />
