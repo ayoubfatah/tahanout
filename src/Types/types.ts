@@ -75,3 +75,14 @@ export type loginType = {
   email: string;
   password: string;
 };
+
+export type EmployeesType = {
+  id: number;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  createdAt?: string | Date;
+  status: "online" | "offline";
+  avatar?: string;
+};

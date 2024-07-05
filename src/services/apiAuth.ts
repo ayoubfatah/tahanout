@@ -38,3 +38,36 @@ export async function logout() {
     throw new Error(error.message);
   }
 }
+
+export async function signUp({
+  email,
+  password,
+  fullName,
+  avatar,
+  role,
+  status,
+}: any) {
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+
+      options: {
+        data: {
+          fullName,
+          avatar,
+          role,
+          status,
+        },
+      },
+    });
+    if (error) {
+      console.error("Error during sign up:", error);
+      return { success: false, message: error.message };
+    }
+    return { success: true, data };
+  } catch (err) {
+    console.error("Unexpected error during sign up:", err);
+    return { success: false, message: "An unexpected error occurred." };
+  }
+}

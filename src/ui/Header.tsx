@@ -46,7 +46,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-white sticky top-0  z-[1000]  py-4 px-6 flex items-center border-b border-gray-200  justify-end">
+    <header className="bg-white sticky top-0  z-[20]  py-4 px-6 flex items-center border-b border-gray-200  justify-end">
       <div className="flex items-center gap-5 space-x-4">
         <button
           onClick={() => {
@@ -95,12 +95,13 @@ export default function Header() {
             <HiChevronDown className="w-4 h-4 text-gray-600" />
           </button>
           {isUserDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ">
               <DropdownItem
                 icon={HiOutlineUserCircle}
                 text="profile"
                 onClick={() => {
                   navigate("/profile");
+                  setIsUserDropdownOpen(false);
                 }}
               />
               <DropdownItem

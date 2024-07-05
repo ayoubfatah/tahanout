@@ -16,8 +16,7 @@ export function useLogin() {
 
     onSuccess: (result: any) => {
       if (result.success) {
-        console.log(result.data.user);
-        queryClient.setQueriesData(["user"], result?.data.user);
+        queryClient.setQueryData(["user"], result?.user);
         navigate("/dashboard ", { replace: true });
       } else {
         toast.error("Invalid email or password");
