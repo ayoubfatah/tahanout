@@ -12,11 +12,6 @@ export default function EmployeesRow({ employee }: EmployeeProp) {
   const avatar = "https://i.pravatar.cc/150?img=1";
   return (
     <Table.Row key={employee.id}>
-      <img
-        src={employee.avatar || avatar}
-        alt="avatar"
-        className="w-10 h-10 object-cover rounded-full"
-      />
       <span className=" text-sm text-gray-700">{employee.fullName}</span>
       <span className="text-sm text-gray-700">{employee.email}</span>
       <span className="text-sm text-gray-700">{employee.phoneNumber}</span>

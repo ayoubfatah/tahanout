@@ -14,15 +14,13 @@ export default function Employees() {
           <div className="flex flex-col gap-4">
             <EmployeesTable />
             <Modal.Open opens="addEmployee">
-              <span>
-                <Button
-                  text="Add Employee"
-                  textColor="text-white"
-                  icon={<HiPlus color="white" />}
-                  onClick={() => {}}
-                  bgColor="bg-sky-500"
-                />
-              </span>
+              <Button
+                text="Add Employee"
+                textColor="text-white"
+                icon={<HiPlus color="white" />}
+                onClick={() => {}}
+                bgColor="bg-sky-500"
+              />
             </Modal.Open>
             <Modal.Window name="addEmployee">
               <RegistrationForm />

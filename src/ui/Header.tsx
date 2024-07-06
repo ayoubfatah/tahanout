@@ -10,8 +10,12 @@ import {
 } from "react-icons/hi2";
 import { useLogout } from "../features/authentication/useLogout";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../features/authentication/useUser";
 
 export default function Header() {
+  const { user } = useUser();
+  const { email, fullName, role, avatar } = user?.user_metadata || {};
+
   const { mutate: logout, isLoading } = useLogout();
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
@@ -91,7 +95,7 @@ export default function Header() {
             onClick={toggleUserDropdown}
             className="flex items-center space-x-2"
           >
-            <Avatar />
+            <Avatar fullName={fullName} role={role} avatar={avatar} />
             <HiChevronDown className="w-4 h-4 text-gray-600" />
           </button>
           {isUserDropdownOpen && (
@@ -147,17 +151,18 @@ function DropdownItem({ icon: Icon, text, onClick, disabled }: any) {
   );
 }
 
-function Avatar() {
+function Avatar({ fullName, role, avatar }: any) {
+  console.log(avatar);
   return (
     <div className="flex items-center space-x-2">
       <img
-        src="https://i.pravatar.cc/150?img=1"
+        src={avatar || `https://avatars.dicebear.com/api/initials/.svg`}
         alt="User Avatar"
         className="w-8 h-8 rounded-full"
       />
-      <div>
-        <p className="text-sm font-medium text-gray-700">John Doe</p>
-        <p className="text-xs text-gray-500">Admin</p>
+      <div className="flex flex-col text-start">
+        <p className="text-xs font-medium text-gray-700">{fullName}</p>
+        <p className="text-xs text-gray-500">{role}</p>
       </div>
     </div>
   );

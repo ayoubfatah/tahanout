@@ -4,8 +4,8 @@ import { ButtonType } from "../Types/types";
 const Button: React.FC<ButtonType> = ({
   text,
   textColor = "text-white",
-  bgColor = "bg-blue-500",
-  onClick,
+  bgColor  = "bg-blue-500",
+  onClick ,
   borderColor,
   border,
   hoverColor,
@@ -16,19 +16,21 @@ const Button: React.FC<ButtonType> = ({
   return (
     <span className="inline-block">
       {!disabled && (
-        <div
-          onClick={onClick}
-          className={`flex  ${borderColor} ${border} ${bgColor} cursor-pointer hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
-        >
-          <span className="text-green-400">{icon}</span>
-          <button type={type} className={`${textColor}  `}>
-            {text}
-          </button>
-        </div>
+        <span className="inline-block">
+          <span
+            onClick={onClick}
+            className={`  flex  ${borderColor} ${border} ${bgColor} cursor-pointer hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
+          >
+            <span className="text-green-400">{icon}</span>
+            <button type={type} className={`${textColor}  `}>
+              {text}
+            </button>
+          </span>
+        </span>
       )}
 
       {disabled && (
-        <div
+         <span
           onClick={onClick}
           className={`flex ${borderColor} ${border} cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
         >
@@ -40,7 +42,7 @@ const Button: React.FC<ButtonType> = ({
           >
             {text}
           </button>
-        </div>
+        </span>
       )}
     </span>
   );

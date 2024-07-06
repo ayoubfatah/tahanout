@@ -13,9 +13,8 @@ export default function EmployeesTable() {
 
   return (
     <div className="border border-gray-200 rounded-md text-gray-600">
-      <Table col="100px   1fr 2fr 2fr  1fr 1fr 20px">
+      <Table col="  1fr 1.6fr 1fr  1fr 1fr 20px">
         <Table.Header>
-          <div>avatar</div>
           <div>name</div>
           <div>email</div>
           <div>Phone number</div>

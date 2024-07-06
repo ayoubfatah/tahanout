@@ -40,7 +40,7 @@ export type ButtonType = {
   icon?: React.ReactNode;
   iconColor?: string;
   hoverColor?: string;
-  onClick: () => void;
+  onClick: any;
   text: string;
   textColor: string;
   bgColor: string;

@@ -3,6 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "./Button";
 import { useSignUp } from "../features/authentication/useSignUp";
 import toast from "react-hot-toast";
+import useAddCustomer from "../features/Customers/useAddCustomer";
+import { useCreateEmployees } from "../features/Employees/useCreateEmployees";
+import { EmployeesType } from "../Types/types";
 
 type FormValues = {
   fullName: string;
@@ -23,7 +26,24 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
   } = useForm<FormValues>();
 
   const { signUp, isLoading } = useSignUp();
+  const { isLoading: customerLoading, mutate: createEmployee } =
+    useCreateEmployees();
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const employeeData: EmployeesType = {
+      id: Math.round(Math.random() * 10000),
+      fullName: data.fullName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      role: data.role,
+      status: "offline",
+    };
+
+    createEmployee(employeeData, {
+      onSuccess: () => {
+        reset();
+        onClose();
+      },
+    });
     signUp(data, {
       onSuccess: () => {
         toast.success("User created successfully");
@@ -45,6 +65,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           Full Name
         </label>
         <input
+          disabled={isLoading || customerLoading}
           type="text"
           {...register("fullName", { required: "Full name is required" })}
           className="py-2  px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
@@ -59,6 +80,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
       <div>
         <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
+          disabled={isLoading || customerLoading}
           type="email"
           {...register("email", {
             required: "Email is required",
@@ -81,6 +103,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           Phone Number
         </label>
         <input
+          disabled={isLoading || customerLoading}
           type="phone"
           {...register("phoneNumber", {
             required: "Phone number is required",
@@ -99,6 +122,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           Password
         </label>
         <input
+          disabled={isLoading || customerLoading}
           type="password"
           {...register("password", {
             required: "Password is required",
