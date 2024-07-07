@@ -22,3 +22,15 @@ export async function createEmployee(employee: EmployeesType) {
   }
   return data;
 }
+export async function updateEmployee(newEmployeeData: any, email: number) {
+  console.log(newEmployeeData, email);
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("employees")
+    .update(newEmployeeData)
+    .eq("email", email);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}

@@ -2,17 +2,25 @@ import React, { ChangeEvent } from "react";
 import Button from "../../ui/Button";
 import { useUser } from "../authentication/useUser";
 import { useUpdateUserData } from "../authentication/useUpdateUserData";
+import { useUpdateEmployees } from "../Employees/useUpdateEmployees";
+import toast from "react-hot-toast";
 
 export default function ProfileDataFrom() {
   const { mutate: updateUser, isLoading } = useUpdateUserData();
+  const { isEditing, mutate: updateEmployee } = useUpdateEmployees();
   const { user } = useUser();
   const { email, fullName: name } = user?.user_metadata || {};
 
   const [fullName, setFullName] = React.useState<string>("");
   const [avatar, setAvatar] = React.useState<string>("");
+
   function handleSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     updateUser({ fullName, avatar });
+    updateEmployee({
+      newEmployeeData: { fullName },
+      email: email,
+    });
     setFullName("");
     setAvatar("");
   }
@@ -33,7 +41,7 @@ export default function ProfileDataFrom() {
           <input
             disabled={true}
             defaultValue={email}
-            className="border text-gray-400 cursor-not-allowed  w-[300px] rounded-md border-gray-500 py-1.5 px-3"
+            className="border focus:outline-sky-500 text-gray-400 cursor-not-allowed  w-[300px] rounded-md border-gray-500 py-1.5 px-3"
             type="email"
             id="email"
           />
@@ -45,21 +53,21 @@ export default function ProfileDataFrom() {
           <input
             onChange={(e) => setFullName(e.target.value)}
             defaultValue={name}
-            className="border  w-[300px] rounded-md border-gray-500 py-1.5 px-3"
+            className="border  focus:outline-sky-500 w-[300px] rounded-md border-gray-500 py-1.5 px-3"
             type="text"
             id="name"
           />
         </div>
         <div className="flex gap-[100px] items-center  border-gray-200 border-b border-dashed py-6">
-          <label htmlFor="name" className="w-1/6">
+          <label htmlFor="file" className="w-1/6">
             Avatar Image:
           </label>
           <input
             onChange={(e: any) => setAvatar(e.target.files?.[0])}
-            className="    file:py-2 file:px-3 file:rounded-md  file:font-medium file:border-[0px]   file:text-white file:bg-sky-500   py-1 "
+            className=" focus:outline-sky-500 cursor-pointer  file:cursor-pointer  file:py-2 file:px-3 file:rounded-md  file:font-medium file:border-[0px]   file:text-white file:bg-sky-500   py-1 "
             type="file"
             accept="image/*"
-            id="name"
+            id="file"
           />
         </div>
         <div className="flex justify-end gap-4 my-2">

@@ -152,17 +152,22 @@ function DropdownItem({ icon: Icon, text, onClick, disabled }: any) {
 }
 
 function Avatar({ fullName, role, avatar }: any) {
-  console.log(avatar);
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 mr-2">
       <img
         src={avatar || `https://avatars.dicebear.com/api/initials/.svg`}
         alt="User Avatar"
-        className="w-8 h-8 rounded-full"
+        className="w-10 h-10 rounded-full"
       />
       <div className="flex flex-col text-start">
-        <p className="text-xs font-medium text-gray-700">{fullName}</p>
-        <p className="text-xs text-gray-500">{role}</p>
+        <p className="text-[14px]  font-medium text-gray-700">{fullName}</p>
+        <p
+          className={`text-md ${
+            role === "owner" ? "text-yellow-400  " : "text-gray-500"
+          } `}
+        >
+          {role}{" "}
+        </p>
       </div>
     </div>
   );

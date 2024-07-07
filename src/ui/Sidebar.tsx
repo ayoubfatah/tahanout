@@ -71,17 +71,6 @@ export default function Sidebar() {
         <HiMiniUsers size={25} />
         <span className="text-grey-600">Customers</span>{" "}
       </NavLink>{" "}
-      <NavLink
-        to="/sourcing"
-        className={({ isActive }) =>
-          isActive
-            ? "bg-gray-100 text-sky-400 w-full  py-3 px-2  flex items-center gap-2"
-            : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
-        }
-      >
-        <HiGlobeAsiaAustralia size={25} />
-        <span className="text-grey-600">Sourcing</span>{" "}
-      </NavLink>
       {/*  */}{" "}
       <NavLink
         to="/settings"
