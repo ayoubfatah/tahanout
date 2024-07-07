@@ -1,11 +1,11 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "./Button";
-import { useSignUp } from "../features/authentication/useSignUp";
+import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import useAddCustomer from "../features/Customers/useAddCustomer";
+import { useSignUp } from "../features/authentication/useSignUp";
 import { useCreateEmployees } from "../features/Employees/useCreateEmployees";
 import { EmployeesType } from "../Types/types";
+import Button from "./Button";
+import { useNotificationSound } from "../hooks/useNotificationSound";
 
 type FormValues = {
   fullName: string;
@@ -26,6 +26,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
   } = useForm<FormValues>();
 
   const { signUp, isLoading } = useSignUp();
+  const playNotificationSound = useNotificationSound();
+
   const { isLoading: customerLoading, mutate: createEmployee } =
     useCreateEmployees();
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -38,17 +40,20 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
       status: "offline",
     };
 
-    createEmployee(employeeData, {
-      onSuccess: () => {
-        reset();
-        onClose();
-      },
-    });
+    if (data.password !== data.confirmPassword) {
+      return toast.error("Passwords do not match");
+    }
     signUp(data, {
       onSuccess: () => {
         toast.success("User created successfully");
-        reset();
+
         onClose();
+      },
+    });
+
+    createEmployee(employeeData, {
+      onSuccess: () => {
+        playNotificationSound();
       },
     });
   };
@@ -110,9 +115,9 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           })}
           className="py-2  px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
-        {errors.password && (
+        {errors.phoneNumber && (
           <span className="text-red-600  text-sm  ">
-            {errors.password.message}
+            {errors.phoneNumber.message}
           </span>
         )}
       </div>
@@ -173,8 +178,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div className="flex gap-3">
         <Button
+          type="button"
           onClick={handleSubmit(onSubmit)}
-          type="submit"
           text="Submit"
           textColor="text-white"
           bgColor="bg-sky-500"

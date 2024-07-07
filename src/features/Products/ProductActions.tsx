@@ -141,6 +141,13 @@ export default function ProductActions({ data }: ActionsProps) {
               <EditProductForm onClose={() => setOpen(false)} data={data} />
             </Modal.Window>
             {/* delete */}
+            <button
+              onClick={handleDuplicate}
+              className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+            >
+              <HiMiniSquare2Stack />
+              Duplicate
+            </button>
             <Modal.Open opens="delete">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} />
@@ -156,13 +163,6 @@ export default function ProductActions({ data }: ActionsProps) {
                 data={data}
               />
             </Modal.Window>
-            <button
-              onClick={handleDuplicate}
-              className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
-            >
-              <HiMiniSquare2Stack />
-              Duplicate
-            </button>
           </div>
         )}
       </div>

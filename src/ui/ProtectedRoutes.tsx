@@ -11,18 +11,13 @@ type ProtectedRoutesProps = {
 const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
   const navigate = useNavigate();
   const { user, isLoading, isAuthenticated } = useUser();
-
+  
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
       navigate("/login");
     }
-  }, [isAuthenticated, isLoading]);
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Spinner />
-      </div>
-    );
+  }, [isAuthenticated, isLoading, navigate]);
+
   if (isAuthenticated) return <>{children}</>;
 };
 

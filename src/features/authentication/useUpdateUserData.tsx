@@ -13,4 +13,3 @@ export function useUpdateUserData() {
   });
   return { mutate, isLoading };
 }
-  

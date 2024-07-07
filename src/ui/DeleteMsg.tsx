@@ -3,7 +3,7 @@ import Button from "./Button";
 import { CustomersType, Product } from "../Types/types";
 
 type DeleteMsgProps = {
-  data: Product | CustomersType;
+  data: any;
   onClose: () => any;
   deleteFunction: any;
   type: string;

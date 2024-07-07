@@ -34,3 +34,30 @@ export async function updateEmployee(newEmployeeData: any, email: number) {
   }
   return data;
 }
+
+export async function deleteEmployee(id: any) {
+  let { data, error }: { data: any; error: any } = await supabase
+    .from("employees")
+    .delete()
+    .eq("id", id);
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+
+export async function updateEmployeeRole({ email, role }: any) {
+  console.log(email, role);
+  const { data, error } = await supabase
+    .from("employees")
+    .update({ role })
+    .eq("email", email);
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}

@@ -8,24 +8,26 @@ import Spinner from "../../ui/Spinner";
 import { useUser } from "../authentication/useUser";
 
 export default function EmployeesTable() {
-  const { user } = useUser();
   const { isLoading, employees } = useEmployees();
+  const filteredEmployees = employees.sort(
+    (a: any, b: any) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
 
   if (isLoading) return <Spinner />;
 
   return (
     <div className="border border-gray-200 rounded-md text-gray-600">
-      <Table col=" 1fr 1fr 1.6fr 1fr  1fr 1fr 20px">
+      <Table col=" 1fr 1fr 1.6fr 1fr  1fr 20px">
         <Table.Header>
           <div>Id</div>
           <div>name</div>
           <div>email</div>
           <div>Phone number</div>
           <div>role</div>
-          <div>status</div>
         </Table.Header>
         <div>
-          {employees?.map((employee: EmployeesType) => (
+          {filteredEmployees?.map((employee: EmployeesType) => (
             <EmployeesRow key={employee.id} employee={employee} />
           ))}
         </div>

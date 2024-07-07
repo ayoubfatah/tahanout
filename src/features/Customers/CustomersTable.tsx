@@ -7,11 +7,15 @@ import { useCustomers } from "./useCutomers";
 import AddCustomerForm from "./AddCustomerForm";
 import SearchInput from "../../ui/SearchInput";
 import { useState } from "react";
-import Filter from "../../ui/Filter";
 import { CUSTOMER_TABLE_PAGINATION } from "../../utils/consts";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
-  const [filteredCustomers, setFilteredCustomers] = useState(customers);
+  const customersNewToOld = customers?.sort(
+    (a: any, b: any) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+  console.log(customersNewToOld);
+  const [filteredCustomers, setFilteredCustomers] = useState(customersNewToOld);
 
   const [currentPage, setCurrentPage] = useState(1);
   const customersPerPage = CUSTOMER_TABLE_PAGINATION;

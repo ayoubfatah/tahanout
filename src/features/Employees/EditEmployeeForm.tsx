@@ -1,0 +1,116 @@
+import { useState } from "react";
+
+import { EmployeesType } from "../../Types/types";
+
+import Button from "../../ui/Button";
+import { useUpdateEmployeeRole } from "./useUpdateRole";
+
+const EditEmployeeForm = ({
+  employeeData,
+  onClose,
+}: {
+  employeeData: EmployeesType;
+  onClose: any;
+}) => {
+  const [fullName, setFullName] = useState(employeeData.fullName);
+  const [email, setEmail] = useState(employeeData.email);
+  const [phoneNumber, setPhoneNumber] = useState(employeeData.phoneNumber);
+  const [role, setRole] = useState(employeeData.role);
+
+  //
+  //
+  //  updating role in employee table
+
+  const { isEditing: isUpdatingRole, mutate: updateEmployee } =
+    useUpdateEmployeeRole();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    //
+    //
+    //
+    updateEmployee(
+      { newEmployeeRole: role, email: employeeData.email },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 p-10 w-[500px] bg-white rounded-md"
+    >
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Full Name
+        </label>
+        <input
+          type="text"
+          value={fullName}
+          disabled
+          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          type="email"
+          value={email}
+          disabled
+          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Phone Number
+        </label>
+        <input
+          type="phone"
+          value={phoneNumber}
+          disabled
+          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Role</label>
+        <input
+          disabled={employeeData.role === "owner"}
+          type="text"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+        />
+      </div>
+
+      <div className="flex gap-3">
+        <Button
+          onClick={handleSubmit}
+          type="submit"
+          text={isUpdatingRole ? "Updating..." : "Submit"}
+          textColor="text-white"
+          bgColor="bg-sky-500"
+          disabled={isUpdatingRole}
+        />
+        <Button
+          type="button"
+          text="Cancel"
+          textColor="text-black"
+          bgColor="bg-white"
+          border="border"
+          borderColor="border-black"
+          onClick={onClose}
+        />
+      </div>
+    </form>
+  );
+};
+
+export default EditEmployeeForm;

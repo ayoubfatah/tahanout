@@ -1,31 +1,27 @@
-import React, { useEffect } from "react";
-import Table from "../../ui/Tabel";
+import toast from "react-hot-toast";
+import { HiPencil, HiTrash } from "react-icons/hi2";
 import { EmployeesType } from "../../Types/types";
-import {
-  HiCheckCircle,
-  HiEllipsisVertical,
-  HiEye,
-  HiPencil,
-  HiTrash,
-  HiXCircle,
-} from "react-icons/hi2";
-import { useUser } from "../authentication/useUser";
 import Actions from "../../ui/Actions";
-import { useNotificationSound } from "../../hooks/useNotificationSound";
+import Table from "../../ui/Tabel";
+import { useUser } from "../authentication/useUser";
+import { useDeleteEmployee } from "./useDeleteEmpoyee";
+import Modal from "../../ui/Modal";
+import DeleteMsg from "../../ui/DeleteMsg";
+import EditEmployeeForm from "./EditEmployeeForm";
 
 type EmployeeProp = {
   employee: EmployeesType;
 };
 export default function EmployeesRow({ employee }: EmployeeProp) {
   const { user } = useUser();
-  let isOnline = employee.status === "online";
-
-  // useEffect(() => {
-  //   if (user?.email === employee.email) {
-  //     isOnline = true;
-  //   }
-  // }, [user?.email, employee.email]);
-
+  const { mutate, isDeleting } = useDeleteEmployee();
+  function handleDelete() {
+    if (user?.email === employee.email) {
+      toast.error("You cant delete yourself");
+      return;
+    }
+    mutate(employee.id);
+  }
   return (
     <Table.Row key={employee.id}>
       <span className=" text-sm text-gray-700">{employee.id}</span>
@@ -40,33 +36,40 @@ export default function EmployeesRow({ employee }: EmployeeProp) {
         {" "}
         {employee.role}
       </span>
-      <span className=" text-sm ">
-        {isOnline ? (
-          <span className=" flex gap-1 items-center text-green-500">
-            <HiCheckCircle size={16} /> Online{" "}
-          </span>
-        ) : (
-          <span className=" flex gap-1 items-center text-red-500">
-            <HiXCircle size={16} /> Offline
-          </span>
-        )}
-      </span>
+
       <span className=" flex justify-end cursor-pointer ">
-        <Actions>
-          <Actions.Toggle />
-          <Actions.Menu>
-            <Actions.Item
-              onClick={() => {
-                alert(employee.id);
-              }}
-            >
-              <HiPencil size={20} /> Edit
-            </Actions.Item>
-            <Actions.Item onClick={() => {}}>
-              <HiTrash size={20} /> Delete
-            </Actions.Item>
-          </Actions.Menu>
-        </Actions>
+        {employee.role !== "owner" && (
+          <Modal>
+            <Actions>
+              <Actions.Toggle />
+              <Actions.Menu>
+                <Modal.Open opens="editEmployee">
+                  <Actions.Item>
+                    <HiPencil size={20} /> Edit
+                  </Actions.Item>
+                </Modal.Open>
+
+                <Modal.Open opens="deleteEmployee">
+                  <Actions.Item>
+                    <HiTrash size={20} /> Delete
+                  </Actions.Item>
+                </Modal.Open>
+              </Actions.Menu>
+            </Actions>
+            <Modal.Window name="editEmployee">
+              <EditEmployeeForm onClose={() => {}} employeeData={employee} />
+            </Modal.Window>
+            <Modal.Window name="deleteEmployee">
+              <DeleteMsg
+                deleteFunction={handleDelete}
+                data={employee}
+                type="employee"
+                isDeleting={isDeleting}
+                onClose={() => {}}
+              />
+            </Modal.Window>
+          </Modal>
+        )}
       </span>
     </Table.Row>
   );

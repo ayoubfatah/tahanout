@@ -1,33 +1,30 @@
 import { loginType } from "../Types/types";
 import supabase, { supabaseUrl } from "./supabase";
-export async function login({ email, password }: loginType) {
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+export async function login({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    if (error) {
-      console.error("Error during sign in:", error);
-      return { success: false, message: error.message };
-    }
+  if (error) throw new Error(error.message);
 
-    return { success: true, data };
-  } catch (err) {
-    console.error("Unexpected error during sign in:", err);
-    return { success: false, message: "An unexpected error occurred." };
-  }
+  return data;
 }
 
 export async function getCurrentUser() {
-  const { data: session, error } = await supabase.auth.getSession();
+  const { data: session } = await supabase.auth.getSession();
   if (!session.session) return null;
 
-  const { data, error: userError } = await supabase.auth.getUser();
-  if (userError) {
-    console.error(userError);
-    throw new Error(userError.message);
-  }
+  // more secure to do this
+  const { data, error } = await supabase.auth.getUser();
+  if (error) throw new Error(error.message);
+
   return data?.user;
 }
 
@@ -46,30 +43,31 @@ export async function signUp({
   avatar,
   role,
   status,
-}: any) {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+}: {
+  email: string;
+  password: string;
+  fullName: string;
+  avatar: File;
+  role: string;
+  status: string;
+}) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
 
-      options: {
-        data: {
-          fullName,
-          avatar,
-          role,
-          status,
-        },
+    options: {
+      data: {
+        fullName,
+        avatar: "",
+        role,
+        status,
       },
-    });
-    if (error) {
-      console.error("Error during sign up:", error);
-      return { success: false, message: error.message };
-    }
-    return { success: true, data };
-  } catch (err) {
-    console.error("Unexpected error during sign up:", err);
-    return { success: false, message: "An unexpected error occurred." };
+    },
+  });
+  if (error) {
+    console.error("Error during sign up:", error);
   }
+  return data;
 }
 
 export async function updateCurrentUser({ fullName, avatar, password }: any) {
@@ -107,6 +105,6 @@ export async function updateCurrentUser({ fullName, avatar, password }: any) {
     console.error(error3);
     throw new Error(error3.message);
   }
-  console.log(updatedUser);
+
   return updatedUser;
 }

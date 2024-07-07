@@ -99,7 +99,7 @@ export default function Header() {
             <HiChevronDown className="w-4 h-4 text-gray-600" />
           </button>
           {isUserDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ">
+            <div className="absolute right-0 mt-2 w-48 bg-gray-50 rounded-md shadow-lg ">
               <DropdownItem
                 icon={HiOutlineUserCircle}
                 text="profile"
@@ -108,20 +108,7 @@ export default function Header() {
                   setIsUserDropdownOpen(false);
                 }}
               />
-              <DropdownItem
-                icon={HiOutlineBell}
-                text="notifications"
-                onClick={() => {
-                  /* Handle notifications */
-                }}
-              />
-              <DropdownItem
-                icon={HiOutlineEnvelope}
-                text="messages"
-                onClick={() => {
-                  /* Handle messages */
-                }}
-              />
+
               <DropdownItem
                 icon={HiMiniArrowRightStartOnRectangle}
                 text="Logout"
