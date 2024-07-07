@@ -5,6 +5,7 @@ import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import DragDropImages from "../../ui/DragDropImages";
+import { useNotificationSound } from "../../hooks/useNotificationSound";
 
 const ProductForm = ({ onClose }: any) => {
   const [items, setItems] = useState([]);
@@ -14,6 +15,7 @@ const ProductForm = ({ onClose }: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const playNotificationSound = useNotificationSound();
 
   const { mutate, isLoading } = useAddProduct();
 
@@ -23,6 +25,7 @@ const ProductForm = ({ onClose }: any) => {
 
     mutate(data, {
       onSuccess: () => {
+        playNotificationSound();
         toast.success("Product created successfully");
         onClose();
       },

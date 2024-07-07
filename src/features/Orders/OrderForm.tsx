@@ -14,6 +14,7 @@ import ProductOptionsRow from "./OrderProductOptionsRow";
 import { useEffect } from "react";
 import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 import { useNavigate } from "react-router-dom";
+import { useNotificationSound } from "../../hooks/useNotificationSound";
 export default function OrderForm({
   onClose: onclose,
   type,
@@ -53,6 +54,7 @@ export default function OrderForm({
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
   const { upQuantity } = useUpdateProductQuantity();
+  const playNotificationSound = useNotificationSound();
   function handleOnClick() {
     if (productOptions && productOptions.price !== undefined) {
       const orderData = {
@@ -73,6 +75,7 @@ export default function OrderForm({
 
       mutate(orderData, {
         onSuccess: () => {
+          playNotificationSound();
           toast.success("Order created successfully");
           onclose();
           setPaymentMethod(null);
@@ -160,14 +163,14 @@ export default function OrderForm({
       <PaymentMethodDropDown />
       <div className="flex gap-4">
         <Button
-          // disabled={
-          //   OrderQuantity < (productOptions?.minOrder ?? 1) ||
-          //   !productOptions ||
-          //   !customerOptions ||
-          //   !paymentMethod ||
-          //   productOptions.quantity < OrderQuantity
-          // }
-          text="Submit "
+          disabled={
+            OrderQuantity < (productOptions?.minOrder ?? 1) ||
+            !productOptions ||
+            !customerOptions ||
+            !paymentMethod ||
+            productOptions.quantity < OrderQuantity
+          }
+          text="Submit"
           onClick={handleOnClick}
           textColor="text-white"
           bgColor="bg-sky-500"

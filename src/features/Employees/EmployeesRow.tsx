@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi2";
 import { useUser } from "../authentication/useUser";
 import Actions from "../../ui/Actions";
+import { useNotificationSound } from "../../hooks/useNotificationSound";
 
 type EmployeeProp = {
   employee: EmployeesType;

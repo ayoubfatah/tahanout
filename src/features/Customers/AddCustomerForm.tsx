@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { CustomersType } from "../../Types/types";
 import useAddCustomer from "./useAddCustomer";
 import toast from "react-hot-toast";
+import { useNotificationSound } from "../../hooks/useNotificationSound";
 
 type CustomerFormProps = {
   onClose: () => void;
@@ -10,7 +11,7 @@ type CustomerFormProps = {
 
 const CustomerForm = ({ onClose }: CustomerFormProps) => {
   const { isLoading, addCustomerFun } = useAddCustomer();
-
+  const playNotificationSound = useNotificationSound();
   const {
     register,
     handleSubmit,
@@ -21,6 +22,7 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
   const handleFormSubmit = (data: CustomersType) => {
     addCustomerFun(data, {
       onSuccess: () => {
+        playNotificationSound();
         toast.success("Customer created successfully");
         onClose();
       },
