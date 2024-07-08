@@ -7,14 +7,24 @@ import {
   HiOutlineUserGroup,
 } from "react-icons/hi2";
 import useCountUp from "../hooks/useCountUp";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { formatCurrency } from "../utils/helpers";
+import TopCustomers from "../features/Dashboard/TopCustomers";
+
+const colorClasses: any = {
+  green: "bg-green-100 text-green-600",
+  blue: "bg-blue-100 text-blue-600",
+  indigo: "bg-indigo-100 text-indigo-600",
+  teal: "bg-teal-100 text-teal-600",
+};
 
 const Dashboard = () => {
   return (
     <>
       <div className="text-[30px] font-semibold mb-7">Dashboard</div>
-      <div className="min-h-screen  flex">
-        <div className="flex-1 ">
-          <div className="grid  grid-cols-4 grid-rows-[auto_300px_auto] gap-5">
+      <div className="min-h-screen flex">
+        <div className="flex-1">
+          <div className="grid grid-cols-4 grid-rows-[auto_400px_300px_300px_auto] gap-5">
             <OverviewCard
               iconColor="green"
               icon={<HiOutlineBanknotes size={30} />}
@@ -27,6 +37,7 @@ const Dashboard = () => {
               iconColor="blue"
               title="Total Orders"
               value={320}
+              format={(value) => `${value.toLocaleString()}`}
             />
             <OverviewCard
               icon={<HiOutlineUserGroup size={30} />}
@@ -41,15 +52,50 @@ const Dashboard = () => {
               value={80}
               format={(value) => `${value}%`}
             />
-            <div className="bg-white p-5 col-span-2 ">
-              <h2 className="text-xl font-semibold text-gray-700 mb-2"></h2>
-              <p className="text-gray-600">222</p>
+
+            {/* chart */}
+            <div className="col-span-4 bg-white rounded-md"></div>
+            {/* today orders */}
+            <div className="bg-white p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+              <h2 className="text-xl font-semibold text-gray-700">
+                {" "}
+                Today's Orders
+              </h2>
             </div>
-            <div className="bg-white p-5 col-span-2">
+
+            {/* customers */}
+            <TopCustomers />
+            {/* top products */}
+            <div className="bg-white p-5 col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
               <h2 className="text-xl font-semibold text-gray-700 mb-2">
                 Top Products:
               </h2>
-              <p className="text-gray-700">222</p>
+              <div className="flex items-center justify-between hover:bg-gray-100">
+                <img
+                  className="bg-gray-300 h-10 w-10 rounded-full"
+                  src="https://jmvbwhvpdounmufynkwd.supabase.co/storage/v1/object/public/productImages/edb21202-26e9-4192-a612-784d1d788847-2.jpg"
+                  alt=""
+                />
+                <div className="flex justify-center flex-col text-[12px]">
+                  <span className="text-gray-500">Air Pods Pro</span>
+                  <span className="text-gray-600">$100</span>
+                </div>
+                <div className="flex justify-center flex-col text-[12px]">
+                  <span className="text-gray-400">Quantity</span>
+                  <span className="text-gray-500">100</span>
+                </div>
+                <div className="flex justify-center flex-col text-[12px]">
+                  <span className="text-gray-400">Orders</span>
+                  <span className="text-gray-500">400</span>
+                </div>
+                <div className="flex justify-center flex-col text-[12px]">
+                  <span className="text-gray-400">Warehouse</span>
+                  <span className="text-gray-500">Ouarzazate</span>
+                </div>
+                <div>
+                  <HiOutlineDotsVertical color="gray" size={20} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -71,13 +117,11 @@ const OverviewCard = ({
   iconColor: string;
   format?: (value: number) => string | number;
 }) => {
-  const animatedValue = useCountUp(value, 1000);
+  const animatedValue = useCountUp(value, 800);
 
   return (
     <div className="bg-white px-4 py-5 flex gap-5 shadow-sm rounded-md items-center hover:scale-[1.03] duration-300 transition-all">
-      <div
-        className={`bg-${iconColor}-100 text-${iconColor}-600 p-4 rounded-full`}
-      >
+      <div className={`${colorClasses[iconColor]} p-4 rounded-full`}>
         {icon}
       </div>
       <div>

@@ -10,7 +10,7 @@ export default function Avatar({ fullName, role, avatar }: any) {
         <p className="text-[14px]  font-medium text-gray-700 ">{fullName}</p>
         <p
           className={`text-md ${
-            role === "owner" ? "text-yellow-400  " : "text-gray-500"
+            role === "owner" ? "text-yellow-300  " : "text-gray-500"
           } `}
         >
           {role}{" "}
