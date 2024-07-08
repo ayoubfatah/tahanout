@@ -4,8 +4,8 @@ import { ButtonType } from "../Types/types";
 const Button: React.FC<ButtonType> = ({
   text,
   textColor = "text-white",
-  bgColor  = "bg-blue-500",
-  onClick ,
+  bgColor = "bg-blue-500",
+  onClick,
   borderColor,
   border,
   hoverColor,
@@ -30,11 +30,13 @@ const Button: React.FC<ButtonType> = ({
       )}
 
       {disabled && (
-         <span
+        <span
           onClick={onClick}
           className={`flex ${borderColor} ${border} cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
         >
-          <span className={"text-black cursor-not-allowed"}>{icon}</span>
+          <span className={"  text-gray-800    cursor-not-allowed"}>
+            {icon}
+          </span>
           <button
             type={type}
             disabled

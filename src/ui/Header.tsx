@@ -11,6 +11,8 @@ import {
 import { useLogout } from "../features/authentication/useLogout";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
+import Avatar from "./Avatar";
+import DropdownItem from "./DropdownItem";
 
 export default function Header() {
   const { user } = useUser();
@@ -50,7 +52,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-white sticky top-0  z-[20]  py-4 px-6 flex items-center border-b border-gray-200  justify-end">
+    <header className="  bg-white  sticky top-0  z-[20]  py-2 px-6 flex items-center border-b border-gray-200  justify-end">
       <div className="flex items-center gap-5 space-x-4">
         <button
           onClick={() => {
@@ -76,7 +78,7 @@ export default function Header() {
                 }}
               />
               <DropdownItem
-                text="Español"
+                text="Arabic"
                 onClick={() => {
                   /* Change language */
                 }}
@@ -120,42 +122,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
-}
-
-function DropdownItem({ icon: Icon, text, onClick, disabled }: any) {
-  return (
-    <button
-      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-50"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      <div className="flex items-center  py-2 space-x-2">
-        {Icon && <Icon className="w-5 h-5" />}
-        <span>{text}</span>
-      </div>
-    </button>
-  );
-}
-
-function Avatar({ fullName, role, avatar }: any) {
-  return (
-    <div className="flex items-center space-x-2 mr-2">
-      <img
-        src={avatar || `https://avatars.dicebear.com/api/initials/.svg`}
-        alt="User Avatar"
-        className="w-10 h-10 rounded-full"
-      />
-      <div className="flex flex-col text-start">
-        <p className="text-[14px]  font-medium text-gray-700">{fullName}</p>
-        <p
-          className={`text-md ${
-            role === "owner" ? "text-yellow-400  " : "text-gray-500"
-          } `}
-        >
-          {role}{" "}
-        </p>
-      </div>
-    </div>
   );
 }

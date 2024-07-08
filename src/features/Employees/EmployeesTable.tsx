@@ -9,10 +9,11 @@ import { useUser } from "../authentication/useUser";
 
 export default function EmployeesTable() {
   const { isLoading, employees } = useEmployees();
-  const filteredEmployees = employees.sort(
+  const filteredEmployees = employees?.sort(
     (a: any, b: any) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
+  console.log(filteredEmployees);
 
   if (isLoading) return <Spinner />;
 

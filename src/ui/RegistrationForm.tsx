@@ -187,7 +187,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
         <Button
           type="button"
           text="Cancel"
-          textColor="text-black"
+          textColor="  text-gray-800"
           bgColor="bg-white"
           border="border"
           borderColor="border-black"

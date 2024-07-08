@@ -158,7 +158,7 @@ export default function PageNotFound() {
         ></path>
       </svg>
       <div className="flex flex-col items-center justify-center">
-        <p className="text-3xl md:text-4xl lg:text-5xl text-gray-800 mt-12">
+        <p className="text-3xl md:text-4xl lg:text-5xl   text-gray-800    mt-12">
           Page Not Found
         </p>
         <p className="md:text-lg lg:text-xl text-gray-600 mt-8">

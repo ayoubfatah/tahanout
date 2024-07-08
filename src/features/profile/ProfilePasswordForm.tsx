@@ -106,7 +106,7 @@ export default function ProfilePasswordForm() {
           <Button
             text="cancel"
             onClick={handleReset}
-            textColor="text-black"
+            textColor="  text-gray-800"
             bgColor="bg-white"
             border="border"
             borderColor="border-gray-300"

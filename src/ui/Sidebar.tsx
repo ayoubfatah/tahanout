@@ -9,8 +9,8 @@ import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <div className="row-[1/-1] text-[16px] flex  flex-col py-10 px-6 gap-5 items-center sticky font-[500] text-grey-600 shadow-sm">
-      <NavLink to="/" className=" w-full mb-4">
+    <div className="row-[1/-1] text-[16px] flex  flex-col  px-5 gap-3 items-center sticky font-[500] text-gray-600 shadow-sm">
+      <NavLink to="/" className="   w-full py-5 px-2 ">
         Tahanout
       </NavLink>
       <NavLink
@@ -21,8 +21,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiHome size={25} />
-        <span className="text-grey-600">Home</span>{" "}
+        <HiHome size={24} />
+        <span className="   ml-1  text-gray-600">Home</span>{" "}
       </NavLink>
       {/*  */}
       <NavLink
@@ -33,8 +33,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <FaShoppingCart size={25} />
-        <span className="text-grey-600">Products</span>{" "}
+        <FaShoppingCart size={24} />
+        <span className="   ml-1  text-gray-600">Products</span>{" "}
       </NavLink>
       {/*  */}
       <NavLink
@@ -45,8 +45,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <FaBoxOpen size={25} />
-        <span className="text-grey-600">Orders</span>{" "}
+        <FaBoxOpen size={24} />
+        <span className="   ml-1  text-gray-600">Orders</span>{" "}
       </NavLink>
       {/*  */}
       <NavLink
@@ -57,8 +57,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiMiniUserGroup size={25} />
-        <span className="text-grey-600">Employees</span>{" "}
+        <HiMiniUserGroup size={24} />
+        <span className="   ml-1  text-gray-600">Employees</span>{" "}
       </NavLink>
       <NavLink
         to="/customers"
@@ -68,8 +68,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiMiniUsers size={25} />
-        <span className="text-grey-600">Customers</span>{" "}
+        <HiMiniUsers size={24} />
+        <span className="   ml-1  text-gray-600">Customers</span>{" "}
       </NavLink>{" "}
       {/*  */}{" "}
       <NavLink
@@ -80,8 +80,8 @@ export default function Sidebar() {
             : "hover:bg-gray-100 w-full  py-3 px-2  flex items-center gap-2"
         }
       >
-        <HiMiniCog8Tooth size={25} />
-        <span className="text-grey-600">Settings</span>{" "}
+        <HiMiniCog8Tooth size={24} />
+        <span className="   ml-1  text-gray-600">Settings</span>{" "}
       </NavLink>
     </div>
   );
