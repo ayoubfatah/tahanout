@@ -1,16 +1,14 @@
-import React from "react";
-import { useOrders } from "../Orders/useOrders";
-import { formatDateToMonthDay } from "../../utils/helpers";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import {
+    Area,
+    AreaChart,
+    CartesianGrid,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
+import { useOrders } from "../Orders/useOrders";
 
 export default function OrdersChart() {
   const { orders } = useOrders();

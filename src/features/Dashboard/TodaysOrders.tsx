@@ -39,7 +39,7 @@ export default function TodaysOrders() {
         Today's Orders{" "}
         <span className="text-sm text-gray-600">(pending orders)</span>
       </h2>
-      <div className=" px-3 px-2  bg-white    items-center gap-2 ">
+      <div className="  px-2  bg-white    items-center gap-2 ">
         <div className="border-b border-gray-200  py-1.5 grid grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1fr] text-gray-400 text-[12px]  ">
           <span className=" ">Order ID</span>
           <span className=" ">Customer</span>
@@ -75,16 +75,16 @@ export default function TodaysOrders() {
               {order.createdAt ? formatTime(order.createdAt) : "N/A"}
             </span>
             <span className="text-[14px] text-gray-700">{order.quantity}</span>
-            <span className="text-[14px] text-gray-700">
+            <span className="text-[14px] text-gray-600 translate-x-[5px]">
               {formatCurrency(order.totalPrice)}
             </span>
 
             <div className="flex justify-end">
               <span
                 onClick={() => navigate(`/orders/${order.id}`)}
-                className="cursor-pointer  "
+                className="cursor-pointer  text-blue-400 "
               >
-                <HiOutlineEye />
+                <HiOutlineEye size={20} />
               </span>
             </div>
           </div>
