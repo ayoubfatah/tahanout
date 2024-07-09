@@ -10,6 +10,8 @@ import useCountUp from "../hooks/useCountUp";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { formatCurrency } from "../utils/helpers";
 import TopCustomers from "../features/Dashboard/TopCustomers";
+import TopProducts from "../features/Dashboard/TopProducts";
+import TodaysOrders from "../features/Dashboard/TodaysOrders";
 
 const colorClasses: any = {
   green: "bg-green-100 text-green-600",
@@ -57,10 +59,12 @@ const Dashboard = () => {
             <div className="col-span-4 bg-white rounded-md"></div>
             {/* today orders */}
             <div className="bg-white p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
-              <h2 className="text-xl font-semibold text-gray-700">
+              <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-1">
                 {" "}
-                Today's Orders
+                Today's Orders{" "}
+                <span className="text-sm text-gray-600">(pending orders)</span>
               </h2>
+              <TodaysOrders />
             </div>
 
             {/* customers */}
@@ -70,32 +74,7 @@ const Dashboard = () => {
               <h2 className="text-xl font-semibold text-gray-700 mb-2">
                 Top Products:
               </h2>
-              <div className="flex items-center justify-between hover:bg-gray-100">
-                <img
-                  className="bg-gray-300 h-10 w-10 rounded-full"
-                  src="https://jmvbwhvpdounmufynkwd.supabase.co/storage/v1/object/public/productImages/edb21202-26e9-4192-a612-784d1d788847-2.jpg"
-                  alt=""
-                />
-                <div className="flex justify-center flex-col text-[12px]">
-                  <span className="text-gray-500">Air Pods Pro</span>
-                  <span className="text-gray-600">$100</span>
-                </div>
-                <div className="flex justify-center flex-col text-[12px]">
-                  <span className="text-gray-400">Quantity</span>
-                  <span className="text-gray-500">100</span>
-                </div>
-                <div className="flex justify-center flex-col text-[12px]">
-                  <span className="text-gray-400">Orders</span>
-                  <span className="text-gray-500">400</span>
-                </div>
-                <div className="flex justify-center flex-col text-[12px]">
-                  <span className="text-gray-400">Warehouse</span>
-                  <span className="text-gray-500">Ouarzazate</span>
-                </div>
-                <div>
-                  <HiOutlineDotsVertical color="gray" size={20} />
-                </div>
-              </div>
+              <TopProducts />
             </div>
           </div>
         </div>

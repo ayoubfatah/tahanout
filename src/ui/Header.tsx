@@ -94,7 +94,7 @@ export default function Header() {
         </div>
         <div className="relative" ref={userDropdownRef}>
           <button
-            onClick={toggleUserDropdown}
+            onMouseEnter={toggleUserDropdown}
             className="flex items-center space-x-2"
           >
             <Avatar fullName={fullName} role={role} avatar={avatar} />

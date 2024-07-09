@@ -31,7 +31,7 @@ export default function TopCustomers() {
 
   const sortedTopCustomers = customerData
     ?.sort((a: any, b: any) => b.totalSpent - a.totalSpent)
-    .slice(0, 5);
+    .slice(0, 10);
 
   return (
     <div className="bg-white p-5 relative col-span-2 flex flex-col gap-3 rounded-md duration-300 transition-all">
