@@ -15,11 +15,22 @@ import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import OrdersChart from "../features/Dashboard/OrdersChart";
 import { OverviewCard } from "../ui/OverviewCard";
 import Overview from "../features/Dashboard/Overview";
+import Filter from "../ui/Filter";
 
 const Dashboard = () => {
   return (
     <>
-      <div className="text-[30px] font-semibold mb-7">Dashboard</div>
+      <div className="flex items-center justify-between gap-3 mb-7">
+        <div className="text-[30px] font-semibold ">Dashboard</div>
+        <Filter
+          filterField={"last"}
+          options={[
+            { label: "last 7 days", value: "7" },
+            { label: "last 30 days", value: "30" },
+            { label: "last 90 days", value: "90" },
+          ]}
+        />
+      </div>
       <div className="min-h-screen flex">
         <div className="flex-1">
           <div className="grid grid-cols-4 grid-rows-[auto_auto_300px_300px_auto] gap-5">

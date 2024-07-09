@@ -18,12 +18,12 @@ export default function TopCustomersRow({ customer, i }: any) {
       </div>
       <div className="flex flex-col text-[12px]">
         <span className="text-gray-400">Orders</span>
-        <span className="text-gray-500">{customer.totalOrders}</span>
+        <span className="text-gray-500">{customer?.totalOrders}</span>
       </div>
       <div className="flex flex-col text-[12px]">
         <span className="text-gray-400">Money Spent</span>
-        <span className="text-gray-500">
-          {formatCurrency(customer.totalSpent)}
+        <span className="text-blue-500">
+          {formatCurrency(customer?.totalSpent)}
         </span>
       </div>
     </div>

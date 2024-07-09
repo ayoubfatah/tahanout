@@ -31,7 +31,7 @@ export default function TopProductsRow({ product, i }: any) {
       </div>
       <div className="flex justify-center flex-col text-[12px]">
         <span className="text-gray-400">total revenues</span>
-        <span className="text-gray-500">
+        <span className="text-blue-500">
           {formatCurrency(product.totalRevenues)}
         </span>
       </div>

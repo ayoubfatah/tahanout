@@ -1,18 +1,23 @@
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import {
-    Area,
-    AreaChart,
-    CartesianGrid,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 import { useOrders } from "../Orders/useOrders";
+import { formatCurrency } from "../../utils/helpers";
+import { useSearchParams } from "react-router-dom";
 
 export default function OrdersChart() {
   const { orders } = useOrders();
-  const numDays = 15; // You can change this to any number of days you want to display
+  const [searchParams] = useSearchParams();
+
+  const numDays = Number(searchParams.get("last")) || 7;
+
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
@@ -29,19 +34,25 @@ export default function OrdersChart() {
       ?.filter((order) => order.status === "delivered")
       ?.reduce((acc, curr) => acc + curr.quantity, 0);
 
+    const totalPriceOfDate =
+      orders
+        ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
+        .filter((order) => order.status === "delivered")
+        .reduce((acc, curr) => acc + curr.totalPrice, 0) || 0;
     return {
       label: dateString,
       totalOrders: totalOrdersOfDate || 0,
       confirmedOrders: totalConfirmedOrdersOfDate || 0,
+      totalSales: formatCurrency(totalPriceOfDate) || 0,
     };
   });
 
   return (
     <div>
-      <h1 className="px-4 py-3 text-gray-800 font-semibold text-[20px]">
-        Orders from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
-        {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")}{" "}
-      </h1>
+      <h2 className="px-4 py-3 text-gray-800 font-semibold text-[20px]">
+        Stats from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
+        {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy")}{" "}
+      </h2>
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
           data={ordersChartData}
@@ -51,14 +62,23 @@ export default function OrdersChart() {
           <XAxis
             dataKey="label"
             tickSize={0.9}
-            padding={{ left: 10, right: 10 }}
-            tick={{ fontSize: 14 }}
+            tick={{ fontSize: 14, dy: 10 }} // Added dy: 10 to move labels down
           />
           <YAxis
             tick={{ fontSize: 13 }}
             dataKey="totalOrders"
             name="Total Orders"
             domain={[0, 400]}
+            scale="auto"
+            type="number"
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tick={{ fontSize: 13 }}
+            dataKey="totalSales"
+            name="Total Sales"
+            domain={[0, "auto"]}
             scale="auto"
             type="number"
           />
@@ -81,6 +101,7 @@ export default function OrdersChart() {
             fill="#ccfbf1"
             strokeWidth={1}
           />
+          <Area dataKey="totalSales" name="Total Sales" stroke="#ffd700" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
