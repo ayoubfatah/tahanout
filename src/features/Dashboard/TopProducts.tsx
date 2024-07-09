@@ -1,11 +1,12 @@
 import { Product } from "../../Types/types";
+import Spinner from "../../ui/Spinner";
 import { useOrders } from "../Orders/useOrders";
 import useProducts from "../Products/useProducts";
 import TopProductsRow from "./TopProductsRow";
 
 export default function TopProducts() {
-  const { products } = useProducts();
-  const { orders } = useOrders();
+  const { products, isLoading } = useProducts();
+  const { orders, isLoading: isLoading2 } = useOrders();
 
   //
   //
@@ -32,12 +33,19 @@ export default function TopProducts() {
   const sortedTopProducts = topProducts?.sort((a: any, b: any) => {
     return b.totalRevenues - a.totalRevenues;
   });
-
+  if (isLoading || isLoading2) return <Spinner />;
+  if (sortedTopProducts?.length === 0)
+    return <div className=" p-2 text-gray-600">No products found</div>;
   return (
-    <div className="overflow-y-scroll">
-      {sortedTopProducts?.map((product: any) => (
-        <TopProductsRow key={product.productId} product={product} />
-      ))}
+    <div className="bg-white p-5 col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+      <h2 className="text-xl font-semibold text-gray-700 mb-2">
+        Top Products:
+      </h2>
+      <div className="overflow-y-scroll">
+        {sortedTopProducts?.map((product: any, i: number) => (
+          <TopProductsRow key={product.productId} i={i} product={product} />
+        ))}
+      </div>
     </div>
   );
 }

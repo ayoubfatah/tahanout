@@ -12,6 +12,7 @@ import { formatCurrency } from "../utils/helpers";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
 import TodaysOrders from "../features/Dashboard/TodaysOrders";
+import OrdersChart from "../features/Dashboard/OrdersChart";
 
 const colorClasses: any = {
   green: "bg-green-100 text-green-600",
@@ -26,7 +27,7 @@ const Dashboard = () => {
       <div className="text-[30px] font-semibold mb-7">Dashboard</div>
       <div className="min-h-screen flex">
         <div className="flex-1">
-          <div className="grid grid-cols-4 grid-rows-[auto_400px_300px_300px_auto] gap-5">
+          <div className="grid grid-cols-4 grid-rows-[auto_auto_300px_300px_auto] gap-5">
             <OverviewCard
               iconColor="green"
               icon={<HiOutlineBanknotes size={30} />}
@@ -56,26 +57,14 @@ const Dashboard = () => {
             />
 
             {/* chart */}
-            <div className="col-span-4 bg-white rounded-md"></div>
-            {/* today orders */}
-            <div className="bg-white p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
-              <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-1">
-                {" "}
-                Today's Orders{" "}
-                <span className="text-sm text-gray-600">(pending orders)</span>
-              </h2>
-              <TodaysOrders />
+            <div className="col-span-4  bg-white my-10 px-5 py-5">
+              <OrdersChart />
             </div>
 
-            {/* customers */}
+            {/* today orders */}
+            <TodaysOrders />
             <TopCustomers />
-            {/* top products */}
-            <div className="bg-white p-5 col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
-              <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                Top Products:
-              </h2>
-              <TopProducts />
-            </div>
+            <TopProducts />
           </div>
         </div>
       </div>

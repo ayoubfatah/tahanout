@@ -16,3 +16,15 @@ export function formatDate(dateString: string): string {
     return format(date, "MMM d yyyy");
   }
 }
+
+export const formatTime = (date: Date) => {
+  const hours = format(date, "HH");
+  const minutes = format(date, "mm");
+
+  return `${hours}h :${minutes}min `;
+};
+
+export const formatDateToMonthDay = (date: Date) => {
+  return format(date, "MMM dd").toUpperCase();
+};
+ 
