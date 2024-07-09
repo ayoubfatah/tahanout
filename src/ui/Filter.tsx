@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 export default function Filter({ filterField, options }: any) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const filteredValue = searchParams.get(filterField) || "all";
+  const filteredValue = searchParams.get(filterField) || options[0].value;
   function handleClick(value: string) {
     searchParams.set(filterField, value);
     setSearchParams(searchParams);

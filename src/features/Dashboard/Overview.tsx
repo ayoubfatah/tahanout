@@ -77,7 +77,7 @@ export default function Overview() {
   return (
     <>
       <OverviewCard
-        iconColor="green"
+        iconColor="yellow"
         icon={<HiOutlineBanknotes size={30} />}
         title="Total Sales"
         value={totalSales}
@@ -91,7 +91,7 @@ export default function Overview() {
       />
       <OverviewCard
         icon={<HiOutlineCheck size={30} />}
-        iconColor="indigo"
+        iconColor="green"
         title="Confirmed Orders"
         value={totalConfirmed}
       />

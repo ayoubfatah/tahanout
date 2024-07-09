@@ -1,20 +1,9 @@
 // src/components/Dashboard.js
-import React from "react";
-import {
-  HiOutlineBanknotes,
-  HiOutlineShoppingBag,
-  HiOutlineTruck,
-  HiOutlineUserGroup,
-} from "react-icons/hi2";
-import useCountUp from "../hooks/useCountUp";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { formatCurrency } from "../utils/helpers";
+import OrdersChart from "../features/Dashboard/OrdersChart";
+import Overview from "../features/Dashboard/Overview";
+import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
-import TodaysOrders from "../features/Dashboard/TodaysOrders";
-import OrdersChart from "../features/Dashboard/OrdersChart";
-import { OverviewCard } from "../ui/OverviewCard";
-import Overview from "../features/Dashboard/Overview";
 import Filter from "../ui/Filter";
 
 const Dashboard = () => {
