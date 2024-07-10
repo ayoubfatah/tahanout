@@ -1,10 +1,12 @@
 // src/components/Dashboard.js
+import { PieChart } from "recharts";
 import OrdersChart from "../features/Dashboard/OrdersChart";
 import Overview from "../features/Dashboard/Overview";
 import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
 import Filter from "../ui/Filter";
+import CitiesPieChart from "../features/Dashboard/PieChart";
 
 const Dashboard = () => {
   return (
@@ -14,6 +16,7 @@ const Dashboard = () => {
         <Filter
           filterField={"last"}
           options={[
+            { label: "today", value: "1" },
             { label: "last 7 days", value: "7" },
             { label: "last 30 days", value: "30" },
             { label: "last 90 days", value: "90" },
@@ -22,12 +25,13 @@ const Dashboard = () => {
       </div>
       <div className="min-h-screen flex">
         <div className="flex-1">
-          <div className="grid grid-cols-4 grid-rows-[auto_auto_300px_300px_auto] gap-5">
+          <div className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto] gap-5">
             <Overview />
             {/* chart */}
             <div className="col-span-4  bg-white my-10 px-5 py-5">
               <OrdersChart />
             </div>
+            <CitiesPieChart />
 
             {/* today orders */}
             <TodaysOrders />

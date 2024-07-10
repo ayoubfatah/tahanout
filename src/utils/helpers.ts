@@ -27,4 +27,3 @@ export const formatTime = (date: Date) => {
 export const formatDateToMonthDay = (date: Date) => {
   return format(date, "MMM dd").toUpperCase();
 };
- 

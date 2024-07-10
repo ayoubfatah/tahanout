@@ -25,6 +25,7 @@ export type ChildrenType = {
 };
 
 export type CustomersType = {
+  region: string;
   id: number;
   fullName: string;
   email: string;

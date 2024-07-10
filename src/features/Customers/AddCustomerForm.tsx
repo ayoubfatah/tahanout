@@ -3,6 +3,8 @@ import { CustomersType } from "../../Types/types";
 import useAddCustomer from "./useAddCustomer";
 import toast from "react-hot-toast";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
+import { useEffect, useState } from "react";
+import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCities";
 
 type CustomerFormProps = {
   onClose: () => void;
@@ -11,13 +13,26 @@ type CustomerFormProps = {
 
 const CustomerForm = ({ onClose }: CustomerFormProps) => {
   const { isLoading, addCustomerFun } = useAddCustomer();
+  const [cities, setCities] = useState<string[]>([]);
   const playNotificationSound = useNotificationSound();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<CustomersType>();
+
+  const watchRegion = watch("region");
+
+  useEffect(() => {
+    if (watchRegion) {
+      const selectedRegion = moroccanRegionsAndCities.regions.find(
+        (region) => region.name === watchRegion
+      );
+      setCities(selectedRegion ? selectedRegion.cities : []);
+    }
+  }, [watchRegion]);
 
   const handleFormSubmit = (data: CustomersType) => {
     addCustomerFun(data, {
@@ -114,12 +129,38 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
+          <label>Region:</label>
+          <select
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            {...register("region", { required: "Region is required" })}
+          >
+            <option value="">Select a region</option>
+            {moroccanRegionsAndCities.regions.map((region) => (
+              <option key={region.name} value={region.name}>
+                {region.name}
+              </option>
+            ))}
+          </select>
+          {errors.region && (
+            <span className="text-red-500 text-[12px]">
+              {errors.region.message}
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2">
           <label>City:</label>
-          <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            type="text"
+          <select
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("city", { required: "City is required" })}
-          />
+          >
+            <option value="">Select a city</option>
+            {cities.map((city: any) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
           {errors.city && (
             <span className="text-red-500 text-[12px]">
               {errors.city.message}
