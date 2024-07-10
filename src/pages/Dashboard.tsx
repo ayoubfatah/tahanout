@@ -1,12 +1,13 @@
 // src/components/Dashboard.js
-import { PieChart } from "recharts";
+import { BarChart, PieChart } from "recharts";
 import OrdersChart from "../features/Dashboard/OrdersChart";
 import Overview from "../features/Dashboard/Overview";
 import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
 import Filter from "../ui/Filter";
-import CitiesPieChart from "../features/Dashboard/PieChart";
+import CitiesPieChart from "../features/Dashboard/RegionsPieChart";
+import BarChartSales from "../features/Dashboard/BarChartSales";
 
 const Dashboard = () => {
   return (
@@ -19,7 +20,7 @@ const Dashboard = () => {
             { label: "today", value: "1" },
             { label: "last 7 days", value: "7" },
             { label: "last 30 days", value: "30" },
-            { label: "last 90 days", value: "90" },
+            { label: "all", value: "90" },
           ]}
         />
       </div>
@@ -31,6 +32,7 @@ const Dashboard = () => {
             <div className="col-span-4  bg-white my-10 px-5 py-5">
               <OrdersChart />
             </div>
+            <BarChartSales />
             <CitiesPieChart />
 
             {/* today orders */}

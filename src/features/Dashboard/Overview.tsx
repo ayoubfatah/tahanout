@@ -77,30 +77,33 @@ export default function Overview() {
   return (
     <>
       <OverviewCard
+        numDays={numDays}
         iconColor="yellow"
         icon={<HiOutlineBanknotes size={30} />}
         title="Total Sales"
         value={totalSales}
-        format={(value) => `$${value.toLocaleString()}`}
+        format={true}
       />
       <OverviewCard
+        numDays={numDays}
         icon={<HiOutlineShoppingBag size={30} />}
         iconColor="blue"
         title="Total Orders"
         value={totalOrders}
       />
       <OverviewCard
+        numDays={numDays}
         icon={<HiOutlineCheck size={30} />}
         iconColor="green"
         title="Confirmed Orders"
         value={totalConfirmed}
       />
       <OverviewCard
+        numDays={numDays}
         icon={<HiOutlineTruck size={30} />}
         iconColor="teal"
-        title="Delivery Rate"
-        value={DeliveryRate}
-        format={(value) => `${value}%`}
+        title="Delivered Orders"
+        value={totalDelivered}
       />
     </>
   );

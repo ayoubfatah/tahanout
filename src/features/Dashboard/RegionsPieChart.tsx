@@ -41,17 +41,17 @@ export default function RegionsPieChart() {
         Summary of Orders by Moroccan Regions
       </h2>
       <div className=" flex items-center justify-center ">
-        <div className="w-full h-[300px]">
+        <div className="w-full h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                innerRadius={50}
+                innerRadius={55}
                 data={filteredData}
                 dataKey="orders"
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={90}
+                outerRadius={85}
                 fill="#8884d8"
                 label
               >
@@ -66,20 +66,20 @@ export default function RegionsPieChart() {
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="ml-5 ">
+        <div className="">
           {filteredData.map((entry, index) => (
             <div
               key={`indicator-${index}`}
-              className="flex items-center mb-1 text-xs "
+              className=" flex items-center mb-1 text-[10px] "
             >
               <div
-                className="w-6 h-4"
+                className="w-4 h-2"
                 style={{
                   backgroundColor: COLORS[index % COLORS.length],
                   marginRight: 5,
                 }}
               ></div>
-              <span>{entry.name}</span>
+              <span className=" ">{entry.name}</span>
             </div>
           ))}
         </div>

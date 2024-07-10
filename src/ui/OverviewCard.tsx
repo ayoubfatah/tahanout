@@ -1,4 +1,5 @@
 import useCountUp from "../hooks/useCountUp";
+import { formatCurrency } from "../utils/helpers";
 
 const colorClasses: any = {
   green: "bg-green-100 text-green-600",
@@ -12,15 +13,18 @@ export const OverviewCard = ({
   value,
   icon,
   iconColor,
-  format = (value) => value,
+  format,
+  numDays,
 }: {
   title: string;
   value: number;
   icon: React.ReactNode;
   iconColor: string;
-  format?: (value: number) => string | number;
+  format?: boolean;
+  numDays: number;
 }) => {
-  const animatedValue = useCountUp(value, 800);
+  const speed = numDays < 7 ? 200 : 800;
+  const animatedValue = useCountUp(value, speed);
 
   return (
     <div className="bg-white px-2 py-5 flex gap-5 shadow-sm rounded-md items-center hover:scale-[1.03] duration-300 transition-all">
@@ -32,7 +36,7 @@ export const OverviewCard = ({
           {title}
         </h2>
         <p className="text-gray-700 font-semibold text-[20px]">
-          {format(animatedValue)}
+          {format ? formatCurrency(animatedValue) : animatedValue}
         </p>
       </div>
     </div>
