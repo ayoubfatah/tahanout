@@ -1,78 +1,80 @@
-import React from "react";
-import { OverviewCard } from "../../ui/OverviewCard";
+import { eachDayOfInterval, subDays } from "date-fns";
 import {
   HiOutlineBanknotes,
   HiOutlineCheck,
   HiOutlineShoppingBag,
   HiOutlineTruck,
-  HiOutlineUserGroup,
 } from "react-icons/hi2";
-import { useOrders } from "../Orders/useOrders";
-import { eachDayOfInterval, isSameDay, subDays } from "date-fns";
-import { useSearchParams } from "react-router-dom";
+import { OrderType } from "../../Types/types";
+import { OverviewCard } from "../../ui/OverviewCard";
+import { filteredByDates } from "../../utils/helpers";
 
-export default function Overview() {
-  const { orders } = useOrders();
-  const [searchParams] = useSearchParams();
+type OverviewProps = {
+  orders: OrderType[];
+  numDays: number;
+};
 
-  const numDays = Number(searchParams.get("last")) || 15;
+const calculateTotalSales = (orders: OrderType[], status: string) => {
+  return orders
+    .filter((order) => order.status === status)
+    .reduce((acc, order) => acc + order.totalPrice, 0);
+};
 
-  //   total sales
+const calculateTotalQuantity = (orders: OrderType[], status?: string) => {
+  return orders
+    .filter((order) => (status ? order.status === status : true))
+    .reduce((acc, order) => acc + order.quantity, 0);
+};
 
+const calculateDeliveryRate = (delivered: number, total: number) => {
+  return total > 0 ? Math.ceil((delivered / total) * 100) : 0;
+};
+
+export default function Overview({ orders, numDays }: OverviewProps) {
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
 
   const totalSalesBasedOnDate = allDates.map((date) => {
-    const totalOrdersOfDate = orders
-      ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
-      ?.filter((order) => order.status === "delivered")
-      ?.reduce((acc, order) => {
-        return acc + order.totalPrice;
-      }, 0);
-    return totalOrdersOfDate;
+    const ordersOfDate = filteredByDates(orders, date);
+    return calculateTotalSales(ordersOfDate, "delivered");
   });
-  const totalSales =
-    totalSalesBasedOnDate?.reduce((acc, curr) => acc + curr, 0) || 0;
+  const totalSales = totalSalesBasedOnDate.reduce((acc, curr) => acc + curr, 0);
 
-  //   total orders
-  const totalOrdersBasedOnDate = allDates?.map((date) => {
-    const totalOrdersOfDate = orders
-      ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
-      ?.reduce((acc, order) => acc + order.quantity, 0);
-    return totalOrdersOfDate;
+  const totalOrdersBasedOnDate = allDates.map((date) => {
+    const ordersOfDate = filteredByDates(orders, date);
+    return calculateTotalQuantity(ordersOfDate);
   });
-  const totalOrders =
-    totalOrdersBasedOnDate?.reduce((acc, curr) => acc + curr) || 0;
+  const totalOrders = totalOrdersBasedOnDate.reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
 
-  //   total delivered orders
-  const totalDeliveredBasedOnDate = allDates?.map((date) => {
-    const totalOrdersOfDate = orders
-      ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
-      ?.filter((order) => order.status === "delivered")
-      ?.reduce((acc, order) => acc + order.quantity, 0);
-    return totalOrdersOfDate;
+  const totalDeliveredBasedOnDate = allDates.map((date) => {
+    const ordersOfDate = filteredByDates(orders, date);
+    return calculateTotalQuantity(ordersOfDate, "delivered");
   });
-  const totalDelivered =
-    totalDeliveredBasedOnDate?.reduce((acc, curr) => acc + curr) || 0;
+  const totalDelivered = totalDeliveredBasedOnDate.reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
 
-  const DeliveryRate = Math.ceil((totalDelivered / totalOrders) * 100) || 0;
+  const deliveryRate = calculateDeliveryRate(totalDelivered, totalOrders);
 
-  //   confirmed  orders
-
-  const totalConfirmedBasedOnDate = allDates?.map((date) => {
-    const totalOrdersOfDate = orders
-      ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
-      ?.filter((order) => order.status !== "pending")
-      .filter((order) => order.status !== "cancelled")
-      ?.reduce((acc, order) => acc + order.quantity, 0);
-
-    return totalOrdersOfDate;
+  const totalConfirmedBasedOnDate = allDates.map((date) => {
+    const ordersOfDate = filteredByDates(orders, date);
+    return calculateTotalQuantity(
+      ordersOfDate.filter(
+        (order: OrderType) =>
+          order.status !== "pending" && order.status !== "cancelled"
+      )
+    );
   });
-
-  const totalConfirmed =
-    totalConfirmedBasedOnDate?.reduce((acc, curr) => acc + curr) || 0;
+  const totalConfirmed = totalConfirmedBasedOnDate.reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
 
   return (
     <>

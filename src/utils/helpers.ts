@@ -1,4 +1,4 @@
-import { format, isToday, isYesterday, parseISO } from "date-fns";
+import { format, isSameDay, isToday, isYesterday, parseISO } from "date-fns";
 
 export const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
@@ -26,4 +26,8 @@ export const formatTime = (date: Date) => {
 
 export const formatDateToMonthDay = (date: Date) => {
   return format(date, "MMM dd").toUpperCase();
+};
+
+export const filteredByDates = (data: any, date: Date) => {
+  return data.filter((data: any) => isSameDay(date, new Date(data.createdAt)));
 };

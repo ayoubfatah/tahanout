@@ -5,10 +5,9 @@ import Spinner from "../../ui/Spinner";
 import { formatCurrency, formatTime } from "../../utils/helpers";
 import { useOrders } from "../Orders/useOrders";
 import TodaysOrdersRow from "./TodaysOrdersRow";
+import { OrderType } from "../../Types/types";
 
-export default function TodaysOrders() {
-  const { isLoading, orders } = useOrders();
-
+export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
   function getTodaysOrders(orders: any) {
     const now = new Date();
     const todayStart = startOfDay(now);
@@ -21,10 +20,6 @@ export default function TodaysOrders() {
   }
 
   const todayPendingOrders = getTodaysOrders(orders);
-
-  const navigate = useNavigate();
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div className="bg-white  p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">

@@ -43,16 +43,18 @@ const OrderInfoPage: React.FC = () => {
   return (
     <Modal>
       <div className="fade-in-top container mx-auto p-6">
-        <div
-          role="button"
-          onClick={navigateBack}
-          className="flex items-center mb-6"
-        >
-          <FaArrowLeft className="mr-2 text-sky-500 cursor-pointer text-xl" />
-          <h1 className="text-2xl font-semibold text-sky-500">
-            Order Information
-          </h1>
-        </div>
+        <span>
+          <span
+            role="button"
+            onClick={navigateBack}
+            className="flex items-center mb-6"
+          >
+            <FaArrowLeft className="mr-2 text-sky-500 cursor-pointer text-xl" />
+            <h1 className="text-2xl font-semibold text-sky-500">
+              Order Information
+            </h1>
+          </span>
+        </span>
         <div className="space-y-6">
           <OrderSection settings={settings} order={order} title="Order Info" />
           <OrderSection

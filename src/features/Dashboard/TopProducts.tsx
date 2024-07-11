@@ -1,12 +1,11 @@
-import { Product } from "../../Types/types";
+import { OrderType, Product } from "../../Types/types";
 import Spinner from "../../ui/Spinner";
 import { useOrders } from "../Orders/useOrders";
 import useProducts from "../Products/useProducts";
 import TopProductsRow from "./TopProductsRow";
 
-export default function TopProducts() {
+export default function TopProducts({ orders }: { orders: OrderType[] }) {
   const { products, isLoading } = useProducts();
-  const { orders, isLoading: isLoading2 } = useOrders();
 
   //
   //
@@ -33,7 +32,7 @@ export default function TopProducts() {
   const sortedTopProducts = topProducts?.sort((a: any, b: any) => {
     return b.totalRevenues - a.totalRevenues;
   });
-  if (isLoading || isLoading2) return <Spinner />;
+  if (isLoading) return <Spinner />;
   if (sortedTopProducts?.length === 0)
     return <div className=" p-2 text-gray-600">No products found</div>;
   return (

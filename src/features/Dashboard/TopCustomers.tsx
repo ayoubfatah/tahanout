@@ -7,8 +7,7 @@ import { useCustomers } from "../Customers/useCutomers";
 import TopCustomersRow from "./TopCustomersRow";
 import Spinner from "../../ui/Spinner";
 
-export default function TopCustomers() {
-  const { orders, isLoading } = useOrders();
+export default function TopCustomers({ orders }: { orders: OrderType[] }) {
   const { customers, isLoading: customersLoading } = useCustomers();
 
   const customerData = customers?.map((customer: CustomersType) => {
@@ -34,7 +33,6 @@ export default function TopCustomers() {
     ?.sort((a: any, b: any) => b.totalSpent - a.totalSpent)
     .slice(0, 10);
 
-  if (isLoading || customersLoading) return <Spinner />;
   if (sortedTopCustomers?.length === 0)
     return <div className="p-5">No customers found</div>;
   return (

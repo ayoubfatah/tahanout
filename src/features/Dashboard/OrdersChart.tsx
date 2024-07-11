@@ -11,13 +11,15 @@ import {
 import { useOrders } from "../Orders/useOrders";
 import { formatCurrency } from "../../utils/helpers";
 import { useSearchParams } from "react-router-dom";
+import { OrderType } from "../../Types/types";
 
-export default function OrdersChart() {
-  const { orders } = useOrders();
-  const [searchParams] = useSearchParams();
-
-  const numDays = Number(searchParams.get("last")) || 7;
-
+export default function OrdersChart({
+  orders,
+  numDays,
+}: {
+  orders: OrderType[];
+  numDays: number;
+}) {
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
