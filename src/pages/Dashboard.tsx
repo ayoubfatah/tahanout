@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import BarChartSales from "../features/Dashboard/BarChartSales";
 import OrdersChart from "../features/Dashboard/OrdersChart";
 import Overview from "../features/Dashboard/Overview";
-import CitiesPieChart from "../features/Dashboard/RegionsPieChart";
+import RegionsPieChart from "../features/Dashboard/RegionsPieChart";
 import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
@@ -14,18 +14,20 @@ import Spinner from "../ui/Spinner";
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
   const [searchParams] = useSearchParams();
-  const numDays = Number(searchParams.get("last")) || 15;
+  const numDays = Number(searchParams.get("last")) || 1;
   if (isLoading) return <Spinner />;
   return (
     <>
       <div className="flex items-center justify-between gap-3 mb-7">
-        <div className="text-[30px] font-semibold ">Dashboard</div>
+        <div className="text-[30px] text-gray-700 font-semibold ">
+          Dashboard
+        </div>
         <Filter
           filterField={"last"}
           options={[
             { label: "today", value: "1" },
-            { label: "last 7 days", value: "7" },
             { label: "last 30 days", value: "30" },
+            { label: "last 7 days", value: "7" },
             { label: "last 90 days", value: "90" },
           ]}
         />
@@ -35,8 +37,6 @@ const Dashboard = () => {
           <div className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto] gap-5">
             <Overview orders={orders?.length ? orders : []} numDays={numDays} />
             {/* chart */}
-            <BarChartSales />
-            <CitiesPieChart />
 
             <div className="col-span-4  bg-white  px-5 py-5">
               <OrdersChart
@@ -44,6 +44,8 @@ const Dashboard = () => {
                 numDays={numDays}
               />
             </div>
+            <BarChartSales orders={orders?.length ? orders : []} />
+            <RegionsPieChart orders={orders?.length ? orders : []} />
 
             {/* today orders */}
             <TodaysOrders orders={orders?.length ? orders : []} />

@@ -9,18 +9,49 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { OrderType } from "../../Types/types";
 
-const data = [
-  { month: "Jan", sales: 4000, profit: 2400 },
-  { month: "Feb", sales: 3000, profit: 1398 },
-  { month: "Mar", sales: 5000, profit: 3000 },
-  { month: "Apr", sales: 4500, profit: 2780 },
-  { month: "May", sales: 6000, profit: 3900 },
-  { month: "Jun", sales: 5500, profit: 3300 },
-  { month: "Jul", sales: 7000, profit: 4300 },
-];
+const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-const BarChartSales = () => {
+  const data = months.map((month) => {
+    const monthOrders = orders.filter(
+      (order: any) => months[new Date(order.createdAt).getMonth()] === month
+    );
+    const originalPrice = monthOrders.reduce(
+      (total: number, order: any) =>
+        order.status === "delivered"
+          ? order.products.originalPrice * order.quantity + total
+          : total,
+      0
+    );
+    const sales = monthOrders.reduce(
+      (total: number, order: any) =>
+        order.status === "delivered" ? total + order.totalPrice : total,
+      0
+    );
+
+    return {
+      month: month,
+      profits: (sales - originalPrice).toFixed(2),
+      sales: sales.toFixed(2),
+    };
+  });
+  const result = Object.values(data);
+
   return (
     <div className="col-span-2 bg-white p-5">
       <h2 className="text-[20px] font-semibold">
@@ -29,7 +60,7 @@ const BarChartSales = () => {
 
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
-          data={data}
+          data={result}
           margin={{
             top: 20,
             right: 30,
@@ -37,9 +68,9 @@ const BarChartSales = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 9" />
+          <XAxis dataKey="month" tickLine={false} interval={2} />
+          <YAxis tickLine={false} domain={[0, 500000]} />
           <Tooltip
             formatter={(value, name: string) => [
               `$${value}`,
@@ -49,8 +80,8 @@ const BarChartSales = () => {
             ]}
           />
           <Legend />
-          <Bar dataKey="sales" fill="#ffd700" name="Sales" />
-          <Bar dataKey="profit" fill="#3981e6" name="Profit" />
+          <Bar dataKey="sales" fill="#ffd700" name="Sales" barSize={"30px"} />
+          <Bar dataKey="profits" fill="#3981e6" name="Profits" barSize={30} />
         </BarChart>
       </ResponsiveContainer>
     </div>

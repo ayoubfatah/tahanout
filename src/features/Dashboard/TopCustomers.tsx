@@ -14,7 +14,9 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
     const customerOrders = orders?.filter(
       (order: OrderType) => order.customerId === customer.id
     );
-    const totalOrders = customerOrders?.length || 0;
+    const totalOrders = customerOrders
+      ?.map((order) => order.quantity)
+      .reduce((acc, curr) => acc + curr, 0);
     const totalSpent =
       customerOrders
         ?.map((order) => order.totalPrice)

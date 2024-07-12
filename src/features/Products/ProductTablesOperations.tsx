@@ -25,8 +25,8 @@ export default function ProductTablesOperations({
         />
         <SortBy
           options={[
-            { value: "createdAt-asc", label: "Sort by date (Newest first)" },
-            { value: "createdAt-desc", label: "Sort by date (Oldest first)" },
+            { value: "createdAt-desc", label: "Sort by date (Newest first)" },
+            { value: "createdAt-asc", label: "Sort by date (oldest first)" },
             { value: "name-asc", label: "Sort by name (A-Z)" },
             { value: "name-desc", label: "Sort by name (Z-A)" },
             { value: "price-asc", label: "Sort by price (low first)" },

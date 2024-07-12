@@ -1,40 +1,49 @@
 import React from "react";
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
-
-const data = [
-  { name: "Tanger-Tetouan-Al Hoceima", orders: 2400 },
-  { name: "Oriental", orders: 1200 },
-  { name: "Fès-Meknès", orders: 800 },
-  { name: "Rabat-Salé-Kénitra", orders: 1600 },
-  { name: "Béni Mellal-Khénifra", orders: 900 },
-  { name: "Casablanca-Settat", orders: 600 },
-  { name: "Marrakech-Safi", orders: 300 },
-  { name: "Drâa-Tafilalet", orders: 0 },
-  { name: "Souss-Massa", orders: 700 },
-  { name: "Guelmim-Oued Noun", orders: 0 },
-  { name: "Laâyoune-Sakia El Hamra", orders: 0 },
-  { name: "Dakhla-Oued Ed-Dahab", orders: 0 },
-];
+import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCities";
+import { OrderType } from "../../Types/types";
 
 const COLORS = [
-  "#FF6633",
-  "#FFB399",
-  "#FF33FF",
-  "#69690f",
-  "#00B3E6",
-  "#E6B333",
-  "#3366E6",
-  "#B34D4D",
-  "#80B300",
-  "#809900",
-  "#E6B3B3",
-  "#6680B3",
+  "#5BC0EB", // Sky Blue
+  "#F45B69", // Coral Pink
+  "#FDE74C", // Yellow
+  "#9BC53D", // Lime Green
+  "#F7CAC9", // Light Pink
+  "#4F6D7A", // Slate Gray
+  "#2A363B", // Charcoal
+  "#FF6F61", // Light Red
+  "#6B5B95", // Purple
+  "#88B04B", // Olive Green
+
+  "#92A8D1", // Light Blue
+  "#FF6F61", // Light Red
 ];
 
-export default function RegionsPieChart() {
-  // Filter out regions with zero orders
-  const filteredData = data.filter((entry) => entry.orders > 0);
+const getAllRegions = (regionsData: any) => {
+  return regionsData.regions.flatMap((region: any) => region.name);
+};
+const regions = getAllRegions(moroccanRegionsAndCities);
 
+//
+//
+export default function RegionsPieChart({ orders }: { orders: OrderType[] }) {
+  const data = regions.map((region: any) => {
+    const regionsOrders = orders.filter(
+      (order: any) => order.customers.region === region
+    );
+
+    return {
+      name: region,
+      orders: regionsOrders.reduce(
+        (acc: any, order: any) => acc + order.quantity,
+        0
+      ),
+    };
+  });
+  console.log(data);
+
+  // Filter out regions with zero orders
+  const filteredData = data.filter((entry: any) => entry.orders > 0);
   return (
     <div className="col-span-2 bg-white p-5">
       <h2 className="text-[20px] font-semibold">
@@ -55,11 +64,8 @@ export default function RegionsPieChart() {
                 fill="#8884d8"
                 label
               >
-                {filteredData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
+                {filteredData.map((entry: any, index: number) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
               <Tooltip />
@@ -67,15 +73,15 @@ export default function RegionsPieChart() {
           </ResponsiveContainer>
         </div>
         <div className="">
-          {filteredData.map((entry, index) => (
+          {filteredData.map((entry: any, index: number) => (
             <div
               key={`indicator-${index}`}
-              className=" flex items-center mb-1 text-[10px] "
+              className=" flex items-center mb-1 text-[12px] "
             >
               <div
-                className="w-4 h-2"
+                className="w-6 h-4"
                 style={{
-                  backgroundColor: COLORS[index % COLORS.length],
+                  backgroundColor: COLORS[index],
                   marginRight: 5,
                 }}
               ></div>
