@@ -1,20 +1,20 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useNotificationSound } from "../../hooks/useNotificationSound";
 import Button from "../../ui/Button";
 import Dropdown from "../../ui/Dropdown";
 import PaymentMethodDropDown from "../../ui/PaymentMethodDropDown";
 import { useCustomers } from "../Customers/useCutomers";
-import useProducts from "../Products/useProducts";
-import useGetSettings from "../Settings/useGetSettings";
-import CustomerOptions from "./OrderCustomerOptions";
-import ProductOptions from "./OrderProductOptions";
 import useAddOrder from "../Orders/useAddOrders";
-import toast from "react-hot-toast";
+import useProducts from "../Products/useProducts";
 import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
-import ProductOptionsRow from "./OrderProductOptionsRow";
-import { useEffect } from "react";
+import useGetSettings from "../Settings/useGetSettings";
+import OrderCustomerOptions from "./OrderCustomerOptions";
 import CustomerOptionsRow from "./OrderCustomerOptionsRow";
-import { useNavigate } from "react-router-dom";
-import { useNotificationSound } from "../../hooks/useNotificationSound";
+import OrderProductOptions from "./OrderProductOptions";
+import ProductOptionsRow from "./OrderProductOptionsRow";
 export default function OrderForm({
   onClose: onclose,
   type,
@@ -114,7 +114,7 @@ export default function OrderForm({
         <div>Customer : </div>
         {type !== "customerTable" ? (
           <Dropdown type="customer" data={customers} isLoading={isLoading}>
-            <CustomerOptions />
+            <OrderCustomerOptions />
           </Dropdown>
         ) : (
           <CustomerOptionsRow
@@ -127,7 +127,7 @@ export default function OrderForm({
         <div>Product : </div>
         {type !== "productTable" ? (
           <Dropdown type="product" data={products} isLoading={isLoading2}>
-            <ProductOptions />
+            <OrderProductOptions />
           </Dropdown>
         ) : (
           <ProductOptionsRow
@@ -164,6 +164,9 @@ export default function OrderForm({
       <div className="flex gap-4">
         <Button
           disabled={
+            isLoading3 ||
+            isLoading ||
+            isLoading2 ||
             OrderQuantity < (productOptions?.minOrder ?? 1) ||
             !productOptions ||
             !customerOptions ||
@@ -177,11 +180,19 @@ export default function OrderForm({
           borderColor="border-sky-500"
         />
         <Button
+          disabled={
+            OrderQuantity < (productOptions?.minOrder ?? 1) ||
+            !productOptions ||
+            !customerOptions ||
+            isLoading3 ||
+            isLoading ||
+            isLoading2
+          }
           text="Cancel "
           onClick={() =>
             onclose() || setCustomerOptions(null) || setProductOptions(null)
           }
-          textColor="  text-gray-800"
+          textColor=" "
           bgColor="bg-white"
           borderColor="border-gray-300"
           border="border"

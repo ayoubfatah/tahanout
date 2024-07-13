@@ -74,7 +74,22 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Price:</label>
+          <label>Original Price:</label>
+          <input
+            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            type="number"
+            {...register("originalPrice", {
+              required: " Original prcie Price is required",
+            })}
+          />
+          {errors.originalPrice && (
+            <span className="text-red-500 text-[12px]">
+              {errors.originalPrice.message as string}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <label>Selling Price:</label>
           <input
             className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"

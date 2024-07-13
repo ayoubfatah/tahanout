@@ -40,7 +40,6 @@ export default function RegionsPieChart({ orders }: { orders: OrderType[] }) {
       ),
     };
   });
-  console.log(data);
 
   // Filter out regions with zero orders
   const filteredData = data.filter((entry: any) => entry.orders > 0);

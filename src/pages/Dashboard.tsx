@@ -10,10 +10,13 @@ import TopProducts from "../features/Dashboard/TopProducts";
 import { useOrders } from "../features/Orders/useOrders";
 import Filter from "../ui/Filter";
 import Spinner from "../ui/Spinner";
+import useObserver from "../hooks/useObserver";
 
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
   const [searchParams] = useSearchParams();
+  const [ref, isVisible] = useObserver();
+
   const numDays = Number(searchParams.get("last")) || 1;
   if (isLoading) return <Spinner />;
   return (
@@ -26,24 +29,32 @@ const Dashboard = () => {
           filterField={"last"}
           options={[
             { label: "today", value: "1" },
-            { label: "last 30 days", value: "30" },
             { label: "last 7 days", value: "7" },
+            { label: "last 30 days", value: "30" },
             { label: "last 90 days", value: "90" },
           ]}
         />
       </div>
       <div className="min-h-screen flex">
         <div className="flex-1">
-          <div className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto] gap-5">
+          <div className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto_auto  ] gap-5">
             <Overview orders={orders?.length ? orders : []} numDays={numDays} />
             {/* chart */}
 
-            <div className="col-span-4  bg-white  px-5 py-5">
-              <OrdersChart
-                orders={orders?.length ? orders : []}
-                numDays={numDays}
-              />
-            </div>
+            {numDays !== 1 && (
+              <div
+                ref={ref}
+                className={`col-span-4 bg-white px-5 py-5 ${
+                  isVisible ? "fade-in" : ""
+                }`}
+              >
+                <OrdersChart
+                  orders={orders?.length ? orders : []}
+                  numDays={numDays}
+                />
+              </div>
+            )}
+
             <BarChartSales orders={orders?.length ? orders : []} />
             <RegionsPieChart orders={orders?.length ? orders : []} />
 

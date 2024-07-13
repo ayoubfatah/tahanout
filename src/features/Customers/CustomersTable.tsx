@@ -14,7 +14,7 @@ export default function CustomersDetails() {
     (a: any, b: any) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
-  console.log(customersNewToOld);
+
   const [filteredCustomers, setFilteredCustomers] = useState(customersNewToOld);
 
   const [currentPage, setCurrentPage] = useState(1);

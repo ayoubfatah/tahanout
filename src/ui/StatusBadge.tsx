@@ -27,7 +27,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   return (
     <>
       <div
-        className={`flex justify-center items-center gap-1 text-[12px] uppercase py-1 px-1 rounded-full ${getStatusStyles(
+        className={`flex justify-center items-center gap-1 text-[12px] uppercase py-1 px-2 rounded-full ${getStatusStyles(
           status
         )}`}
       >

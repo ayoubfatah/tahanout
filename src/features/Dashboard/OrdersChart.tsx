@@ -8,10 +8,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useOrders } from "../Orders/useOrders";
-import { formatCurrency } from "../../utils/helpers";
-import { useSearchParams } from "react-router-dom";
 import { OrderType } from "../../Types/types";
+import { formatCurrency } from "../../utils/helpers";
 
 export default function OrdersChart({
   orders,

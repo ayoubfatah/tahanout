@@ -75,7 +75,24 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Price:</label>
+        <label>Original Price:</label>
+        <input
+          disabled={isEditing}
+          className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          type="number"
+          {...register("originalPrice", {
+            required: "Original Price is required",
+          })}
+        />
+        {errors.price && (
+          <span className="text-red-500 text-[12px]">
+            {errors.price.message}
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2 items-start">
+        <label>Selling Price:</label>
         <input
           disabled={isEditing}
           className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"

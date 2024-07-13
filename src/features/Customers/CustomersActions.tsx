@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   HiEllipsisVertical,
   HiEye,
@@ -12,6 +12,7 @@ import { CustomersType } from "../../Types/types";
 import CustomerInfo from "./CustomerInfo";
 import { useDeleteCustomer } from "./useDeleteCustomer";
 import OrderForm from "../Orders/OrderForm";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 
 type ActionsProps = {
   data: CustomersType;
@@ -19,7 +20,7 @@ type ActionsProps = {
 
 export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
-
+  const { setCustomerOptions } = useTahanout();
   const actionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

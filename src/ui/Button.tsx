@@ -32,11 +32,9 @@ const Button: React.FC<ButtonType> = ({
       {disabled && (
         <span
           onClick={onClick}
-          className={`flex ${borderColor} ${border} cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
+          className={`flex ${borderColor} ${border} text-white cursor-not-allowed bg-gray-500  hover:bg-gray-600 items-center  px-4 py-2 rounded-lg `}
         >
-          <span className={"  text-gray-800    cursor-not-allowed"}>
-            {icon}
-          </span>
+          <span className={"       cursor-not-allowed"}>{icon}</span>
           <button
             type={type}
             disabled

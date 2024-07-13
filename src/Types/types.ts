@@ -12,6 +12,7 @@ export type Product = {
   brand?: string;
   sku: string;
   id: number;
+  originalPrice?: number;
   colors?: string;
   minOrder: number;
   weight: number;

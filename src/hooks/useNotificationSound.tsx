@@ -5,11 +5,9 @@ export function useNotificationSound() {
     const audio = new Audio("../../sounds/tap-notification.mp3");
     audio
       .play()
-      .then(() => console.log("Sound played successfully"))
+      .then(() => {})
       .catch((error) => {
         console.error("Error playing sound:", error);
-        console.log("Audio src:", audio.src);
-        console.log("Audio ready state:", audio.readyState);
       });
   }, []);
 

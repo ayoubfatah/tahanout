@@ -13,7 +13,6 @@ export default function EmployeesTable() {
     (a: any, b: any) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
-  console.log(filteredEmployees);
 
   if (isLoading) return <Spinner />;
 

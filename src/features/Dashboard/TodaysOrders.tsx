@@ -30,7 +30,7 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
       </h2>
       {todayPendingOrders?.length ? (
         <div className="  px-1  bg-white    items-center gap-2 ">
-          <div className="border-b border-gray-200  py-1.5 grid grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] text-gray-400 text-[12px]  ">
+          <div className="border-b border-gray-200  py-1.5 grid grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1fr_1fr] text-gray-400 text-[12px]  ">
             <span className=" ">Order ID</span>
             <span className=" ">Customer</span>
             <span className=" ">Product</span>
@@ -38,7 +38,7 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
             <span className=" ">Order Date</span>
             <span className=" ">Quantity</span>
             <span className=" ">Total</span>
-            <span>Status</span>
+            <span className="ml-4">Status</span>
 
             <span></span>
           </div>
