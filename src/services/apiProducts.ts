@@ -76,21 +76,6 @@ export async function editProduct(product: Product, id: number) {
     console.error(error);
     throw new Error("product couldn't be added");
   }
-  // 2 Upload the image
-
-  // if (hasImagePath) return;
-  // const { error: storageError } = await supabase.storage
-  //   .from("productImages")
-  //   .upload(imageName, product.image);
-
-  // // 3 delete cabin if there is was an error uploading the image
-  // if (storageError) {
-  //   await supabase.from("products").delete().eq("id", product.id);
-  //   console.error(storageError);
-  //   throw new Error(
-  //     "product image could't be uploaded and cabin wasn't created "
-  //   );
-  // }
 
   return data;
 }

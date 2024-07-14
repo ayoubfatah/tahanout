@@ -36,18 +36,20 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  console.log([customerOptions, productOptions]);
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSelect = (item: CustomersType | Product) => {
     setSelectedOption(item);
+
     if (type === "customer") {
       setCustomerOptions(item as CustomersType);
     }
     if (type === "product") {
       setProductOptions(item as Product);
+      setCustomerOptions(item as CustomersType);
     }
     setIsOpen(false);
   };

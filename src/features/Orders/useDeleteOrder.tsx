@@ -8,6 +8,7 @@ export function useDeleteOrder() {
     mutationFn: (orderId: number) => deleteOrder(orderId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success("Order has been successfully deleted");
     },
     onError: (err: any) => toast.error(err.message),
   });

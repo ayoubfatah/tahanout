@@ -49,7 +49,7 @@ export default function TodaysOrdersRow({ order }: any) {
   return (
     <div
       key={order.id}
-      className=" border-b px-2 hover:bg-gray-100 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1fr_1fr] grid items-center"
+      className=" border-b px-2 hover:bg-gray-100 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] grid items-center"
     >
       <span className="text-[14px] text-gray-700">{order.id}</span>
       <div className="flex flex-col">
@@ -82,7 +82,7 @@ export default function TodaysOrdersRow({ order }: any) {
         >
           <HiOutlineEye size={20} />
         </button>
-        {order.status === "pending" && (
+        {order.status === "pending" ? (
           <button
             disabled={isLoading}
             onClick={handleConfirmed}
@@ -90,6 +90,10 @@ export default function TodaysOrdersRow({ order }: any) {
           >
             <HiCheck size={20} />
           </button>
+        ) : (
+          <span className="cursor-not-allowed ">
+            <HiCheck size={20} />
+          </span>
         )}
       </div>
     </div>

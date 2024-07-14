@@ -18,7 +18,17 @@ export const OverviewCard = ({
   numDays: number;
   percentage?: boolean;
 }) => {
-  const speed = numDays < 7 ? 200 : 800;
+  const speed =
+    value < 20
+      ? 10
+      : value < 50
+      ? 50
+      : value < 200
+      ? 200
+      : value > 1000
+      ? 600
+      : value;
+
   const animatedValue = useCountUp(value, speed);
 
   return (

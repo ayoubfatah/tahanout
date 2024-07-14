@@ -19,7 +19,7 @@ const Button: React.FC<ButtonType> = ({
         <span className="inline-block">
           <span
             onClick={onClick}
-            className={`  flex  ${borderColor} ${border} ${bgColor} cursor-pointer hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
+            className={`  flex  transition-all duration-100  ${borderColor} ${border} ${bgColor} cursor-pointer hover:${hoverColor} items-center  px-4 py-2 rounded-lg `}
           >
             <span className="text-green-400">{icon}</span>
             <button type={type} className={`${textColor}  `}>

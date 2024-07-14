@@ -15,6 +15,8 @@ import Modal from "../../ui/Modal";
 import DeleteMsg from "../../ui/DeleteMsg";
 import OrderProductSection from "./OrderProductSection";
 import { OrderSection } from "./OrderSection";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { BiCheck } from "react-icons/bi";
 
 const OrderInfoPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,6 +35,14 @@ const OrderInfoPage: React.FC = () => {
   const setToDelivered = () => {
     changeStatus({ id: id, status: "delivered" });
     toast.success("Order Delivered", { id: "deliveredOrder" });
+  };
+  const setToReturned = () => {
+    changeStatus({ id: id, status: "returned" });
+    toast.success("Order Returned", { id: "returnOrder" });
+  };
+  const setToConfirmed = () => {
+    changeStatus({ id: id, status: "in-progress" });
+    toast.success("Order Confirmed", { id: "confirmOrder" });
   };
   const handleDelete = () => {
     deletingOrder(Number(id));
@@ -75,6 +85,18 @@ const OrderInfoPage: React.FC = () => {
           />
         </div>
         <div className="flex justify-between mt-6">
+          <Modal.Open opens="deleteOrder">
+            <Button
+              disabled={isLoading}
+              text="Delete order"
+              textColor="text-white"
+              bgColor="bg-red-500"
+              hoverColor="bg-red-700"
+              onClick={() => {}}
+              icon={<MdDelete size={20} className="mr-2 text-white" />}
+              iconColor="text-white"
+            />
+          </Modal.Open>
           {order.status !== "delivered" && (
             <Button
               disabled={isLoading || order.status === "canceled"}
@@ -88,18 +110,25 @@ const OrderInfoPage: React.FC = () => {
             />
           )}
 
-          <Modal.Open opens="deleteOrder">
-            <Button
-              disabled={isLoading}
-              text="Delete order"
-              textColor="text-white"
-              bgColor="bg-red-500"
-              hoverColor="bg-red-700"
-              onClick={() => {}}
-              icon={<MdDelete size={20} className="mr-2 text-white" />}
-              iconColor="text-white"
-            />
-          </Modal.Open>
+          {order.status !== "delivered" &&
+            order.status !== "canceled" &&
+            order.status !== "pending" && (
+              <Button
+                disabled={isLoading}
+                text="Mark as Returned"
+                textColor="text-white"
+                hoverColor="bg-gray-600"
+                bgColor="bg-gray-400"
+                onClick={setToReturned}
+                icon={
+                  <HiOutlineArrowUturnLeft
+                    size={20}
+                    className="mr-2 text-white"
+                  />
+                }
+                iconColor="text-white"
+              />
+            )}
 
           <Modal.Window name="deleteOrder">
             <DeleteMsg
@@ -110,7 +139,7 @@ const OrderInfoPage: React.FC = () => {
               onClose={() => {}}
             />
           </Modal.Window>
-          {order.status !== "canceled" && (
+          {order.status !== "canceled" && order.status !== "pending" && (
             <Button
               disabled={isLoading || order.status === "delivered"}
               text="Mark as Delivered"
@@ -119,6 +148,18 @@ const OrderInfoPage: React.FC = () => {
               hoverColor="bg-green-700"
               onClick={setToDelivered}
               icon={<MdCheckCircle size={20} className="mr-2 text-white" />}
+              iconColor="text-white"
+            />
+          )}
+          {order.status !== "delivered" && order.status !== "in-progress" && (
+            <Button
+              disabled={isLoading}
+              text="Confirm order"
+              textColor="text-white"
+              bgColor="bg-blue-500"
+              hoverColor="bg-blue-700"
+              onClick={setToConfirmed}
+              icon={<BiCheck size={20} className="mr-2 text-white" />}
               iconColor="text-white"
             />
           )}

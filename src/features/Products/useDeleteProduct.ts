@@ -4,14 +4,14 @@ import toast from "react-hot-toast";
 import { deleteProduct } from "../../services/apiProducts";
 import { useScreenShake } from "../../hooks/useScreenShake";
 
-export default function useDeleteCabin() {
+export default function useDeleteProducts() {
   const queryClient = useQueryClient();
   const shakeScreen = useScreenShake();
 
   const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: (productId: number) => deleteProduct(productId),
     onSuccess: () => {
-      toast.success("cabin has been successfully deleted  ");
+      toast.success("product has been successfully deleted  ");
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });

@@ -87,22 +87,8 @@ export default function OrderForm({
       onclose();
       setPaymentMethod(null);
       setCustomerOptions(null);
-
       return null;
     }
-
-    upQuantity(
-      {
-        newQuantity: Number(productOptions.quantity) - Number(OrderQuantity),
-        id: productOptions?.id,
-      },
-      {
-        onSuccess: () => {
-          setProductOptions(null);
-        },
-        onError: (err: any) => toast.error(err.message),
-      }
-    );
   }
 
   return (
