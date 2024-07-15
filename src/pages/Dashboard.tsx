@@ -29,6 +29,7 @@ const Dashboard = () => {
           filterField={"last"}
           options={[
             { label: "today", value: "1" },
+            { label: "yesterday", value: "2" },
             { label: "last 7 days", value: "7" },
             { label: "last 30 days", value: "30" },
             { label: "last 90 days", value: "90" },
@@ -55,8 +56,8 @@ const Dashboard = () => {
               </div>
             )}
 
-            <BarChartSales orders={orders?.length ? orders : []} />
             <RegionsPieChart orders={orders?.length ? orders : []} />
+            <BarChartSales orders={orders?.length ? orders : []} />
 
             {/* today orders */}
             <TodaysOrders orders={orders?.length ? orders : []} />

@@ -17,6 +17,7 @@ import OrderProductSection from "./OrderProductSection";
 import { OrderSection } from "./OrderSection";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import { BiCheck } from "react-icons/bi";
+import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
 
 const OrderInfoPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,8 +29,14 @@ const OrderInfoPage: React.FC = () => {
   const { changeStatus, isLoading: isLoadingStatus } = useChangeOrderStatus();
   const { isDeleting, deletingOrder } = useDeleteOrder();
   const { id } = useParams();
+  const { isEditing, upQuantity } = useUpdateProductQuantity();
+
   const setToCancel = () => {
     changeStatus({ id: id, status: "canceled" });
+    upQuantity({
+      id: order.products.id,
+      newQuantity: order.quantity + order.products.quantity,
+    });
     toast.success("Order Cancelled", { id: "cancelOrder" });
   };
   const setToDelivered = () => {
@@ -38,6 +45,10 @@ const OrderInfoPage: React.FC = () => {
   };
   const setToReturned = () => {
     changeStatus({ id: id, status: "returned" });
+    upQuantity({
+      id: order.products.id,
+      newQuantity: order.quantity + order.products.quantity,
+    });
     toast.success("Order Returned", { id: "returnOrder" });
   };
   const setToConfirmed = () => {
@@ -46,6 +57,10 @@ const OrderInfoPage: React.FC = () => {
   };
   const handleDelete = () => {
     deletingOrder(Number(id));
+    upQuantity({
+      id: order.products.id,
+      newQuantity: order.quantity + order.products.quantity,
+    });
     toast.success("Order Deleted", { id: "deleteOrder" });
     navigate("/orders");
   };
@@ -87,7 +102,7 @@ const OrderInfoPage: React.FC = () => {
         <div className="flex justify-between mt-6">
           <Modal.Open opens="deleteOrder">
             <Button
-              disabled={isLoading}
+              disabled={isLoading || isEditing}
               text="Delete order"
               textColor="text-white"
               bgColor="bg-red-500"
@@ -97,9 +112,9 @@ const OrderInfoPage: React.FC = () => {
               iconColor="text-white"
             />
           </Modal.Open>
-          {order.status !== "delivered" && (
+          {order.status !== "delivered" && order.status !== "returned" && (
             <Button
-              disabled={isLoading || order.status === "canceled"}
+              disabled={isLoading || order.status === "canceled" || isEditing}
               text="Cancel order"
               textColor="text-white"
               hoverColor="bg-red-700"
@@ -112,9 +127,10 @@ const OrderInfoPage: React.FC = () => {
 
           {order.status !== "delivered" &&
             order.status !== "canceled" &&
-            order.status !== "pending" && (
+            order.status !== "pending" &&
+            order.status !== "returned" && (
               <Button
-                disabled={isLoading}
+                disabled={isLoading || isEditing}
                 text="Mark as Returned"
                 textColor="text-white"
                 hoverColor="bg-gray-600"
@@ -139,21 +155,25 @@ const OrderInfoPage: React.FC = () => {
               onClose={() => {}}
             />
           </Modal.Window>
-          {order.status !== "canceled" && order.status !== "pending" && (
+          {order.status !== "canceled" &&
+            order.status !== "pending" &&
+            order.status !== "returned" && (
+              <Button
+                disabled={
+                  isLoading || order.status === "delivered" || isEditing
+                }
+                text="Mark as Delivered"
+                textColor="text-white"
+                bgColor="bg-green-500"
+                hoverColor="bg-green-700"
+                onClick={setToDelivered}
+                icon={<MdCheckCircle size={20} className="mr-2 text-white" />}
+                iconColor="text-white"
+              />
+            )}
+          {order.status === "pending" && (
             <Button
-              disabled={isLoading || order.status === "delivered"}
-              text="Mark as Delivered"
-              textColor="text-white"
-              bgColor="bg-green-500"
-              hoverColor="bg-green-700"
-              onClick={setToDelivered}
-              icon={<MdCheckCircle size={20} className="mr-2 text-white" />}
-              iconColor="text-white"
-            />
-          )}
-          {order.status !== "delivered" && order.status !== "in-progress" && (
-            <Button
-              disabled={isLoading}
+              disabled={isLoading || isEditing}
               text="Confirm order"
               textColor="text-white"
               bgColor="bg-blue-500"

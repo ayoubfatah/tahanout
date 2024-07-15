@@ -53,7 +53,7 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
   const result = Object.values(data);
 
   return (
-    <div className="col-span-2 bg-white p-5">
+    <div className="col-span-4 bg-white p-5">
       <h2 className="text-[20px] font-semibold">
         Monthly Sales and Profit Overview
       </h2>
@@ -69,8 +69,8 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 9" />
-          <XAxis dataKey="month" tickLine={false} interval={2} />
-          <YAxis tickLine={false} domain={[0, 500000]} />
+          <XAxis dataKey="month" />
+          <YAxis />
           <Tooltip
             formatter={(value, name: string) => [
               `$${value}`,
@@ -80,8 +80,8 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
             ]}
           />
           <Legend />
-          <Bar dataKey="sales" fill="#ffd700" name="Sales" barSize={"30px"} />
-          <Bar dataKey="profits" fill="#3981e6" name="Profits" barSize={30} />
+          <Bar dataKey="sales" fill="#ffd700" name="Sales" barSize={20} />
+          <Bar dataKey="profits" fill="#3981e6" name="Profits" barSize={20} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -15,6 +15,7 @@ import OrderCustomerOptions from "./OrderCustomerOptions";
 import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 import OrderProductOptions from "./OrderProductOptions";
 import ProductOptionsRow from "./OrderProductOptionsRow";
+import { id } from "date-fns/locale";
 export default function OrderForm({
   onClose: onclose,
   type,
@@ -75,6 +76,10 @@ export default function OrderForm({
 
       mutate(orderData, {
         onSuccess: () => {
+          upQuantity({
+            id: productOptions?.id,
+            newQuantity: productOptions?.quantity - OrderQuantity,
+          });
           playNotificationSound();
           toast.success("Order created successfully");
           onclose();

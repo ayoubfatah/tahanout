@@ -1,24 +1,17 @@
 import { eachDayOfInterval, subDays } from "date-fns";
 import {
+  HiOutlineArchiveBoxXMark,
+  HiOutlineArrowTrendingUp,
   HiOutlineBanknotes,
-  HiOutlineCheck,
+  HiOutlineCheckCircle,
+  HiOutlineDocumentCheck,
   HiOutlineShoppingBag,
   HiOutlineTruck,
-  HiOutlineXCircle,
-  HiOutlineCurrencyDollar,
-  HiOutlineChartBar,
-  HiOutlineChartPie,
-  HiOutlineShoppingCart,
-  HiOutlineDocumentCheck,
-  HiOutlineArchiveBoxXMark,
   HiOutlineWallet,
-  HiOutlineCheckCircle,
-  HiOutlineArrowTrendingUp,
 } from "react-icons/hi2";
 import { OrderType } from "../../Types/types";
 import { OverviewCard } from "../../ui/OverviewCard";
 import { filteredByDates } from "../../utils/helpers";
-import { HiOutlineCash, HiOutlineClipboardCheck } from "react-icons/hi";
 
 type OverviewProps = {
   orders: OrderType[];
@@ -41,18 +34,21 @@ const calculateRate = (delivered: number, total: number) => {
   return total > 0 ? Math.ceil((delivered / total) * 100) : 0;
 };
 
+// jsx
 export default function Overview({ orders, numDays }: OverviewProps) {
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
 
+  // TOTAL SALES
   const totalSalesBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalSales(ordersOfDate, "delivered");
   });
   const totalSales = totalSalesBasedOnDate.reduce((acc, curr) => acc + curr, 0);
 
+  // TOTAL ORDERS
   const totalOrdersBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(ordersOfDate);
@@ -62,7 +58,7 @@ export default function Overview({ orders, numDays }: OverviewProps) {
     0
   );
 
-  // delivered
+  // TOTAL DELIVERED
   const totalDeliveredBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(ordersOfDate, "delivered");
@@ -71,8 +67,9 @@ export default function Overview({ orders, numDays }: OverviewProps) {
     (acc, curr) => acc + curr,
     0
   );
+  const deliveryRate = calculateRate(totalDelivered, totalOrders);
 
-  // confirmed
+  // TOTAL CONFIRMED
   const totalConfirmedBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(
@@ -86,8 +83,9 @@ export default function Overview({ orders, numDays }: OverviewProps) {
     (acc, curr) => acc + curr,
     0
   );
+  const confirmationRate = calculateRate(totalConfirmed, totalOrders);
 
-  // cancelled
+  // TOTAL CANCELLED
   const totalCancelledBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date)
       .filter((order: OrderType) => order.status === "canceled")
@@ -103,7 +101,7 @@ export default function Overview({ orders, numDays }: OverviewProps) {
     (acc, curr) => acc + curr
   );
 
-  // total spent
+  // TOTAL SPENT
   const totalSpentBasedOnDate = allDates.map((date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return ordersOfDate
@@ -116,11 +114,7 @@ export default function Overview({ orders, numDays }: OverviewProps) {
   });
   const totalSpent = totalSpentBasedOnDate.reduce((acc, curr) => acc + curr, 0);
 
-
   const totalProfits = totalSales - totalSpent;
-
-  const deliveryRate = calculateRate(totalDelivered, totalOrders);
-  const confirmationRate = calculateRate(totalConfirmed, totalOrders);
 
   return (
     <>
