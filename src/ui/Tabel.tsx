@@ -52,11 +52,11 @@ function Row({ children }: FooterProps) {
   );
 }
 
-function Footer({ currentPage, ordersPerPage, totalOrders, paginate }: any) {
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+function Footer({ currentPage, itemPerPage, totalOrders, paginate }: any) {
+  const indexOfLastOrder = currentPage * itemPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - itemPerPage;
   const currentOrdersCount = Math.min(indexOfLastOrder, totalOrders);
-
+  console.log(itemPerPage, "index");
   return (
     <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px]">
       <span>
@@ -92,5 +92,3 @@ Table.Header = Header;
 Table.Row = Row;
 Table.Footer = Footer;
 export default Table;
-
-// DABA HADA kaytsma pattern daba hada gharad dyalo hwa ishl lik t9ad 7wayj matalan table

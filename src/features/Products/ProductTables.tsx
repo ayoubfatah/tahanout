@@ -110,7 +110,7 @@ export default function ProductTables() {
 
           <Table.Footer
             currentPage={currentPage}
-            productsPerPage={productsPerPage}
+            itemPerPage={productsPerPage}
             totalOrders={filteredProducts?.length || 0}
             paginate={paginate}
           />

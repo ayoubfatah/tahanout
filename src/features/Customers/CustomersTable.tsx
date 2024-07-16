@@ -56,7 +56,7 @@ export default function CustomersDetails() {
           ))}
           <Table.Footer
             currentPage={currentPage}
-            customersPerPage={customersPerPage}
+            itemPerPage={customersPerPage}
             totalOrders={filteredCustomers?.length || 0}
             paginate={paginate}
           />
