@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Product } from "../../Types/types";
 import useUpdateProduct from "./useUpdateProduct";
 import { MdDelete } from "react-icons/md";
+import { CATEGORIES } from "../../services/Categories";
 
 const ProductForm = ({
   data: product,
@@ -165,17 +166,11 @@ const ProductForm = ({
           className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           {...register("category", { required: "Category is required" })}
         >
-          <option value="">Select a category</option>
-          <option value="electronics">Electronics</option>
-          <option value="fashion">Fashion</option>
-          <option value="home">Home</option>
-          <option value="beauty">Beauty</option>
-          <option value="sports">Sports</option>
-          <option value="automotive">Automotive</option>
-          <option value="toys">Toys</option>
-          <option value="grocery">Grocery</option>
-          <option value="health">Health</option>
-          <option value="books">Books</option>
+          {CATEGORIES.map((category, i: any) => (
+            <option key={i} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
         {errors.category && (
           <span className="text-red-500 text-[12px]">

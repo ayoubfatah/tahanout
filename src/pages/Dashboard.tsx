@@ -1,6 +1,7 @@
 // src/components/Dashboard.js
 import { useSearchParams } from "react-router-dom";
 import BarChartSales from "../features/Dashboard/BarChartSales";
+import CategoriesPieChart from "../features/Dashboard/CategoriesPieChart";
 import OrdersChart from "../features/Dashboard/OrdersChart";
 import Overview from "../features/Dashboard/Overview";
 import RegionsPieChart from "../features/Dashboard/RegionsPieChart";
@@ -8,19 +9,30 @@ import TodaysOrders from "../features/Dashboard/TodaysOrders";
 import TopCustomers from "../features/Dashboard/TopCustomers";
 import TopProducts from "../features/Dashboard/TopProducts";
 import { useOrders } from "../features/Orders/useOrders";
+import useObserver from "../hooks/useObserver";
+import DateSelector from "../ui/DateSelector";
 import Filter from "../ui/Filter";
 import Spinner from "../ui/Spinner";
-import useObserver from "../hooks/useObserver";
-import CategoriesPieChart from "../features/Dashboard/CategoriesPieChart";
-import DatePicker from "react-datepicker";
-import DateSelector from "../ui/DateSelector";
+import { useEffect } from "react";
+import { eachDayOfInterval } from "date-fns";
 
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
   const [searchParams] = useSearchParams();
   const [ref, isVisible] = useObserver();
 
-  const numDays = Number(searchParams.get("last")) || 1;
+  const start = searchParams.get("start");
+  const end = searchParams.get("end");
+
+  let datesFromDatePicker;
+  if (start && end) {
+    datesFromDatePicker = eachDayOfInterval({
+      start: new Date(start),
+      end: new Date(end),
+    });
+  }
+  const numDays = Number(searchParams.get("last"));
+
   if (isLoading) return <Spinner />;
   return (
     <>
@@ -43,10 +55,14 @@ const Dashboard = () => {
       <div className="min-h-screen flex">
         <div className="flex-1">
           <div className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto_auto  ] gap-5">
-            <Overview orders={orders?.length ? orders : []} numDays={numDays} />
+            <Overview
+              datesFromDatePicker={datesFromDatePicker}
+              orders={orders?.length ? orders : []}
+              numDays={numDays}
+            />
             {/* chart */}
 
-            {numDays !== 1 && numDays !== 2 && (
+            {numDays !== 1 && numDays !== 2 && start !== end && (
               <div
                 ref={ref}
                 className={`col-span-4 bg-white px-5 py-5 ${
@@ -54,6 +70,7 @@ const Dashboard = () => {
                 }`}
               >
                 <OrdersChart
+                  datesFromDatePicker={datesFromDatePicker}
                   orders={orders?.length ? orders : []}
                   numDays={numDays}
                 />

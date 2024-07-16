@@ -5,7 +5,6 @@ import Modal from "../../ui/Modal";
 import CustomerInfo from "../Customers/CustomerInfo";
 
 export default function TopCustomersRow({ customer, customerData, i }: any) {
-  console.log(customer);
   return (
     <div
       key={customer.customerId}

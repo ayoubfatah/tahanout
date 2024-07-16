@@ -6,27 +6,23 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const DateSelector = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [startDate, setStartDate] = useState(() => {
-    const start = searchParams.get("start");
-    return start ? new Date(start) : new Date();
-  });
-  const [endDate, setEndDate] = useState(() => {
-    const end = searchParams.get("end");
-    return end ? new Date(end) : new Date();
-  });
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
 
-  const handleDateChange = (dates: any) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+  const handleDateChange = (update: [Date | null, Date | null]) => {
+    setDateRange(update);
+    console.log("Date Range:", update); // This will log null values when no date is selected
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (startDate && endDate) {
+    const [start, end] = dateRange;
+    if (start && end) {
       setSearchParams({
-        start: format(startDate, "yyyy-MM-dd"),
-        end: format(endDate, "yyyy-MM-dd"),
+        start: format(start, "yyyy-MM-dd"),
+        end: format(end, "yyyy-MM-dd"),
       });
     }
   };
@@ -54,12 +50,11 @@ const DateSelector = () => {
     <form onSubmit={handleSubmit} className="p-4">
       <div className="flex items-center gap-1">
         <DatePicker
-          selected={startDate}
+          selectsRange={true}
+          startDate={dateRange[0]}
+          endDate={dateRange[1]}
           onChange={handleDateChange}
-          startDate={startDate}
-          endDate={endDate}
-          selectsRange
-          className="bg-white border  border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           dateFormat="MMMM d, yyyy"
           showPopperArrow={false}
           customInput={
@@ -67,8 +62,12 @@ const DateSelector = () => {
               type="button"
               className="bg-sky-500 text-black font-semibold py-2 px-4 rounded"
             >
-              {format(startDate, "MMM d, yyyy")} -{" "}
-              {endDate ? format(endDate, "MMM d, yyyy") : "Select"}
+              {dateRange[0] && dateRange[1]
+                ? `${format(dateRange[0], "MMM d, yyyy")} - ${format(
+                    dateRange[1],
+                    "MMM d, yyyy"
+                  )}`
+                : "Select date"}
             </button>
           }
           renderCustomHeader={({
@@ -106,7 +105,9 @@ const DateSelector = () => {
               <button
                 type="button"
                 key={index}
-                onClick={() => handleDateChange(range.getValue())}
+                onClick={() =>
+                  handleDateChange(range.getValue() as [Date, Date])
+                }
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100"
               >
                 {range.label}

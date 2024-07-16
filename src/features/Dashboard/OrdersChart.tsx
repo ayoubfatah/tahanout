@@ -20,14 +20,17 @@ import { formatCurrency, getDateInterval } from "../../utils/helpers";
 export default function OrdersChart({
   orders,
   numDays,
+  datesFromDatePicker,
 }: {
   orders: OrderType[];
   numDays: any;
+  datesFromDatePicker?: any;
 }) {
   const { start, end } = getDateInterval(numDays);
-  const allDates = eachDayOfInterval({ start, end });
 
-  const ordersChartData = allDates.map((date) => {
+  const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
+
+  const ordersChartData = allDates.map((date: any) => {
     const dateString = format(date, "MMM dd");
     const totalOrdersOfDate = orders
       ?.filter((order) => isSameDay(date, new Date(order.createdAt)))

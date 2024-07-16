@@ -1,13 +1,4 @@
-import {
-  eachDayOfInterval,
-  endOfMonth,
-  endOfYear,
-  startOfMonth,
-  startOfYear,
-  subDays,
-  subMonths,
-  subYears,
-} from "date-fns";
+import { eachDayOfInterval } from "date-fns";
 import {
   HiOutlineArchiveBoxXMark,
   HiOutlineArrowTrendingUp,
@@ -25,6 +16,7 @@ import { filteredByDates, getDateInterval } from "../../utils/helpers";
 type OverviewProps = {
   orders: OrderType[];
   numDays: any;
+  datesFromDatePicker?: any;
 };
 
 const calculateTotalSales = (orders: OrderType[], status: string) => {
@@ -44,41 +36,48 @@ const calculateRate = (delivered: number, total: number) => {
 };
 
 // jsx
-export default function Overview({ orders, numDays }: OverviewProps) {
+export default function Overview({
+  orders,
+  numDays,
+  datesFromDatePicker,
+}: OverviewProps) {
   const { start, end } = getDateInterval(numDays);
 
-  const allDates = eachDayOfInterval({ start, end });
+  const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
 
   // TOTAL SALES
-  const totalSalesBasedOnDate = allDates.map((date) => {
+  const totalSalesBasedOnDate = allDates.map((date: Date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalSales(ordersOfDate, "delivered");
   });
-  const totalSales = totalSalesBasedOnDate.reduce((acc, curr) => acc + curr, 0);
+  const totalSales = totalSalesBasedOnDate.reduce(
+    (acc: any, curr: any) => acc + curr,
+    0
+  );
 
   // TOTAL ORDERS
-  const totalOrdersBasedOnDate = allDates.map((date) => {
+  const totalOrdersBasedOnDate = allDates.map((date: Date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(ordersOfDate);
   });
   const totalOrders = totalOrdersBasedOnDate.reduce(
-    (acc, curr) => acc + curr,
+    (acc: any, curr: any) => acc + curr,
     0
   );
 
   // TOTAL DELIVERED
-  const totalDeliveredBasedOnDate = allDates.map((date) => {
+  const totalDeliveredBasedOnDate = allDates.map((date: Date) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(ordersOfDate, "delivered");
   });
   const totalDelivered = totalDeliveredBasedOnDate.reduce(
-    (acc, curr) => acc + curr,
+    (acc: any, curr: any) => acc + curr,
     0
   );
   const deliveryRate = calculateRate(totalDelivered, totalOrders);
 
   // TOTAL CONFIRMED
-  const totalConfirmedBasedOnDate = allDates.map((date) => {
+  const totalConfirmedBasedOnDate = allDates.map((date: any) => {
     const ordersOfDate = filteredByDates(orders, date);
     return calculateTotalQuantity(
       ordersOfDate.filter(
@@ -88,13 +87,13 @@ export default function Overview({ orders, numDays }: OverviewProps) {
     );
   });
   const totalConfirmed = totalConfirmedBasedOnDate.reduce(
-    (acc, curr) => acc + curr,
+    (acc: any, curr: any) => acc + curr,
     0
   );
   const confirmationRate = calculateRate(totalConfirmed, totalOrders);
 
   // TOTAL CANCELLED
-  const totalCancelledBasedOnDate = allDates.map((date) => {
+  const totalCancelledBasedOnDate = allDates.map((date: any) => {
     const ordersOfDate = filteredByDates(orders, date)
       .filter((order: OrderType) => order.status === "canceled")
       .map((order: OrderType) => order.quantity)
@@ -106,11 +105,11 @@ export default function Overview({ orders, numDays }: OverviewProps) {
   //
 
   const totalCancelled = totalCancelledBasedOnDate.reduce(
-    (acc, curr) => acc + curr
+    (acc: any, curr: any) => acc + curr
   );
 
   // TOTAL SPENT
-  const totalSpentBasedOnDate = allDates.map((date) => {
+  const totalSpentBasedOnDate = allDates.map((date: any) => {
     const ordersOfDate = filteredByDates(orders, date);
     return ordersOfDate
       .filter((order: OrderType) => order.status === "delivered")
@@ -120,7 +119,10 @@ export default function Overview({ orders, numDays }: OverviewProps) {
         0
       );
   });
-  const totalSpent = totalSpentBasedOnDate.reduce((acc, curr) => acc + curr, 0);
+  const totalSpent = totalSpentBasedOnDate.reduce(
+    (acc: any, curr: any) => acc + curr,
+    0
+  );
 
   const totalProfits = totalSales - totalSpent;
 
