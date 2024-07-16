@@ -11,6 +11,7 @@ import { useOrders } from "../features/Orders/useOrders";
 import Filter from "../ui/Filter";
 import Spinner from "../ui/Spinner";
 import useObserver from "../hooks/useObserver";
+import CategoriesPieChart from "../features/Dashboard/CategoriesPieChart";
 
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
@@ -30,9 +31,10 @@ const Dashboard = () => {
           options={[
             { label: "today", value: "1" },
             { label: "yesterday", value: "2" },
-            { label: "last 7 days", value: "7" },
-            { label: "last 30 days", value: "30" },
-            { label: "last 90 days", value: "90" },
+            { label: "this month", value: "30" },
+            { label: "last month", value: "31" },
+            { label: "this year", value: "365" },
+            { label: "last year", value: "366" },
           ]}
         />
       </div>
@@ -42,7 +44,7 @@ const Dashboard = () => {
             <Overview orders={orders?.length ? orders : []} numDays={numDays} />
             {/* chart */}
 
-            {numDays !== 1 && (
+            {numDays !== 1 && numDays !== 2 && (
               <div
                 ref={ref}
                 className={`col-span-4 bg-white px-5 py-5 ${
@@ -57,6 +59,7 @@ const Dashboard = () => {
             )}
 
             <RegionsPieChart orders={orders?.length ? orders : []} />
+            <CategoriesPieChart orders={orders?.length ? orders : []} />
             <BarChartSales orders={orders?.length ? orders : []} />
 
             {/* today orders */}

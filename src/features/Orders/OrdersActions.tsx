@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  HiCheck,
   HiEllipsisVertical,
   HiEye,
+  HiMiniCheck,
   HiMiniPencilSquare,
   HiMiniTrash,
   HiMiniTruck,
@@ -50,13 +52,32 @@ export default function Actions({ data }: ActionsProps) {
     };
   }, [actionsRef, setOpen]);
   const navigate = useNavigate();
-  const { changeStatus, isLoading } = useChangeOrderStatus();
+  const { changeStatus } = useChangeOrderStatus();
   return (
     <Modal>
       <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
           <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
+            {data && data.status === "pending" && (
+              <button
+                onClick={() => {
+                  changeStatus(
+                    { id: data.id, status: "in-progress" },
+                    {
+                      onSuccess: () => {
+                        toast.success("Order has been confirmed successfully");
+                      },
+                    }
+                  );
+                  setOpen(false);
+                }}
+                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+              >
+                <HiMiniCheck size={20} />
+                Confirm
+              </button>
+            )}
             <button
               onClick={() => {
                 navigate(`/orders/${data.id}`);
@@ -66,25 +87,7 @@ export default function Actions({ data }: ActionsProps) {
               <HiEye size={20} />
               Details
             </button>
-            {data && data.status !== "delivered" && (
-              <button
-                onClick={() => {
-                  changeStatus(
-                    { id: data.id, status: "delivered" },
-                    {
-                      onSuccess: () => {
-                        toast.success("Order has been delivered successfully");
-                      },
-                    }
-                  );
-                  setOpen(false);
-                }}
-                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
-              >
-                <HiMiniTruck size={20} />
-                Delivered
-              </button>
-            )}
+
             <Modal.Open opens="editCustomer">
               <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />

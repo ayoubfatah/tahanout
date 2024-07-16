@@ -1,4 +1,10 @@
-import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import {
+  eachDayOfInterval,
+  eachMonthOfInterval,
+  format,
+  isSameDay,
+  subDays,
+} from "date-fns";
 import {
   Area,
   AreaChart,
@@ -9,19 +15,17 @@ import {
   YAxis,
 } from "recharts";
 import { OrderType } from "../../Types/types";
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency, getDateInterval } from "../../utils/helpers";
 
 export default function OrdersChart({
   orders,
   numDays,
 }: {
   orders: OrderType[];
-  numDays: number;
+  numDays: any;
 }) {
-  const allDates = eachDayOfInterval({
-    start: subDays(new Date(), numDays - 1),
-    end: new Date(),
-  });
+  const { start, end } = getDateInterval(numDays);
+  const allDates = eachDayOfInterval({ start, end });
 
   const ordersChartData = allDates.map((date) => {
     const dateString = format(date, "MMM dd");
@@ -49,10 +53,12 @@ export default function OrdersChart({
 
   return (
     <div>
-      <h2 className="px-4 py-3 text-gray-800 font-semibold text-[20px]">
-        Stats from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
-        {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy")}{" "}
-      </h2>
+      {numDays !== "all" && (
+        <h2 className="px-4 py-3 text-gray-800 font-semibold text-[20px]">
+          Stats from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
+          {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy")}{" "}
+        </h2>
+      )}
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
           data={ordersChartData}
@@ -62,20 +68,18 @@ export default function OrdersChart({
           <XAxis
             dataKey="label"
             tickSize={0.9}
-            tick={{ fontSize: 14, dy: 10 }} // Added dy: 10 to move labels down
+            tick={{ fontSize: 14, dy: 10 }}
           />
           <YAxis
             tick={{ fontSize: 13 }}
             dataKey="totalOrders"
             name="Total Orders"
-            domain={[0, 400]}
             scale="auto"
             type="number"
           />
           <YAxis
             yAxisId="right"
             orientation="right"
-            tick={{ fontSize: 13 }}
             dataKey="totalSales"
             name="Total Sales"
             domain={[0, "auto"]}
@@ -84,7 +88,6 @@ export default function OrdersChart({
           />
           <Tooltip />
           <Area
-            dot={{ fill: "#599cfa", strokeWidth: 1 }}
             type="monotone"
             dataKey="totalOrders"
             name="Total Orders"
@@ -93,7 +96,6 @@ export default function OrdersChart({
             strokeWidth={1}
           />
           <Area
-            dot={{ fill: "#4e9c8b", strokeWidth: 1 }}
             type="monotone"
             dataKey="confirmedOrders"
             name="Delivered Orders"

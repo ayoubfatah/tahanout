@@ -1,4 +1,13 @@
-import { eachDayOfInterval, subDays } from "date-fns";
+import {
+  eachDayOfInterval,
+  endOfMonth,
+  endOfYear,
+  startOfMonth,
+  startOfYear,
+  subDays,
+  subMonths,
+  subYears,
+} from "date-fns";
 import {
   HiOutlineArchiveBoxXMark,
   HiOutlineArrowTrendingUp,
@@ -11,11 +20,11 @@ import {
 } from "react-icons/hi2";
 import { OrderType } from "../../Types/types";
 import { OverviewCard } from "../../ui/OverviewCard";
-import { filteredByDates } from "../../utils/helpers";
+import { filteredByDates, getDateInterval } from "../../utils/helpers";
 
 type OverviewProps = {
   orders: OrderType[];
-  numDays: number;
+  numDays: any;
 };
 
 const calculateTotalSales = (orders: OrderType[], status: string) => {
@@ -36,10 +45,9 @@ const calculateRate = (delivered: number, total: number) => {
 
 // jsx
 export default function Overview({ orders, numDays }: OverviewProps) {
-  const allDates = eachDayOfInterval({
-    start: subDays(new Date(), numDays - 1),
-    end: new Date(),
-  });
+  const { start, end } = getDateInterval(numDays);
+
+  const allDates = eachDayOfInterval({ start, end });
 
   // TOTAL SALES
   const totalSalesBasedOnDate = allDates.map((date) => {

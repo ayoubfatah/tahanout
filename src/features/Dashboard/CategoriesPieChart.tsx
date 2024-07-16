@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCities";
 import { OrderType } from "../../Types/types";
+import { CATEGORIES } from "../../services/Categories";
 const COLORS = [
   "#60a5fa", // Light Blue
   "#f97316", // Orange (kept as is for contrast)
@@ -27,22 +28,24 @@ const COLORS = [
   "#2dd4bf", // Lighter Teal
   "#60a5fa", // Light Blue (repeated)
 ];
-const getAllRegions = (regionsData: any) => {
-  return regionsData.regions.flatMap((region: any) => region.name);
-};
-const regions = getAllRegions(moroccanRegionsAndCities);
 
+const getCategories = CATEGORIES;
 //
 //
-export default function RegionsPieChart({ orders }: { orders: OrderType[] }) {
-  const data = regions.map((region: any) => {
-    const regionsOrders = orders.filter(
-      (order: any) => order.customers.region === region
+export default function CategoriesPieChart({
+  orders,
+}: {
+  orders: OrderType[];
+}) {
+  const data = getCategories.map((category: any) => {
+    const categoriesOrders = orders.filter(
+      (order: any) => order.products.category === category
     );
+    console.log(categoriesOrders);
 
     return {
-      name: region,
-      orders: regionsOrders.reduce(
+      name: category,
+      orders: categoriesOrders.reduce(
         (acc: any, order: any) => acc + order.quantity,
         0
       ),
@@ -51,10 +54,11 @@ export default function RegionsPieChart({ orders }: { orders: OrderType[] }) {
 
   // Filter out regions with zero orders
   const filteredData = data.filter((entry: any) => entry.orders > 0);
+
   return (
     <div className="col-span-2 bg-white p-5">
       <h2 className="text-[20px] font-semibold">
-        Summary of Orders by Moroccan Regions
+        Summary of Orders by Products Categories
       </h2>
       <div className=" flex items-center justify-center ">
         <div className="w-full h-[300px]">

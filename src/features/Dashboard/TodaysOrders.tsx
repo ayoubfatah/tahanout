@@ -25,8 +25,7 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
     <div className="bg-white  p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
       <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-1">
         {" "}
-        Today's Orders{" "}
-        <span className="text-sm text-gray-600">(pending orders)</span>
+        Today's Orders
       </h2>
       {todayPendingOrders?.length ? (
         <div className="  px-1  bg-white    items-center gap-2 ">

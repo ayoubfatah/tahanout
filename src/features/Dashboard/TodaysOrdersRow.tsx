@@ -91,7 +91,7 @@ export default function TodaysOrdersRow({ order }: any) {
             <HiCheck size={20} />
           </button>
         ) : (
-          <span className="cursor-not-allowed ">
+          <span className="opacity-0">
             <HiCheck size={20} />
           </span>
         )}
