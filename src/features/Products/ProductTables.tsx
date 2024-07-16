@@ -45,7 +45,7 @@ export default function ProductTables() {
   }
 
   // sort by
-  const sortByValue = searchParams.get("sortBy") || "createdAt-asc";
+  const sortByValue = searchParams.get("sortBy") || "createdAt-desc";
   const [field, direction] = sortByValue.split("-");
   const modifier = direction === "asc" ? 1 : -1;
 

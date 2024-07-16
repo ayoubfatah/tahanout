@@ -38,8 +38,8 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
   if (sortedTopCustomers?.length === 0)
     return <div className="p-5">No customers found</div>;
   return (
-    <div className="bg-white p-5 relative col-span-2 flex flex-col gap-3 rounded-md duration-300 transition-all">
-      <h2 className="text-xl font-semibold text-gray-700 py w-full bg-white sticky top-0">
+    <div className="bg-white  relative col-span-2 flex flex-col gap-3 rounded-md duration-300 transition-all">
+      <h2 className="text-xl px-2 py-3 font-semibold text-gray-700  w-full bg-white sticky top-0">
         Top Customers:
       </h2>
 
@@ -48,6 +48,9 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
           <TopCustomersRow
             key={customer.customerId}
             customer={customer}
+            customerData={customers?.filter(
+              (test: any) => test.id === customer.customerId
+            )}
             i={i}
           />
         ))}

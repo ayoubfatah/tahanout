@@ -12,6 +12,8 @@ import Filter from "../ui/Filter";
 import Spinner from "../ui/Spinner";
 import useObserver from "../hooks/useObserver";
 import CategoriesPieChart from "../features/Dashboard/CategoriesPieChart";
+import DatePicker from "react-datepicker";
+import DateSelector from "../ui/DateSelector";
 
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
@@ -23,10 +25,10 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex items-center justify-between gap-3 mb-7">
-        <div className="text-[30px] text-gray-700 font-semibold ">
-          Dashboard
-        </div>
+        <DateSelector />
+
         <Filter
+          dates={true}
           filterField={"last"}
           options={[
             { label: "today", value: "1" },

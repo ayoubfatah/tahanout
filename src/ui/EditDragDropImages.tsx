@@ -59,6 +59,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
 
   return (
     <main className="flex flex-col gap-4 p-10 ">
+      <h1 className="text-xl font-semibold">Edit Images</h1>
       <Reorder.Group
         as="div"
         values={items}

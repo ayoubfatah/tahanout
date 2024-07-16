@@ -7,26 +7,36 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCities";
+
 import { OrderType } from "../../Types/types";
 import { CATEGORIES } from "../../services/Categories";
 const COLORS = [
-  "#60a5fa", // Light Blue
-  "#f97316", // Orange (kept as is for contrast)
-  "#a855f7", // Light Purple
-  "#fde047", // Light Yellow
-  "#84cc16", // Light Green (kept as is)
-  "#f87171", // Light Red
-  "#fdba74", // Light Orange
-  "#a3e635", // Lighter Green
-  "#4ade80", // Lighter Green
-  "#5eead4", // Light Teal
-  "#c084fc", // Lighter Purple
-  "#ef4444", // Red (kept as is for contrast)
-  "#facc15", // Lighter Yellow
-  "#22c55e", // Green (kept as is)
-  "#2dd4bf", // Lighter Teal
-  "#60a5fa", // Light Blue (repeated)
+  "#3B82F6", // Sky Blue
+  "#EF4444", // Light Red
+  "#10B981", // Emerald Green
+  "#8B5CF6", // Lavender
+  "#F59E0B", // Amber
+  "#6B7280", // Cool Gray
+  "#EC4899", // Pink
+  "#0EA5E9", // Light Blue
+  "#D946EF", // Fuchsia
+  "#84CC16", // Lime Green
+  "#F97316", // Orange
+  "#14B8A6", // Teal
+  "#8B5CF6", // Purple
+  "#D97706", // Light Brown
+  "#059669", // Sea Green
+  "#4B5563", // Slate Gray
+  "#60A5FA", // Lighter Blue
+  "#FB7185", // Salmon
+  "#34D399", // Mint Green
+  "#A78BFA", // Light Purple
+  "#FBBF24", // Golden Yellow
+  "#9CA3AF", // Light Gray
+  "#F472B6", // Light Pink
+  "#38BDF8", // Sky Blue (lighter)
+  "#A855F7", // Bright Purple
+  "#BEF264", // Lime Yellow
 ];
 
 const getCategories = CATEGORIES;
@@ -41,7 +51,6 @@ export default function CategoriesPieChart({
     const categoriesOrders = orders.filter(
       (order: any) => order.products.category === category
     );
-    console.log(categoriesOrders);
 
     return {
       name: category,

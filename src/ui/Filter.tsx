@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function Filter({ filterField, options }: any) {
+export default function Filter({ filterField, options, dates }: any) {
   const [searchParams, setSearchParams] = useSearchParams();
   const filteredValue = searchParams.get(filterField) || options[0].value;
   function handleClick(value: string) {
     searchParams.set(filterField, value);
-    setSearchParams(searchParams);
+    if (dates) {
+      setSearchParams({ last: value });
+    } else {
+      setSearchParams(searchParams);
+    }
   }
   return (
     <div className="border border-gray-300 shadow-sm  rounded-lg px-2 py-1 flex gap-1 ">

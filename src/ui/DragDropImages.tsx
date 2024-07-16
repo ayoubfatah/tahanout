@@ -92,7 +92,6 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
                 <span>Image {i + 1}</span>
                 <button type="button" onClick={() => handleDelete(item.id)}>
                   <MdDelete />
-                  
                 </button>
               </div>
             </div>

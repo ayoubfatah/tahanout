@@ -6,7 +6,7 @@ export default function TopProductsRow({ product, i }: any) {
   const navigate = useNavigate();
   return (
     <div
-      className=" cursor-pointer flex items-center justify-between hover:bg-gray-100 p-2 border-b-[1px] border-gray-300 border-dashed"
+      className=" p-5 cursor-pointer flex items-center justify-between hover:bg-gray-100  border-b-[1px] border-gray-300 border-dashed"
       onClick={() => navigate(`/products/${product.productId}`)}
     >
       <div className="w-10 h-10   flex items-center justify-center">

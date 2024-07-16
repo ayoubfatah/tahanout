@@ -71,6 +71,8 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
 
   return (
     <main className="flex flex-col gap-4 p-4   w-[600px]">
+      <h1 className="text-xl font-semibold text-gray-700">Add more images</h1>
+
       <input
         type="file"
         accept="image/*"

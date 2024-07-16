@@ -36,8 +36,10 @@ export default function TopProducts({ orders }: { orders: OrderType[] }) {
   if (sortedTopProducts?.length === 0)
     return <div className=" p-2 text-gray-600">No products found</div>;
   return (
-    <div className="bg-white p-5 col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
-      <h2 className="text-xl font-semibold text-gray-700 ">Top Products:</h2>
+    <div className="bg-white  col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+      <h2 className="text-xl px-2 py-3 font-semibold text-gray-700 ">
+        Top Products:
+      </h2>
       <div className="overflow-y-scroll">
         {sortedTopProducts?.map((product: any, i: number) => (
           <TopProductsRow key={product.productId} i={i} product={product} />
