@@ -82,7 +82,7 @@ export default function OrdersTable({ orders }: any) {
           ))}
           <Table.Footer
             currentPage={currentPage}
-            ordersPerPage={ordersPerPage}
+            itemPerPage={ordersPerPage}
             totalOrders={filteredOrders?.length || 0}
             paginate={paginate}
           />

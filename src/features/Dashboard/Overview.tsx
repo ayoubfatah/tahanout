@@ -58,6 +58,7 @@ export default function Overview({
   // TOTAL ORDERS
   const totalOrdersBasedOnDate = allDates.map((date: Date) => {
     const ordersOfDate = filteredByDates(orders, date);
+
     return calculateTotalQuantity(ordersOfDate);
   });
   const totalOrders = totalOrdersBasedOnDate.reduce(

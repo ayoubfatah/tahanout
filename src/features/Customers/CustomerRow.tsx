@@ -25,6 +25,6 @@ export default function CustomerRow({ data }: CustomerRowProps) {
       <div className="flex justify-end ">
         <CustomerActions data={data} />
       </div>
-    </Table.Row>
+    </Table.Row> 
   );
 }

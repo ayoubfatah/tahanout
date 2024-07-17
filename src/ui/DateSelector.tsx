@@ -13,7 +13,6 @@ const DateSelector = () => {
 
   const handleDateChange = (update: [Date | null, Date | null]) => {
     setDateRange(update);
-    console.log("Date Range:", update); // This will log null values when no date is selected
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,21 +28,9 @@ const DateSelector = () => {
 
   const customRanges = [
     {
-      label: "Today",
-      getValue: () => [new Date(), new Date()],
-    },
-    {
-      label: "Yesterday",
-      getValue: () => {
-        const yesterday = subDays(new Date(), 1);
-        return [yesterday, yesterday];
-      },
-    },
-    {
       label: "Last 7 days",
-      getValue: () => [subDays(new Date(), 6), new Date()],
+      getValue: () => [subDays(new Date(), 7), new Date()],
     },
-    // Add more custom ranges as needed
   ];
 
   return (
@@ -54,13 +41,14 @@ const DateSelector = () => {
           startDate={dateRange[0]}
           endDate={dateRange[1]}
           onChange={handleDateChange}
-          className="bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-white border border-gray-300 rounded-md px-4  focus:outline-none focus:ring-2 focus:ring-blue-500"
           dateFormat="MMMM d, yyyy"
           showPopperArrow={false}
+          maxDate={new Date()} // Block future dates
           customInput={
             <button
               type="button"
-              className="bg-sky-500 text-black font-semibold py-2 px-4 rounded"
+              className="bg-sky-500 text-gray-800 font-semibold py-1.5 px-4 rounded"
             >
               {dateRange[0] && dateRange[1]
                 ? `${format(dateRange[0], "MMM d, yyyy")} - ${format(
@@ -77,7 +65,7 @@ const DateSelector = () => {
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            <div className="flex items-center justify-between px-2 py-2">
+            <div className="flex items-center   justify-between px-2 py-1">
               <button
                 type="button"
                 onClick={decreaseMonth}
@@ -108,7 +96,7 @@ const DateSelector = () => {
                 onClick={() =>
                   handleDateChange(range.getValue() as [Date, Date])
                 }
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                className="block   w-full text-left px-4 py-1 hover:bg-gray-100"
               >
                 {range.label}
               </button>
@@ -117,7 +105,7 @@ const DateSelector = () => {
         </DatePicker>
         <button
           type="submit"
-          className="bg-sky-500 hover:bg-sky-600 text-white font-semibold text-[14px] py-2.5 px-4 rounded"
+          className="bg-sky-500 hover:bg-sky-600 text-white font-semibold text-[14px] py-2 px-4 rounded"
         >
           Apply
         </button>

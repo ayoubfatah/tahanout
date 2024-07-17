@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export default function Filter({ filterField, options, dates }: any) {
+export default function Filter({ filterField, options, dates, home }: any) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const filteredValue = searchParams.get(filterField) || options[0].value;
+  const isHome = home ? "" : options[0].value;
+  const filteredValue = searchParams.get(filterField) || isHome;
   function handleClick(value: string) {
     searchParams.set(filterField, value);
     if (dates) {

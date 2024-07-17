@@ -34,12 +34,14 @@ const Dashboard = () => {
   const numDays = Number(searchParams.get("last"));
 
   if (isLoading) return <Spinner />;
+
   return (
     <>
       <div className="flex items-center justify-between gap-3 mb-7">
         <DateSelector />
 
         <Filter
+          home={true}
           dates={true}
           filterField={"last"}
           options={[
@@ -60,9 +62,21 @@ const Dashboard = () => {
               orders={orders?.length ? orders : []}
               numDays={numDays}
             />
+            <TodaysOrders orders={orders?.length ? orders : []} />
+
+            <RegionsPieChart
+              datesFromDatePicker={datesFromDatePicker}
+              numDays={numDays}
+              orders={orders?.length ? orders : []}
+            />
+            <CategoriesPieChart
+              datesFromDatePicker={datesFromDatePicker}
+              numDays={numDays}
+              orders={orders?.length ? orders : []}
+            />
             {/* chart */}
 
-            {numDays !== 1 && numDays !== 2 && start !== end && (
+            {
               <div
                 ref={ref}
                 className={`col-span-4 bg-white px-5 py-5 ${
@@ -75,14 +89,11 @@ const Dashboard = () => {
                   numDays={numDays}
                 />
               </div>
-            )}
+            }
 
-            <RegionsPieChart orders={orders?.length ? orders : []} />
-            <CategoriesPieChart orders={orders?.length ? orders : []} />
             <BarChartSales orders={orders?.length ? orders : []} />
 
             {/* today orders */}
-            <TodaysOrders orders={orders?.length ? orders : []} />
             <TopCustomers orders={orders?.length ? orders : []} />
             <TopProducts orders={orders?.length ? orders : []} />
           </div>
