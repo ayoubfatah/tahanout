@@ -56,7 +56,7 @@ function Footer({ currentPage, itemPerPage, totalOrders, paginate }: any) {
   const indexOfLastOrder = currentPage * itemPerPage;
   const indexOfFirstOrder = indexOfLastOrder - itemPerPage;
   const currentOrdersCount = Math.min(indexOfLastOrder, totalOrders);
-  console.log(itemPerPage, "index");
+
   return (
     <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px]">
       <span>

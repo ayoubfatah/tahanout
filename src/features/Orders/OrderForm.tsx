@@ -173,16 +173,14 @@ export default function OrderForm({
         <Button
           disabled={
             OrderQuantity < (productOptions?.minOrder ?? 1) ||
-            !productOptions ||
-            !customerOptions ||
             isLoading3 ||
             isLoading ||
             isLoading2
           }
           text="Cancel "
-          onClick={() =>
-            onclose() || setCustomerOptions(null) || setProductOptions(null)
-          }
+          onClick={() => {
+            onclose(), setCustomerOptions(null), setProductOptions(null);
+          }}
           textColor=" "
           bgColor="bg-white"
           borderColor="border-gray-300"

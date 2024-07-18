@@ -47,6 +47,24 @@ export const formatDateToMonthDay = (date: Date) => {
 export const filteredByDates = (data: any, date: Date) => {
   return data.filter((data: any) => isSameDay(date, new Date(data.createdAt)));
 };
+export const filteredByConfirmedDates = (data: any, date: Date) => {
+  return data.filter((data: any) =>
+    isSameDay(date, new Date(data.confirmedAt))
+  );
+};
+
+export const filteredByDeliveredDates = (data: any, date: Date) => {
+  return data.filter((data: any) =>
+    isSameDay(date, new Date(data.deliveredAt))
+  );
+};
+
+export const filteredByCancelledDates = (data: any, date: Date) => {
+  return data.filter((data: any) =>
+    isSameDay(date, new Date(data.cancelledAt))
+  );
+};
+
 
 export function getDateInterval(numDays: any) {
   let start, end;

@@ -36,6 +36,7 @@ const OrderInfoPage: React.FC = () => {
     upQuantity({
       id: order.products.id,
       newQuantity: order.quantity + order.products.quantity,
+      
     });
     toast.success("Order Cancelled", { id: "cancelOrder" });
   };
