@@ -5,7 +5,7 @@ import { OrderType } from "../Types/types";
 const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const placeholder = order ? "Order ID" : "Search ...";
+  const placeholder = order ? "Order ID or Customer Name" : "Search ...";
   useEffect(() => {
     // Initial filter to display all items when component mounts
     onFilter(items);

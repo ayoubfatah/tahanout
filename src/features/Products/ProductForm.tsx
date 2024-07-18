@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAddProduct from "./useAddProduct";
-import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
-import { MdDelete } from "react-icons/md";
-import DragDropImages from "../../ui/DragDropImages";
+import { HiArrowPath } from "react-icons/hi2";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
 import { CATEGORIES } from "../../services/Categories";
+import DragDropImages from "../../ui/DragDropImages";
+import useAddProduct from "./useAddProduct";
+import { generateSKU } from "../../utils/helpers";
 
 const ProductForm = ({ onClose }: any) => {
+  const [sku, setSku] = useState("");
+
+  function randomeSku() {
+    // generate a random sku like this 23LK2J4239
+    const sku = generateSKU();
+    setSku(sku);
+  }
   const [items, setItems] = useState([]);
   const {
     setValue,
@@ -46,13 +53,20 @@ const ProductForm = ({ onClose }: any) => {
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto w-full flex flex-col gap-4 p-10"
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 relative">
           <label>SKU:</label>
           <input
+            value={sku}
             className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("sku", { required: "SKU is required" })}
           />
+          <span
+            onClick={randomeSku}
+            className="text-gray-500 cursor-pointer absolute right-2 top-10"
+          >
+            <HiArrowPath size={20} />
+          </span>
           {errors.sku && (
             <span className="text-red-500 text-[12px]">
               {errors.sku.message as string}
@@ -161,7 +175,7 @@ const ProductForm = ({ onClose }: any) => {
           >
             {CATEGORIES.map((category, i: any) => (
               <option key={i} value={category}>
-                {category} 
+                {category}
               </option>
             ))}
           </select>

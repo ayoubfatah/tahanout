@@ -73,7 +73,7 @@ export default function CategoriesPieChart({
                   cx="50%"
                   cy="60%"
                   fill="#8884d8"
-                  paddingAngle={5}
+                  paddingAngle={2}
                 >
                   {filteredData.map((entry: any, index: number) => (
                     <Cell

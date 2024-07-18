@@ -1,22 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  HiCheck,
   HiEllipsisVertical,
   HiEye,
   HiMiniCheck,
   HiMiniPencilSquare,
   HiMiniTrash,
-  HiMiniTruck,
 } from "react-icons/hi2";
 import DeleteMsg from "../../ui/DeleteMsg";
 import Modal from "../../ui/Modal";
 
-import { CustomersType } from "../../Types/types";
-import { useDeleteOrder } from "./useDeleteOrder";
-import EditOrderForm from "./EditOrderForm";
-import { useChangeOrderStatus } from "./useChangeOrderStatus";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import EditOrderForm from "./EditOrderForm";
+import { useChangeOrderStatus } from "./useChangeOrderStatus";
+import { useDeleteOrder } from "./useDeleteOrder";
 
 type ActionsProps = {
   data: any;
