@@ -142,7 +142,7 @@ const EditOrder = ({
           <option value="in-progress">In Progress</option>
           <option value="pending">Pending</option>
           <option value="returned">Returned</option>
-          <option value="canceled">canceled</option>
+          <option value="cancelled">cancelled</option>
         </select>
         {errors.status && (
           <span className="text-red-500 text-sm">{errors.status.message}</span>

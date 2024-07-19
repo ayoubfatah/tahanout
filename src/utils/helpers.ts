@@ -44,6 +44,10 @@ export const formatDateToMonthDay = (date: Date) => {
   return format(date, "MMM dd").toUpperCase();
 };
 
+export const formatDateToYearMonthDayHoursMin = (date: Date) => {
+  return format(date, "yyyy-MM-dd HH:mm");
+};
+
 export const filteredByDates = (data: any, date: Date) => {
   return data.filter((data: any) => isSameDay(date, new Date(data.createdAt)));
 };
@@ -64,7 +68,6 @@ export const filteredByCancelledDates = (data: any, date: Date) => {
     isSameDay(date, new Date(data.cancelledAt))
   );
 };
-
 
 export function getDateInterval(numDays: any) {
   let start, end;

@@ -18,6 +18,7 @@ import { OrderSection } from "./OrderSection";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import { BiCheck } from "react-icons/bi";
 import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
+import { useUpdateOrderDate } from "./useUpdateOrderData";
 
 const OrderInfoPage: React.FC = () => {
   const navigate = useNavigate();
@@ -27,22 +28,24 @@ const OrderInfoPage: React.FC = () => {
   const { order, isLoading } = useOrder();
   const { data: settings, isLoading: isLoadingSettings } = useGetSettings();
   const { changeStatus, isLoading: isLoadingStatus } = useChangeOrderStatus();
+  const { mutate: updateDate } = useUpdateOrderDate();
   const { isDeleting, deletingOrder } = useDeleteOrder();
   const { id } = useParams();
   const { isEditing, upQuantity } = useUpdateProductQuantity();
 
   const setToCancel = () => {
-    changeStatus({ id: id, status: "canceled" });
+    changeStatus({ id: id, status: "cancelled" });
     upQuantity({
       id: order.products.id,
       newQuantity: order.quantity + order.products.quantity,
-      
     });
+    updateDate({ id: id, status: "cancelled" });
     toast.success("Order Cancelled", { id: "cancelOrder" });
   };
   const setToDelivered = () => {
     changeStatus({ id: id, status: "delivered" });
     toast.success("Order Delivered", { id: "deliveredOrder" });
+    updateDate({ id: id, status: "delivered" });
   };
   const setToReturned = () => {
     changeStatus({ id: id, status: "returned" });
@@ -50,11 +53,13 @@ const OrderInfoPage: React.FC = () => {
       id: order.products.id,
       newQuantity: order.quantity + order.products.quantity,
     });
+
     toast.success("Order Returned", { id: "returnOrder" });
   };
   const setToConfirmed = () => {
     changeStatus({ id: id, status: "in-progress" });
     toast.success("Order Confirmed", { id: "confirmOrder" });
+    updateDate({ id: id, status: "confirmed" });
   };
   const handleDelete = () => {
     deletingOrder(Number(id));
@@ -62,6 +67,7 @@ const OrderInfoPage: React.FC = () => {
       id: order.products.id,
       newQuantity: order.quantity + order.products.quantity,
     });
+
     toast.success("Order Deleted", { id: "deleteOrder" });
     navigate("/orders");
   };
@@ -115,7 +121,7 @@ const OrderInfoPage: React.FC = () => {
           </Modal.Open>
           {order.status !== "delivered" && order.status !== "returned" && (
             <Button
-              disabled={isLoading || order.status === "canceled" || isEditing}
+              disabled={isLoading || order.status === "cancelled" || isEditing}
               text="Cancel order"
               textColor="text-white"
               hoverColor="bg-red-700"
@@ -127,7 +133,7 @@ const OrderInfoPage: React.FC = () => {
           )}
 
           {order.status !== "delivered" &&
-            order.status !== "canceled" &&
+            order.status !== "cancelled" &&
             order.status !== "pending" &&
             order.status !== "returned" && (
               <Button
@@ -156,7 +162,7 @@ const OrderInfoPage: React.FC = () => {
               onClose={() => {}}
             />
           </Modal.Window>
-          {order.status !== "canceled" &&
+          {order.status !== "cancelled" &&
             order.status !== "pending" &&
             order.status !== "returned" && (
               <Button

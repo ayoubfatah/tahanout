@@ -9,7 +9,7 @@ interface StatusBadgeProps {
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   const getStatusStyles = (status: OrderStatusTypes) => {
     switch (status) {
-      case "canceled":
+      case "cancelled":
         return "bg-red-200 text-red-600";
       case "in-progress":
         return "bg-blue-200 text-blue-600";

@@ -82,3 +82,35 @@ export async function changeStatus(id: number, status: string) {
   }
   return data;
 }
+
+export async function updateOrderDate(id: number | string, status: string) {
+  let updateData: any = {};
+  const now = new Date().toISOString();
+
+  switch (status) {
+    case "cancelled":
+      updateData = { cancelledAt: now };
+      break;
+    case "confirmed":
+      updateData = { confirmedAt: now };
+      break;
+    case "delivered":
+      updateData = { deliveredAt: now };
+      break;
+    default:
+      throw new Error("Invalid status");
+  }
+
+  const { data, error } = await supabase
+    .from("orders")
+    .update(updateData)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}

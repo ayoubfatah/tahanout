@@ -1,4 +1,7 @@
-import { formatCurrency } from "../../utils/helpers";
+import {
+  formatCurrency,
+  formatDateToYearMonthDayHoursMin,
+} from "../../utils/helpers";
 
 export const OrderSection: React.FC<{
   title: string;
@@ -19,11 +22,13 @@ export const OrderSection: React.FC<{
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">Order Date:</span>{" "}
-            {order.createdAt}
+            {formatDateToYearMonthDayHoursMin(order.createdAt)}
           </div>
           <div className="border p-2 rounded-md">
-            <span className="font-medium capitalize">Delivery Date:</span>{" "}
-            {order.createdAt}
+            <span className="font-medium capitalize">
+              Estimated Delivery date:
+            </span>{" "}
+            {formatDateToYearMonthDayHoursMin(order.createdAt)}
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">Total:</span>{" "}
@@ -33,6 +38,24 @@ export const OrderSection: React.FC<{
             <span className="font-medium capitalize">Payment:</span>{" "}
             {order?.paymentStatus}
           </div>
+          {order.confirmedAt && (
+            <div className="border p-2 rounded-md">
+              <span className="font-medium capitalize">Confirmation Date:</span>{" "}
+              {formatDateToYearMonthDayHoursMin(order.confirmedAt)}
+            </div>
+          )}
+          {order.deliveredAt && (
+            <div className="border p-2 rounded-md">
+              <span className="font-medium capitalize">Delivery Date:</span>{" "}
+              {formatDateToYearMonthDayHoursMin(order.deliveredAt)}
+            </div>
+          )}
+          {order.cancelledAt && (
+            <div className="border p-2 rounded-md">
+              <span className="font-medium capitalize">Cancelled Date:</span>{" "}
+              {formatDateToYearMonthDayHoursMin(order.cancelledAt)}
+            </div>
+          )}
         </>
       )}
       {title === "Customer Info" && (
@@ -67,7 +90,7 @@ export const OrderSection: React.FC<{
           </div>
           <div className="border p-2 rounded-md">
             <span className="font-medium capitalize">National ID:</span>{" "}
-            {order.customers.nationalId}
+            {order.customers.nationalId?.toUpperCase()}
           </div>
         </>
       )}

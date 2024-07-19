@@ -67,7 +67,7 @@ export type OrderType = {
 };
 
 export type OrderStatusTypes =
-  | "canceled"
+  | "cancelled"
   | "in-progress"
   | "delivered"
   | "returned"

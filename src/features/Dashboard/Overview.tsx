@@ -96,7 +96,7 @@ export default function Overview({
   // TOTAL CANCELLED
   const totalCancelledBasedOnDate = allDates.map((date: any) => {
     const ordersOfDate = filteredByDates(orders, date)
-      .filter((order: OrderType) => order.status === "canceled")
+      .filter((order: OrderType) => order.status === "cancelled")
       .map((order: OrderType) => order.quantity)
       .reduce((acc: number, curr: number) => acc + curr, 0);
 
@@ -171,7 +171,7 @@ export default function Overview({
         numDays={numDays}
         icon={<HiOutlineArchiveBoxXMark size={30} />}
         iconColor="bg-red-100 text-red-600"
-        title="Canceled Orders"
+        title="cancelled Orders"
         value={totalCancelled}
       />
       <OverviewCard
