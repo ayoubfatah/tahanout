@@ -34,7 +34,7 @@ const ImageSwitcher = ({ images, onClose, isLoading }: ImageSwitcher) => {
   return (
     <Modal>
       <div className="md:flex-1 p-4">
-        <div className="relative h-64 md:h-80 bg-gray-100 mb-4">
+        <div className="relative h-64 md:h-80 bg-gray-100 dark:bg-gray-900 mb-4">
           {images?.map((img, index) => (
             <div
               key={index}

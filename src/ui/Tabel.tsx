@@ -30,7 +30,7 @@ function Header({ children }: ChildrenType) {
   return (
     <div
       role="row"
-      className={`uppercase bg-gray-100  py-2 px-3 grid  gap-2`}
+      className={`uppercase bg-gray-100 dark:bg-gray-900  dark:text-gray-100  dark:border-b dark:border-gray-700 py-2 px-3 grid  gap-2`}
       style={{ gridTemplateColumns: col }}
     >
       {children}
@@ -44,7 +44,7 @@ function Row({ children }: FooterProps) {
   return (
     <div
       role="row"
-      className={`relative py-2 px-3 grid  bg-white   border-b border-gray-200  items-center gap-2`}
+      className={`relative py-2 px-3 grid  bg-white dark:bg-gray-800  dark:text-gray-100    border-b border-gray-200   dark:border-gray-700    items-center gap-2`}
       style={{ gridTemplateColumns: col }}
     >
       {children}
@@ -58,7 +58,7 @@ function Footer({ currentPage, itemPerPage, totalOrders, paginate }: any) {
   const currentOrdersCount = Math.min(indexOfLastOrder, totalOrders);
 
   return (
-    <div className="bg-gray-50 flex justify-between py-2 px-3 text-[14px]">
+    <div className="bg-gray-50 dark:bg-gray-900 dark:text-gray-100   flex justify-between py-2 px-3 text-[14px]">
       <span>
         Showing {indexOfFirstOrder + 1 * 0 === 0 ? 1 : indexOfFirstOrder} to{" "}
         {currentOrdersCount} of {totalOrders} results

@@ -69,7 +69,7 @@ const EditOrder = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-4 w-[500px] h-[600px] overflow-y-scroll"
+      className="p-4 w-[500px] h-[600px] dark:text-gray-200 overflow-y-scroll"
     >
       <h2 className="text-xl font-bold mb-4">Edit Order</h2>
 
@@ -77,7 +77,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1"> Order ID:</label>
         <input
           disabled
-          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          className="cursor-not-allowed w-full border border-gray-300  dark:bg-gray-600    dark:text-gray-200   p-2 rounded"
           type="text"
           {...register("id")}
         />
@@ -91,7 +91,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1">Customer Name:</label>
         <input
           disabled
-          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          className="cursor-not-allowed w-full border border-gray-300  dark:bg-gray-600    dark:text-gray-200   p-2 rounded"
           type="text"
           {...register("customerName")}
         />
@@ -106,7 +106,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1">Customer ID:</label>
         <input
           disabled
-          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          className="cursor-not-allowed w-full border border-gray-300  dark:bg-gray-600    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("customerId")}
         />
@@ -121,7 +121,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1">Product ID:</label>
         <input
           disabled
-          className="cursor-not-allowed w-full border border-gray-300 p-2 rounded"
+          className="cursor-not-allowed w-full border border-gray-300  dark:bg-gray-600    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("productId")}
         />
@@ -135,7 +135,7 @@ const EditOrder = ({
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Status:</label>
         <select
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           {...register("status", { required: "Status is required" })}
         >
           <option value="delivered">Delivered</option>
@@ -153,7 +153,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1">Shipping Cost:</label>
         <input
           step={0.1}
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("shippingCost", {
             required: "Shipping Cost is required",
@@ -171,7 +171,7 @@ const EditOrder = ({
         <input
           disabled={isEditing}
           step={0.1}
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("productPrice", {
             required: "Product Price is required",
@@ -189,7 +189,7 @@ const EditOrder = ({
         <input
           disabled={isEditing}
           step={0.1}
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("totalPrice", { required: "Total Price is required" })}
         />
@@ -206,7 +206,7 @@ const EditOrder = ({
         </label>
         <select
           disabled={isEditing}
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           {...register("paymentMethod", {
             required: "Payment Method is required",
           })}
@@ -227,7 +227,7 @@ const EditOrder = ({
         <label className="block text-sm font-medium mb-1">Quantity:</label>
         <input
           disabled={isEditing}
-          className="w-full border border-gray-300 p-2 rounded"
+          className="w-full border border-gray-300  dark:bg-gray-800    dark:text-gray-200   p-2 rounded"
           type="number"
           {...register("quantity", { required: "Quantity is required" })}
         />

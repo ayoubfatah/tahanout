@@ -43,50 +43,54 @@ const EditEmployeeForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 p-10 w-[500px] bg-white rounded-md"
+      className="space-y-4 p-10 w-[500px] bg-white dark:bg-gray-800  rounded-md"
     >
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
           Full Name
         </label>
         <input
           type="text"
           value={fullName}
           disabled
-          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className=" cursor-not-allowed py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
+          Email
+        </label>
         <input
           type="email"
           value={email}
           disabled
-          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="cursor-not-allowed py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
           Phone Number
         </label>
         <input
           type="phone"
           value={phoneNumber}
           disabled
-          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className=" cursor-not-allowed py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Role</label>
+        <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
+          Role
+        </label>
         <input
           disabled={employeeData.role === "owner"}
           type="text"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="dark:bg-gray-800 py-2 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
 

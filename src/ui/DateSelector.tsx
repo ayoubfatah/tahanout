@@ -34,21 +34,21 @@ const DateSelector = () => {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="p-4">
-      <div className="flex items-center gap-1">
+    <form onSubmit={handleSubmit} className="p-4 ">
+      <div className="flex items-center gap-1 ">
         <DatePicker
           selectsRange={true}
           startDate={dateRange[0]}
           endDate={dateRange[1]}
           onChange={handleDateChange}
-          className="bg-white border border-gray-300 rounded-md px-4  focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-white dark:bg-gray-900  border border-gray-300 rounded-md px-4  focus:outline-none focus:ring-2 focus:ring-blue-500"
           dateFormat="MMMM d, yyyy"
           showPopperArrow={false}
           maxDate={new Date()} // Block future dates
           customInput={
             <button
               type="button"
-              className="bg-sky-500 text-gray-800 font-semibold py-1.5 px-4 rounded"
+              className="bg-sky-500 text-gray-800 dark:text-gray-200 font-semibold py-1.5 px-4 rounded"
             >
               {dateRange[0] && dateRange[1]
                 ? `${format(dateRange[0], "MMM d, yyyy")} - ${format(
@@ -65,7 +65,7 @@ const DateSelector = () => {
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            <div className="flex items-center   justify-between px-2 py-1">
+            <div className="flex items-center    justify-between px-2 py-1">
               <button
                 type="button"
                 onClick={decreaseMonth}

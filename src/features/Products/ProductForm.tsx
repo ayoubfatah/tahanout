@@ -57,7 +57,7 @@ const ProductForm = ({ onClose }: any) => {
           <label>SKU:</label>
           <input
             value={sku}
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("sku", { required: "SKU is required" })}
           />
@@ -77,7 +77,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Name:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("name", { required: "Name is required" })}
           />
@@ -91,7 +91,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Original Price:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("originalPrice", {
               required: " Original prcie Price is required",
@@ -106,7 +106,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Selling Price:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("price", { required: "Price is required" })}
           />
@@ -120,7 +120,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Discount:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("discount")}
           />
@@ -129,7 +129,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Quantity:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("quantity", { required: "Quantity is required" })}
           />
@@ -143,7 +143,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Description:</label>
           <textarea
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("description", {
               required: "Description is required",
             })}
@@ -158,7 +158,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Min Order:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("minOrder", {
               required: "min order is required",
@@ -170,7 +170,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Category:</label>
           <select
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("category", { required: "Category is required" })}
           >
             {CATEGORIES.map((category, i: any) => (
@@ -189,7 +189,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Warehouse:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("warehouse", { required: "Warehouse is required" })}
           />
@@ -202,7 +202,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Colors:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("colors")}
           />
@@ -211,7 +211,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Brand:</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("brand")}
           />
@@ -220,7 +220,7 @@ const ProductForm = ({ onClose }: any) => {
         <div className="flex flex-col gap-2">
           <label>Weight(kg):</label>
           <input
-            className="rounded-md border border-[#e0e0e0] bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("weight", {
               required: "Weight is required",

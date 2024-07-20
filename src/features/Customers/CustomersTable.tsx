@@ -39,7 +39,7 @@ export default function CustomersDetails() {
         onFilter={setFilteredCustomers}
       />
 
-      <div className="border border-gray-200 rounded-md text-gray-600">
+      <div className="border border-gray-200  dark:border-gray-700  rounded-md ">
         <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 20px">
           <Table.Header>
             <span className="">Full name</span>

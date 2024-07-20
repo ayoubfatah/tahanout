@@ -17,7 +17,7 @@ export default function EmployeesTable() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="border border-gray-200 rounded-md text-gray-600">
+    <div className="border border-gray-200  dark:border-gray-700  dark:text-gray-200  rounded-md text-gray-600">
       <Table col=" 1fr 1fr 1.6fr 1fr  1fr 20px">
         <Table.Header>
           <div>Id</div>

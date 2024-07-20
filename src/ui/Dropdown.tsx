@@ -77,7 +77,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       ref={dropdownRef}
     >
       <div
-        className="w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 rounded inline-flex justify-between items-center cursor-pointer dark:text-gray-400"
+        className="w-full bg-white dark:bg-gray-800 border dark:border-gray-600 border-gray-200 text-gray-700 py-2 px-4 rounded inline-flex justify-between items-center cursor-pointer dark:text-gray-400"
         onClick={handleToggle}
       >
         {selectedOption

@@ -69,7 +69,7 @@ export default function ProfilePasswordForm() {
     <div className="flex flex-col gap-4">
       <div className="text-[20px] font-bold">Update user's password:</div>
       <form
-        className="flex flex-col gap-3 bg-white py-5 px-6 rounded-md"
+        className="flex flex-col gap-3 bg-white  dark:bg-gray-900 py-5 px-6 rounded-md"
         onSubmit={handleSubmit}
       >
         <div className="flex gap-[100px] items-center border-gray-200 border-b border-dashed py-6">
@@ -78,7 +78,7 @@ export default function ProfilePasswordForm() {
           </label>
           <input
             disabled={isLoading}
-            className="border focus:outline-sky-500 w-[300px] rounded-md border-gray-500 py-1.5 px-3"
+            className="border focus:outline-sky-500 w-[300px] dark:bg-gray-800 rounded-md border-gray-500 py-1.5 px-3"
             type="password"
             id="password"
             value={password}
@@ -92,7 +92,7 @@ export default function ProfilePasswordForm() {
           </label>
           <input
             disabled={isLoading}
-            className="border focus:outline-sky-500 w-[300px] rounded-md border-gray-500 py-1.5 px-3"
+            className="border focus:outline-sky-500 w-[300px] dark:bg-gray-800 rounded-md border-gray-500 py-1.5 px-3"
             type="password"
             id="confirmPassword"
             value={confirmPassword}

@@ -131,7 +131,7 @@ export default function Overview({
     <>
       <OverviewCard
         numDays={numDays}
-        iconColor="bg-yellow-100 text-yellow-600"
+        iconColor="bg-yellow-100 text-yellow-600 dark:bg-yellow-600 dark:text-yellow-100"
         icon={<HiOutlineBanknotes size={30} />}
         title="Total Sales"
         value={totalSales}
@@ -140,21 +140,21 @@ export default function Overview({
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineShoppingBag size={30} />}
-        iconColor="bg-blue-100 text-blue-600"
+        iconColor="bg-blue-100 text-blue-600 dark:bg-blue-600 dark:text-blue-100"
         title="Total Orders"
         value={totalOrders}
       />
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineDocumentCheck size={30} />}
-        iconColor="bg-green-100 text-green-600"
+        iconColor="bg-green-100 text-green-600 dark:bg-green-600 dark:text-green-100"
         title="Confirmed Orders"
         value={totalConfirmed}
       />
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineTruck size={30} />}
-        iconColor="bg-teal-100 text-teal-600"
+        iconColor="bg-teal-100 text-teal-600 dark:bg-teal-600 dark:text-teal-100"
         title="Delivered Orders"
         value={totalDelivered}
       />
@@ -162,7 +162,7 @@ export default function Overview({
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineWallet size={30} />}
-        iconColor="bg-yellow-100 text-yellow-600"
+        iconColor="bg-yellow-100 text-yellow-600 dark:bg-yellow-600 dark:text-yellow-100"
         title="Total Profits"
         value={totalProfits}
         format={true}
@@ -170,14 +170,14 @@ export default function Overview({
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineArchiveBoxXMark size={30} />}
-        iconColor="bg-red-100 text-red-600"
+        iconColor="bg-red-100 text-red-600 dark:bg-red-600 dark:text-red-100"
         title="cancelled Orders"
         value={totalCancelled}
       />
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineCheckCircle size={30} />}
-        iconColor="bg-pink-100 text-pink-600"
+        iconColor="bg-pink-100 text-pink-600 dark:bg-pink-600 dark:text-pink-100"
         title="Confirmation Rate"
         value={confirmationRate}
         percentage={true}
@@ -185,7 +185,7 @@ export default function Overview({
       <OverviewCard
         numDays={numDays}
         icon={<HiOutlineArrowTrendingUp size={30} />}
-        iconColor="bg-purple-100 text-purple-600"
+        iconColor="bg-purple-100 text-purple-600 dark:bg-purple-600 dark:text-purple-100"
         title="Delivery Rate"
         value={deliveryRate}
         percentage={true}

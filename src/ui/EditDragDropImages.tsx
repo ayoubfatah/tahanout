@@ -72,7 +72,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
             key={item.id}
             value={item}
           >
-            <div className="flex items-center justify-between border p-1 mb-2 bg-white">
+            <div className=" text-gray-700 dark:text-gray-300  flex items-center justify-between border p-1 mb-2 bg-white  dark:bg-gray-800">
               <img
                 src={item.url}
                 alt={item.name}
@@ -82,7 +82,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
               <span className="flex-1 ml-4">Image {i + 1}</span>
               <div className="flex items-center">
                 <button
-                  className="text-red-500 mr-5"
+                  className="text-gray-500 mr-5"
                   type="button"
                   onClick={() => handleDelete(item.id)}
                 >

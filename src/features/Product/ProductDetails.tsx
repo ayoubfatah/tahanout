@@ -50,7 +50,7 @@ export default function ProductDetails() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl bg-gray-50 mx-auto px-4 sm:px-6 lg:px-8 py-12"
+        className="max-w-7xl bg-gray-50 dark:bg-gray-900 mx-auto px-4 sm:px-6 lg:px-8 py-12"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="relative">

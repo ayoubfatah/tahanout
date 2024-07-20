@@ -53,7 +53,7 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
   const result = Object.values(data);
 
   return (
-    <div className="col-span-4 bg-white p-5">
+    <div className="col-span-4 bg-white  dark:bg-gray-800 p-5">
       <h2 className="text-[20px] font-semibold">
         Monthly Sales and Profit Overview
       </h2>

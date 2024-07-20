@@ -63,7 +63,7 @@ function Menu({ children }: { children: React.ReactNode }) {
   if (!open) return null;
 
   return (
-    <div className="bg-white shadow-sm flex flex-col right-[50%] absolute border border-gray-50 z-40">
+    <div className="bg-white  dark:bg-gray-800 shadow-sm flex flex-col right-[50%] absolute border border-gray-50 dark:border-gray-700 z-40">
       {children}
     </div>
   );
@@ -88,7 +88,7 @@ function Item({
   return (
     <button
       onClick={handleClick}
-      className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+      className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700  px-10 py-[10px] gap-2 font-light text-[14px]"
     >
       {children}
     </button>

@@ -13,14 +13,14 @@ export default function OrdercustomerOptions({
     item.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
-    <div className="absolute mt-2 w-full  max-h-[290px]  overflow-y-scroll    bg-white border border-gray-200 rounded shadow-lg z-10">
+    <div className="absolute mt-2 w-full  max-h-[290px]  overflow-y-scroll    bg-white  dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded shadow-lg z-10">
       <div className="p-2">
         <input
           type="text"
           placeholder="Search by Name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-3 py-2 border rounded dark:bg-gray-700 "
         />
       </div>
       {isLoading ? (

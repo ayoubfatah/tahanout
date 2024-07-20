@@ -5,7 +5,6 @@ export default function Products() {
     <div className="">
       <div className="flex justify-between mb-8 ">
         <h1 className="text-[24px] font-semibold">Products</h1>
-        <h1 className="text-[24px] font-semibold">buttons</h1>
       </div>
       <ProductTables />
     </div>

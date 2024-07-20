@@ -49,23 +49,31 @@ export default function TodaysOrdersRow({ order }: any) {
   return (
     <div
       key={order.id}
-      className=" border-b px-2 hover:bg-gray-100 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] grid items-center"
+      className=" border-b px-2 hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] grid items-center"
     >
-      <span className="text-[14px] text-gray-700">{order.id}</span>
+      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
+        {order.id}
+      </span>
       <div className="flex flex-col">
-        <span className="text-[14px] text-gray-700">
+        <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
           {order.customers?.fullName}
         </span>
-        <span className="text-[10px] text-gray-700">
+        <span className="text-[10px] text-gray-700   dark:text-gray-200 ">
           {order.customers?.email}
         </span>
       </div>
-      <span className="text-[14px] text-gray-700">{order.products?.name}</span>
-      <span className="text-[14px] text-gray-700">{order.products?.sku}</span>
-      <span className="text-[14px] text-gray-700">
+      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
+        {order.products?.name}
+      </span>
+      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
+        {order.products?.sku}
+      </span>
+      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
         {order.createdAt ? formatTime(order.createdAt) : "N/A"}
       </span>
-      <span className="text-[14px] text-gray-700">{order.quantity}</span>
+      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
+        {order.quantity}
+      </span>
       <span className="text-[14px] text-blue-500 translate-x-[5px]">
         {formatCurrency(order.totalPrice)}
       </span>

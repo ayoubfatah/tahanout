@@ -79,7 +79,7 @@ const Dashboard = () => {
             {
               <div
                 ref={ref}
-                className={`col-span-4 bg-white px-5 py-5 ${
+                className={`col-span-4 bg-white dark:bg-gray-800 px-5 py-5 ${
                   isVisible ? "fade-in" : ""
                 }`}
               >

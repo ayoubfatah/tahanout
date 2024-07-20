@@ -40,7 +40,7 @@ const PaymentMethodDropDown = () => {
         ref={dropdownRef}
       >
         <div
-          className="w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 rounded inline-flex justify-between options-center cursor-pointer dark:text-gray-400"
+          className="w-full bg-white dark:bg-gray-800 border border-gray-200 text-gray-700 py-2 px-4 rounded inline-flex justify-between options-center cursor-pointer dark:text-gray-400"
           onClick={handleToggle}
         >
           {paymentMethod ? (
@@ -64,12 +64,12 @@ const PaymentMethodDropDown = () => {
               setPaymentMethod(e.target.textContent);
               setIsOpen(false);
             }}
-            className="absolute mt-2 w-full overflow-y-scroll bg-white border border-gray-200 rounded shadow-lg z-10"
+            className="absolute mt-2 w-full overflow-y-scroll bg-white dark:bg-gray-800 border border-gray-200 rounded shadow-lg z-10"
           >
-            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 cursor-pointer">
+            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
               Cash on Delivery
             </div>
-            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 cursor-pointer">
+            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
               Credit Card
             </div>
           </div>

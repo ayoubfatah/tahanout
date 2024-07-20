@@ -8,7 +8,7 @@ export const OrderSection: React.FC<{
   settings?: any;
   order?: any;
 }> = ({ title, order, settings }) => (
-  <div className="p-4 bg-white shadow-md rounded-md fade-in">
+  <div className="p-4 bg-white dark:bg-gray-800 shadow-md rounded-md fade-in">
     <h2 className="text-xl font-semibold text-sky-500 mb-2">{title}</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {title === "Order Info" && (

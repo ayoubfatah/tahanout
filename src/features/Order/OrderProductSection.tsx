@@ -10,7 +10,7 @@ export default function OrderProductSection({
 }) {
   const navigate = useNavigate();
   return (
-    <div className="p-4 bg-white shadow-md rounded-md fade-in">
+    <div className="p-4 bg-white dark:bg-gray-800 dark:text-gray-200 text-gray-800 shadow-md rounded-md fade-in">
       <h2 className="text-xl font-semibold text-sky-500 mb-2">{title}</h2>
       <div className="space-y-2">
         <div className="border p-4 rounded-md">

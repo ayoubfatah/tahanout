@@ -57,7 +57,7 @@ export default function OrdersChart({
   return (
     <div>
       {numDays !== "all" && (
-        <h2 className="px-4 py-3 text-gray-800 font-semibold text-[20px]">
+        <h2 className="px-4 py-3 text-gray-800 dark:text-gray-200 font-semibold text-[20px]">
           Stats from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
           {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy")}{" "}
         </h2>

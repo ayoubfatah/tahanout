@@ -14,7 +14,7 @@ export default function Filter({ filterField, options, dates, home }: any) {
     }
   }
   return (
-    <div className="border border-gray-300 shadow-sm  rounded-lg px-2 py-1 flex gap-1 ">
+    <div className="border  border-gray-300  dark:border-gray-700  shadow-sm  rounded-lg px-2 py-1 flex gap-1 ">
       {options.map((option: any) => (
         <button
           key={option.value}

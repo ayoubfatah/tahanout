@@ -55,7 +55,7 @@ export default function CategoriesPieChart({
   const filteredData = data.filter((entry: any) => entry.orders > 0);
 
   return (
-    <div className="col-span-2 bg-white p-5">
+    <div className="col-span-2 bg-white dark:bg-gray-800 p-5">
       <h2 className="text-[20px] font-semibold">
         Summary of Orders by Products Categories
       </h2>

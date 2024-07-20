@@ -135,7 +135,7 @@ export default function OrderForm({
           onChange={(e) => {
             setOrderQuantity(parseInt(e.target.value));
           }}
-          className="rounded-md border w-[80px] border-[#e0e0e0] bg-white py-2 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md  p-1 px-2"
+          className="  rounded-md border w-[80px] border-[#e0e0e0] bg-white  dark:bg-gray-800  py-2 text-base font-medium   text-gray-800  dark:text-gray-200    outline-none focus:border-[#6A64F1] focus:shadow-md  p-1 px-2"
           type="number"
         />
         {productOptions && productOptions.minOrder > OrderQuantity && (
@@ -181,7 +181,7 @@ export default function OrderForm({
           onClick={() => {
             onclose(), setCustomerOptions(null), setProductOptions(null);
           }}
-          textColor=" "
+          textColor="text-black"
           bgColor="bg-white"
           borderColor="border-gray-300"
           border="border"

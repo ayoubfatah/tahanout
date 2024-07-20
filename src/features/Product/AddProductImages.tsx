@@ -71,7 +71,9 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
 
   return (
     <main className="flex flex-col gap-4 p-4   w-[600px]">
-      <h1 className="text-xl font-semibold text-gray-700">Add more images</h1>
+      <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
+        Add more images
+      </h1>
 
       <input
         type="file"
@@ -90,7 +92,7 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
       <div className="mb-4">
         {items.map((item, i) => (
           <div className="list-none shadow-sm" key={item.id}>
-            <div className="flex items-center justify-between border p-1 mb-2 bg-white">
+            <div className="flex items-center justify-between border p-1 mb-2 bg-white  ">
               <img
                 src={item.id}
                 alt={item.name}

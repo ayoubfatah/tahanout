@@ -55,7 +55,7 @@ export default function Actions({ data }: ActionsProps) {
       <div className="relative cursor-pointer" ref={actionsRef}>
         <HiEllipsisVertical onClick={() => setOpen(!open)} size={25} />
         {open && (
-          <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 z-40">
+          <div className="bg-white shadow-sm flex flex-col  right-[50%] absolute border border-gray-50 dark:border-gray-700 dark:bg-gray-800 z-40">
             {data && data.status === "pending" && (
               <button
                 onClick={() => {
@@ -69,7 +69,7 @@ export default function Actions({ data }: ActionsProps) {
                   );
                   setOpen(false);
                 }}
-                className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+                className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]"
               >
                 <HiMiniCheck size={20} />
                 Confirm
@@ -79,14 +79,14 @@ export default function Actions({ data }: ActionsProps) {
               onClick={() => {
                 navigate(`/orders/${data.id}`);
               }}
-              className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]"
+              className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]"
             >
               <HiEye size={20} />
               Details
             </button>
 
             <Modal.Open opens="editCustomer">
-              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
+              <button className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
                 Edit
               </button>
@@ -102,7 +102,7 @@ export default function Actions({ data }: ActionsProps) {
             </Modal.Window>
 
             <Modal.Open opens="deleteCustomer">
-              <button className="flex items-center hover:bg-gray-200 px-10 py-[10px] gap-2 font-light text-[14px]">
+              <button className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} /> Delete
               </button>
             </Modal.Open>

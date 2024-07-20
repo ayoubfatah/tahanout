@@ -11,8 +11,8 @@ export default function OrderProductOptionsRow({
     return null;
   }
   return (
-    <div   
-      className="py-3 grid gap-2 grid-cols-[60px_1fr_1fr_1fr] justify-around items-center hover:bg-gray-50 cursor-pointer"
+    <div
+      className="py-3 grid gap-2 grid-cols-[60px_1fr_1fr_1fr] justify-around items-center hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
       onClick={() => {
         if (fromProductTable) return null;
         handleSelect(item);

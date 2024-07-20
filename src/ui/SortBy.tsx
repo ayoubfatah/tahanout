@@ -15,7 +15,7 @@ export default function SortBy({ options }: any) {
     <select
       id="sortBy"
       name="sortBy"
-      className="font-medium flex justify-center text-center bg-grey-100 border border-grey-200 text-grey-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+      className=" dark:bg-gray-900 font-medium flex justify-center text-center bg-grey-100 border border-grey-200 text-grey-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
       value={filteredValue}
       onChange={handleChange}
     >

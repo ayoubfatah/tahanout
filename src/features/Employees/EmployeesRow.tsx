@@ -24,10 +24,18 @@ export default function EmployeesRow({ employee }: EmployeeProp) {
   }
   return (
     <Table.Row key={employee.id}>
-      <span className=" text-sm text-gray-700">{employee.id}</span>
-      <span className=" text-sm text-gray-700">{employee.fullName}</span>
-      <span className="text-sm text-gray-700">{employee.email}</span>
-      <span className="text-sm text-gray-700">{employee.phoneNumber}</span>
+      <span className=" text-sm text-gray-700 dark:text-gray-200   ">
+        {employee.id}
+      </span>
+      <span className=" text-sm text-gray-700 dark:text-gray-200   ">
+        {employee.fullName}
+      </span>
+      <span className="text-sm text-gray-700 dark:text-gray-200   ">
+        {employee.email}
+      </span>
+      <span className="text-sm text-gray-700 dark:text-gray-200   ">
+        {employee.phoneNumber}
+      </span>
       <span
         className={`text-sm ${
           employee.role === "owner" ? "text-yellow-400" : "text-green-500"

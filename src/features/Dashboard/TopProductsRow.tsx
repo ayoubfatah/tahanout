@@ -6,11 +6,13 @@ export default function TopProductsRow({ product, i }: any) {
   const navigate = useNavigate();
   return (
     <div
-      className=" p-5 cursor-pointer flex items-center justify-between hover:bg-gray-100  border-b-[1px] border-gray-300 border-dashed"
+      className=" p-5 cursor-pointer flex items-center justify-between hover:bg-gray-100  dark:hover:bg-gray-700  border-b-[1px] border-gray-300 border-dashed"
       onClick={() => navigate(`/products/${product.productId}`)}
     >
       <div className="w-10 h-10   flex items-center justify-center">
-        <span className="text-gray-600 text-[12px]">{i + 1}#</span>
+        <span className="text-gray-600  dark:text-gray-200    text-[12px]">
+          {i + 1}#
+        </span>
         <img
           className="w-full h-full object-cover bg-center bg-no-repeat"
           src={product.productImage}
@@ -18,19 +20,27 @@ export default function TopProductsRow({ product, i }: any) {
         />
       </div>
       <div className="flex justify-center flex-col text-[12px]">
-        <span className="text-gray-500">{product.productName}</span>
-        <span className="text-gray-600">${product.productPrice}</span>
+        <span className="text-gray-600  dark:text-gray-200   ">
+          {product.productName}
+        </span>
+        <span className="text-gray-600  dark:text-gray-200   ">
+          ${product.productPrice}
+        </span>
       </div>
       <div className="flex justify-center flex-col text-[12px]">
-        <span className="text-gray-400">Quantity</span>
-        <span className="text-gray-500">{product.productQuantity}</span>
+        <span className="text-gray-400 dark:text-gray-300">Quantity</span>
+        <span className="text-gray-600  dark:text-gray-200   ">
+          {product.productQuantity}
+        </span>
       </div>
       <div className="flex justify-center flex-col text-[12px]">
-        <span className="text-gray-400">Orders</span>
-        <span className="text-gray-500">{product.totalOrders}</span>
+        <span className="text-gray-400 dark:text-gray-200">Orders</span>
+        <span className="text-gray-600  dark:text-gray-200   ">
+          {product.totalOrders}
+        </span>
       </div>
       <div className="flex justify-center flex-col text-[12px]">
-        <span className="text-gray-400">total revenues</span>
+        <span className="text-gray-400 dark:text-gray-200">total revenues</span>
         <span className="text-blue-500">
           {formatCurrency(product.totalRevenues)}
         </span>

@@ -8,7 +8,7 @@ export default function OrderCustomerOptionsRow({
   return (
     <div
       key={item.id}
-      className=" py-3 flex justify-between hover:bg-gray-50  cursor-pointer"
+      className=" py-3 flex justify-between hover:bg-gray-50 dark:hover:bg-gray-700  cursor-pointer"
       onClick={() => {
         if (fromCustomerTable) return null;
         handleSelect(item);

@@ -22,14 +22,14 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
   const todayPendingOrders = getTodaysOrders(orders);
 
   return (
-    <div className="bg-white  p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
-      <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-1">
+    <div className="bg-white  dark:bg-gray-800 p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+      <h2 className="text-xl font-semibold text-gray-700  dark:text-gray-200 flex items-center gap-1">
         {" "}
         Today's Orders
       </h2>
       {todayPendingOrders?.length ? (
-        <div className="  px-1  bg-white    items-center gap-2 ">
-          <div className="border-b border-gray-200  py-1.5 grid grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] text-gray-400 text-[12px]  ">
+        <div className="  px-1  bg-white dark:bg-gray-800    items-center gap-2 ">
+          <div className="border-b border-gray-200  py-1.5 grid grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] text-gray-400  dark:text-gray-200 text-[12px]  ">
             <span className=" ">Order ID</span>
             <span className=" ">Customer</span>
             <span className=" ">Product</span>

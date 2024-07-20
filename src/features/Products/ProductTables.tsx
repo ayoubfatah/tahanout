@@ -84,7 +84,7 @@ export default function ProductTables() {
         products={filteredProductsFromUrl}
       />
 
-      <div className="border border-gray-200 rounded-md text-gray-600">
+      <div className="border border-gray-200  dark:border-gray-700 rounded-md text-gray-600">
         <Table col="1.3fr 1fr 1.9fr 1fr 1fr 1fr 1fr 40px">
           <Table.Header>
             <span></span>
@@ -102,7 +102,7 @@ export default function ProductTables() {
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (
-              <div className="px-3 py-4 border-b border-gray-200">
+              <div className="px-3 py-4 border-b  dark:text-gray-200 border-gray-200">
                 No products available...
               </div>
             )}

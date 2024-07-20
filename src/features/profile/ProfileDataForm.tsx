@@ -32,7 +32,7 @@ export default function ProfileDataFrom() {
   return (
     <div className="flex flex-col gap-4">
       <div className="text-[20px] font-bold">Update user data:</div>
-      <form className="flex flex-col gap-3 bg-white py-5 px-6 rounded-md">
+      <form className="flex flex-col gap-3 bg-white dark:bg-gray-900 py-5 px-6 rounded-md">
         <div className="flex gap-[100px] items-center  border-gray-200 border-b border-dashed py-6">
           <label className="w-1/6" htmlFor="email">
             Email
@@ -53,7 +53,7 @@ export default function ProfileDataFrom() {
           <input
             onChange={(e) => setFullName(e.target.value)}
             defaultValue={name}
-            className="border  focus:outline-sky-500 w-[300px] rounded-md border-gray-500 py-1.5 px-3"
+            className="border  dark:bg-gray-800 focus:outline-sky-500 w-[300px] rounded-md border-gray-500 py-1.5 px-3"
             type="text"
             id="name"
           />
