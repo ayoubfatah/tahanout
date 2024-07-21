@@ -12,6 +12,7 @@ import { OrderType } from "../../Types/types";
 import { CATEGORIES, CATEGORY_COLORS } from "../../services/Categories";
 import { filteredByDates, getDateInterval } from "../../utils/helpers";
 import { eachDayOfInterval } from "date-fns";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 
 const getCategories = CATEGORIES;
 //
@@ -27,6 +28,7 @@ export default function CategoriesPieChart({
   numDays?: any;
 }) {
   const { start, end } = getDateInterval(numDays);
+  const { isDarkMode } = useTahanout();
 
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
 
@@ -78,6 +80,7 @@ export default function CategoriesPieChart({
                   {filteredData.map((entry: any, index: number) => (
                     <Cell
                       key={`cell-${index}`}
+                      stroke={isDarkMode ? "black" : "white"}
                       fill={
                         CATEGORY_COLORS[
                           entry.name as keyof typeof CATEGORY_COLORS
@@ -103,7 +106,16 @@ export default function CategoriesPieChart({
                   }))}
                 />
 
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
+                    borderColor: isDarkMode ? "#2D3748" : "#E2E8F0", // Border color based on mode
+                    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color based on mode
+                  }}
+                  itemStyle={{
+                    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color for tooltip items
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           </div>

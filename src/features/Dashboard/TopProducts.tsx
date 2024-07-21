@@ -36,7 +36,7 @@ export default function TopProducts({ orders }: { orders: OrderType[] }) {
   if (sortedTopProducts?.length === 0)
     return <div className=" p-2 text-gray-600">No products found</div>;
   return (
-    <div className="bg-white dark:bg-gray-800  col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+    <div className="bg-white dark:bg-gray-800  col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md ">
       <h2 className="text-xl px-2 py-3 font-semibold text-gray-700  dark:text-gray-200">
         Top Products:
       </h2>

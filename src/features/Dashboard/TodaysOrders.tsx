@@ -22,7 +22,7 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
   const todayPendingOrders = getTodaysOrders(orders);
 
   return (
-    <div className="bg-white  dark:bg-gray-800 p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md duration-300 transition-all">
+    <div className="bg-white  dark:bg-gray-800 p-5 col-span-4 flex flex-col gap-3 overflow-x-scroll rounded-md ">
       <h2 className="text-xl font-semibold text-gray-700  dark:text-gray-200 flex items-center gap-1">
         {" "}
         Today's Orders

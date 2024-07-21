@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <div className="row-[1/-1] text-[16px] flex  flex-col  px-5 gap-3 items-center sticky font-[500]   dark:text-gray-500 dark:bg-gray-900 dark:border-r dark:border-gray-50 shadow-sm">
+    <div className="row-[1/-1] text-[16px] flex  flex-col  px-5 gap-3 items-center sticky font-[500]   dark:text-gray-500 dark:bg-gray-900 dark:border-r dark:border-gray-700 shadow-sm">
       <NavLink to="/" className="  text-gray-300  w-full py-5 px-2 ">
         Tahanout
       </NavLink>

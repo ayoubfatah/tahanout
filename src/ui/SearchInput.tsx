@@ -54,7 +54,7 @@ const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearch}
-        className="w-full transition-all duration-300 ease-in-out pl-10 pr-3 py-2 border  dark:bg-gray-900  border-gray-300 rounded-full focus:outline-none focus:ring focus:ring-sky-500"
+        className="w-full  pl-10 pr-3 py-2 border  dark:bg-gray-900  border-gray-300 rounded-full focus:outline-none focus:ring focus:ring-sky-500"
       />
     </div>
   );

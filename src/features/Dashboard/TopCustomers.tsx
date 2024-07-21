@@ -38,7 +38,7 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
   if (sortedTopCustomers?.length === 0)
     return <div className="p-5">No customers found</div>;
   return (
-    <div className="bg-white dark:bg-gray-800  relative col-span-2 flex flex-col gap-3 rounded-md duration-300 transition-all">
+    <div className="bg-white dark:bg-gray-800  relative col-span-2 flex flex-col gap-3 rounded-md">
       <h2 className="text-xl px-2 py-3 font-semibold text-gray-700 dark:text-gray-200  dark:bg-gray-800 w-full bg-white sticky top-0">
         Top Customers:
       </h2>

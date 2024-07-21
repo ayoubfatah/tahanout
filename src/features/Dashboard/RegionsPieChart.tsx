@@ -11,6 +11,7 @@ import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCitie
 import { OrderType } from "../../Types/types";
 import { filteredByDates, getDateInterval } from "../../utils/helpers";
 import { eachDayOfInterval } from "date-fns";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 const REGION_COLORS = {
   "Tanger-Tetouan-Al Hoceima": "#3b82f6", // Bright Blue
   Oriental: "#f97316", // Bright Orange
@@ -45,6 +46,7 @@ export default function RegionsPieChart({
 
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
 
+  const { isDarkMode } = useTahanout();
   const dataBasedOnDate = allDates.map((date: any) => {
     const ordersDate = filteredByDates(orders, date);
 
@@ -93,6 +95,8 @@ export default function RegionsPieChart({
                   {filteredData.map((entry: any, index: number) => (
                     <Cell
                       key={`cell-${index}`}
+                      // stroke
+                      stroke={isDarkMode ? "black" : "white"}
                       fill={
                         REGION_COLORS[
                           entry.name as keyof typeof REGION_COLORS
@@ -117,7 +121,16 @@ export default function RegionsPieChart({
                   }))}
                 />
 
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
+                    borderColor: isDarkMode ? "#2D3748" : "#E2E8F0", // Border color based on mode
+                    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color based on mode
+                  }}
+                  itemStyle={{
+                    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color for tooltip items
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           ) : (

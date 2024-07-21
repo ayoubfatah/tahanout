@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { OrderType } from "../../Types/types";
 import { formatCurrency, getDateInterval } from "../../utils/helpers";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 
 export default function OrdersChart({
   orders,
@@ -29,7 +30,7 @@ export default function OrdersChart({
   const { start, end } = getDateInterval(numDays);
 
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
-
+  const { isDarkMode } = useTahanout();
   const ordersChartData = allDates.map((date: any) => {
     const dateString = format(date, "MMM dd");
     const totalOrdersOfDate = orders
@@ -89,7 +90,13 @@ export default function OrdersChart({
             scale="auto"
             type="number"
           />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
+              borderColor: isDarkMode ? "#2D3748" : "#E2E8F0", // Border color based on mode
+              color: isDarkMode ? "#FFFFFF" : "#000000", // Text color based on mode
+            }}
+          />
           <Area
             type="monotone"
             dataKey="totalOrders"

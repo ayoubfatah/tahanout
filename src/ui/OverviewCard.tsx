@@ -32,7 +32,7 @@ export const OverviewCard = ({
   const animatedValue = useCountUp(value, speed);
 
   return (
-    <div className="bg-white dark:bg-gray-800 px-2 py-5 flex gap-5 shadow-sm rounded-md items-center hover:scale-[1.03] duration-300 transition-all">
+    <div className="bg-white dark:bg-gray-800 px-2 py-5 flex gap-5 shadow-sm rounded-md items-center hover:scale-[1.03] ">
       <div className={`${iconColor} p-4 rounded-full`}>{icon}</div>
       <div>
         <h2 className="text-[15px] font-semibold text-gray-500 dark:text-gray-400   mb-1">

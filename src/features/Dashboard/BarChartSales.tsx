@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { OrderType } from "../../Types/types";
+import { useTahanout } from "../../contextApi/useTahanoutCA";
 
 const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
   const months = [
@@ -26,7 +27,7 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
     "Nov",
     "Dec",
   ];
-
+  const { isDarkMode } = useTahanout();
   const data = months.map((month) => {
     const monthOrders = orders.filter(
       (order: any) => months[new Date(order.createdAt).getMonth()] === month
@@ -72,6 +73,11 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip
+            contentStyle={{
+              backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
+              borderColor: isDarkMode ? "#2D3748" : "#E2E8F0", // Border color based on mode
+              color: isDarkMode ? "#FFFFFF" : "#000000", // Text color based on mode
+            }}
             formatter={(value, name: string) => [
               `$${value}`,
               typeof name === "string"
@@ -79,7 +85,7 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
                 : "",
             ]}
           />
-          <Legend />
+
           <Bar dataKey="sales" fill="#ffd700" name="Sales" barSize={20} />
           <Bar dataKey="profits" fill="#3981e6" name="Profits" barSize={20} />
         </BarChart>

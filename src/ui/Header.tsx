@@ -7,12 +7,14 @@ import {
   HiChevronDown,
   HiMiniLanguage,
   HiOutlineUserCircle,
+  HiMiniSun,
 } from "react-icons/hi2";
 import { useLogout } from "../features/authentication/useLogout";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
 import Avatar from "./Avatar";
 import DropdownItem from "./DropdownItem";
+import { useTahanout } from "../contextApi/useTahanoutCA";
 
 export default function Header() {
   const { user } = useUser();
@@ -24,6 +26,8 @@ export default function Header() {
   const navigate = useNavigate();
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const languageDropdownRef = useRef<HTMLDivElement>(null);
+  const { isDarkMode, toggleDarkMode } = useTahanout();
+  console.log(isDarkMode);
 
   const toggleUserDropdown = () => setIsUserDropdownOpen(!isUserDropdownOpen);
   const toggleLanguageDropdown = () =>
@@ -52,14 +56,14 @@ export default function Header() {
   }, []);
 
   return (
-    <header className=" dark:bg-gray-900  bg-white  sticky top-0  z-[20]  py-2 px-6 flex items-center border-b border-gray-200  justify-end">
+    <header className=" dark:bg-gray-900  bg-white  sticky top-0  z-[20]  py-2 px-6 flex items-center border-b border-gray-200  dark:border-gray-700  justify-end">
       <div className="flex items-center gap-5 space-x-4">
-        <button
-          onClick={() => {
-            /* Toggle dark mode */
-          }}
-        >
-          <HiOutlineMoon className="w-6 h-6 text-gray-600 dark:text-gray-100 " />
+        <button onClick={toggleDarkMode}>
+          {isDarkMode ? (
+            <HiMiniSun className="w-6 h-6 text-gray-600 dark:text-gray-100" />
+          ) : (
+            <HiOutlineMoon className="w-6 h-6 text-gray-600 dark:text-gray-100" />
+          )}
         </button>
         <div className="relative" ref={languageDropdownRef}>
           <button

@@ -6,6 +6,7 @@ import React, {
   ReactNode,
 } from "react";
 import { CustomersType, Product } from "../Types/types";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 interface TahanoutContextType {
   customerOptions: CustomersType | null;
@@ -18,6 +19,9 @@ interface TahanoutContextType {
   setPaymentMethod: React.Dispatch<React.SetStateAction<any>>;
   OrderQuantity: number;
   setOrderQuantity: React.Dispatch<React.SetStateAction<number>>;
+  isDarkMode: boolean;
+  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDarkMode: () => void;
 }
 
 interface TahanoutProvider {
@@ -33,10 +37,24 @@ const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
   );
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [OrderQuantity, setOrderQuantity] = useState(1);
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "isDarkMode");
 
+  function toggleDarkMode() {
+    setIsDarkMode(!isDarkMode);
+  }
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
   // values
 
   const contextValue: TahanoutContextType = {
+    isDarkMode,
+    setIsDarkMode,
     customerOptions,
     setCustomerOptions,
     productOptions,
@@ -45,6 +63,7 @@ const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
     setPaymentMethod,
     OrderQuantity,
     setOrderQuantity,
+    toggleDarkMode,
   };
 
   return (

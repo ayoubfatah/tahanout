@@ -12,15 +12,15 @@ export default function LoginFrom() {
     login({ email, password });
   };
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-gray-100  flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <h1 className="font-bold text-center text-2xl mb-5 tracking-widest">
           TAHANOUT
         </h1>
-        <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+        <div className="bg-white dark:bg-gray-800 dark:text-black  shadow w-full rounded-lg divide-y divide-gray-200">
           <form onSubmit={handleLogin} className="px-5 py-7">
             <label
-              className="font-semibold text-sm text-gray-600 pb-1 block"
+              className="font-semibold text-sm text-gray-600 dark:text-gray-200 pb-1 block"
               htmlFor="email"
             >
               E-mail
@@ -35,7 +35,7 @@ export default function LoginFrom() {
               required
             />
             <label
-              className="font-semibold text-sm text-gray-600 pb-1 block"
+              className="font-semibold text-sm text-gray-600  dark:text-gray-200 pb-1 block"
               htmlFor="password"
             >
               Password
@@ -76,7 +76,7 @@ export default function LoginFrom() {
               <div className="text-center sm:text-left whitespace-nowrap">
                 <button
                   disabled={isLoading}
-                  className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset"
+                  className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg  dark:text-gray-200  text-gray-500 dark:hover:bg-gray-700 hover:bg-gray-100 "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function LoginFrom() {
               <div className="text-center sm:text-right whitespace-nowrap">
                 <button
                   disabled={isLoading}
-                  className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset"
+                  className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg  dark:text-gray-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700  "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
