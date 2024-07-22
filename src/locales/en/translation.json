@@ -1,0 +1,55 @@
+{
+  "welcome": "Welcome",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "forgotPassword": "Forgot Password",
+  "help": "Help",
+  "support_email": "Support Email",
+  "shipping_price": "Shipping Price",
+  "free_shipping_threshold": "Free Shipping Threshold",
+  "number_of_warehouses": "Number of Warehouses",
+  "return_policy_duration": "Return Policy Duration",
+  "maintenance_mode": "Maintenance Mode",
+  "update_tahanout_settings": "Update Tahanout's Settings",
+  "customers": "Customers",
+  "fullName": "Full Name",
+  "nationalId": "National ID",
+  "phoneNumber": "Phone Number",
+  "country": "Country",
+  "region": "Region",
+  "city": "City",
+  "zipCode": "Zip Code",
+  "addCustomer": "Add Customer",
+  "search": "Search",
+  "showing": "Showing",
+  "to": "to",
+  "of": "of",
+  "results": "results",
+  "previous": "Previous",
+  "next": "Next",
+
+  "fullNameRequired": "Full Name is required",
+
+  "emailRequired": "Email is required",
+  "invalidEmail": "Invalid email address",
+
+  "phoneNumberRequired": "Phone Number is required",
+
+  "nationalIdRequired": "National ID is required",
+
+  "countryRequired": "Country is required",
+
+  "regionRequired": "Region is required",
+  "selectRegion": "Select a region",
+
+  "cityRequired": "City is required",
+  "selectCity": "Select a city",
+
+  "zipCodeRequired": "Zip Code is required",
+  "address": "Address",
+  "addressRequired": "Address is required",
+  "saveCustomer": "Save Customer",
+  "close": "Close",
+  "customerCreated": "Customer created successfully"
+}

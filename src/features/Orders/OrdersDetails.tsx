@@ -5,19 +5,19 @@ import Modal from "../../ui/Modal";
 import { useOrders } from "../../features/Orders/useOrders";
 import Spinner from "../../ui/Spinner";
 
-export default function OrdersDetails() {
+export default function OrdersDetails({ t }: any) {
   const { orders, isLoading } = useOrders();
 
   if (isLoading) return <Spinner />;
 
   return (
     <>
-      <OrdersTable orders={orders} />
+      <OrdersTable orders={orders} t={t} />
       <div className="mt-3">
         <Modal>
           <Modal.Open opens="addOrder">
             <Button
-              text="Add Order"
+              text={t("Add Order")}
               onClick={() => {}}
               textColor="text-white"
               bgColor="bg-sky-500"

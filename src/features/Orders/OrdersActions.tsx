@@ -14,12 +14,14 @@ import { useNavigate } from "react-router-dom";
 import EditOrderForm from "./EditOrderForm";
 import { useChangeOrderStatus } from "./useChangeOrderStatus";
 import { useDeleteOrder } from "./useDeleteOrder";
+import { useTranslation } from "react-i18next";
 
 type ActionsProps = {
   data: any;
 };
 
 export default function Actions({ data }: ActionsProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { deletingOrder } = useDeleteOrder();
 
@@ -72,7 +74,7 @@ export default function Actions({ data }: ActionsProps) {
                 className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]"
               >
                 <HiMiniCheck size={20} />
-                Confirm
+                {t("Confirm")}
               </button>
             )}
             <button
@@ -82,13 +84,13 @@ export default function Actions({ data }: ActionsProps) {
               className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]"
             >
               <HiEye size={20} />
-              Details
+              {t("Details")}
             </button>
 
             <Modal.Open opens="editCustomer">
               <button className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
-                Edit
+                {t("Edit")}
               </button>
             </Modal.Open>
 
@@ -103,14 +105,14 @@ export default function Actions({ data }: ActionsProps) {
 
             <Modal.Open opens="deleteCustomer">
               <button className="flex items-center hover:bg-gray-200  dark:hover:dark:bg-gray-600   px-10 py-[10px] gap-2 font-light text-[14px]">
-                <HiMiniTrash size={20} /> Delete
+                <HiMiniTrash size={20} /> {t("Delete")}
               </button>
             </Modal.Open>
 
             <Modal.Window name="deleteCustomer">
               <DeleteMsg
                 data={data}
-                type="Order"
+                type={t("Order")}
                 onClose={() => {}}
                 deleteFunction={deletingOrder}
                 isDeleting={false}

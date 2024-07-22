@@ -80,7 +80,7 @@ export default function CategoriesPieChart({
                   {filteredData.map((entry: any, index: number) => (
                     <Cell
                       key={`cell-${index}`}
-                      stroke={isDarkMode ? "black" : "white"}
+                      stroke={isDarkMode ? "#1f2937" : "white"}
                       fill={
                         CATEGORY_COLORS[
                           entry.name as keyof typeof CATEGORY_COLORS

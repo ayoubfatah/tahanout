@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  HiOutlineEnvelope,
-  HiOutlineBell,
-  HiOutlineMoon,
-  HiMiniArrowRightStartOnRectangle,
   HiChevronDown,
+  HiMiniArrowRightStartOnRectangle,
   HiMiniLanguage,
-  HiOutlineUserCircle,
   HiMiniSun,
+  HiOutlineMoon,
+  HiOutlineUserCircle,
 } from "react-icons/hi2";
-import { useLogout } from "../features/authentication/useLogout";
 import { useNavigate } from "react-router-dom";
+import { useTahanout } from "../contextApi/useTahanoutCA";
+import { useLogout } from "../features/authentication/useLogout";
 import { useUser } from "../features/authentication/useUser";
+import { changeLanguage } from "../utils/helpers";
 import Avatar from "./Avatar";
 import DropdownItem from "./DropdownItem";
-import { useTahanout } from "../contextApi/useTahanoutCA";
 
 export default function Header() {
   const { user } = useUser();
@@ -27,7 +26,6 @@ export default function Header() {
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const languageDropdownRef = useRef<HTMLDivElement>(null);
   const { isDarkMode, toggleDarkMode } = useTahanout();
-  console.log(isDarkMode);
 
   const toggleUserDropdown = () => setIsUserDropdownOpen(!isUserDropdownOpen);
   const toggleLanguageDropdown = () =>
@@ -37,13 +35,13 @@ export default function Header() {
     function handleClickOutside(event: any) {
       if (
         userDropdownRef.current &&
-        !userDropdownRef.current.contains(event.target as Node)
+        !userDropdownRef.current.contains(event.target)
       ) {
         setIsUserDropdownOpen(false);
       }
       if (
         languageDropdownRef.current &&
-        !languageDropdownRef.current.contains(event.target as Node)
+        !languageDropdownRef.current.contains(event.target)
       ) {
         setIsLanguageDropdownOpen(false);
       }
@@ -78,19 +76,22 @@ export default function Header() {
               <DropdownItem
                 text="English"
                 onClick={() => {
-                  /* Change language */
+                  changeLanguage("en");
+                  setIsLanguageDropdownOpen(false);
                 }}
               />
               <DropdownItem
                 text="Arabic"
                 onClick={() => {
-                  /* Change language */
+                  changeLanguage("ar");
+                  setIsLanguageDropdownOpen(false);
                 }}
               />
               <DropdownItem
                 text="Français"
                 onClick={() => {
-                  /* Change language */
+                  changeLanguage("fr");
+                  setIsLanguageDropdownOpen(false);
                 }}
               />
             </div>
@@ -108,13 +109,12 @@ export default function Header() {
             <div className="absolute right-0 mt-2 w-48 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg ">
               <DropdownItem
                 icon={HiOutlineUserCircle}
-                text="profile"
+                text="Profile"
                 onClick={() => {
                   navigate("/profile");
                   setIsUserDropdownOpen(false);
                 }}
               />
-
               <DropdownItem
                 icon={HiMiniArrowRightStartOnRectangle}
                 text="Logout"

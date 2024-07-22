@@ -6,6 +6,7 @@ import { useCreateEmployees } from "../features/Employees/useCreateEmployees";
 import { EmployeesType } from "../Types/types";
 import Button from "./Button";
 import { useNotificationSound } from "../hooks/useNotificationSound";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   fullName: string;
@@ -24,7 +25,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
     reset,
     formState: { errors },
   } = useForm<FormValues>();
-
+  const { t } = useTranslation();
   const { signUp, isLoading } = useSignUp();
   const playNotificationSound = useNotificationSound();
 
@@ -67,7 +68,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
     >
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Full Name
+          {t("fullName")}
         </label>
         <input
           disabled={isLoading || customerLoading}
@@ -84,7 +85,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Email
+          {t("email")}
         </label>
         <input
           disabled={isLoading || customerLoading}
@@ -107,7 +108,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Phone Number
+          {t("phoneNumber")}
         </label>
         <input
           disabled={isLoading || customerLoading}
@@ -126,7 +127,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Password
+          {t("password")}
         </label>
         <input
           disabled={isLoading || customerLoading}
@@ -149,7 +150,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div className="">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Retype Password
+          {t("Retype Password")}
         </label>
         <input
           type="password"
@@ -168,7 +169,7 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-          Role
+          {t("Role")}
         </label>
         <input
           type="text"
@@ -184,13 +185,13 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
         <Button
           type="button"
           onClick={handleSubmit(onSubmit)}
-          text="Submit"
+          text={t("Submit")}
           textColor="text-white"
           bgColor="bg-sky-500"
         />
         <Button
           type="button"
-          text="Cancel"
+          text={t("Cancel")}
           textColor="  text-gray-800"
           bgColor="bg-white"
           border="border"

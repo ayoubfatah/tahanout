@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
@@ -16,6 +16,7 @@ import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 import OrderProductOptions from "./OrderProductOptions";
 import ProductOptionsRow from "./OrderProductOptionsRow";
 import { id } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 export default function OrderForm({
   onClose: onclose,
   type,
@@ -25,6 +26,7 @@ export default function OrderForm({
   const navigate = useNavigate();
 
   const { isLoading, customers } = useCustomers();
+  const { t } = useTranslation();
   const { isLoading: isLoading2, products } = useProducts();
   const {
     customerOptions,
@@ -102,7 +104,7 @@ export default function OrderForm({
       className="flex gap-4 flex-col m-[50px]"
     >
       <div className="delete flex-col  ">
-        <div>Customer : </div>
+        <div>{t("customer")}:</div>
         {type !== "customerTable" ? (
           <Dropdown type="customer" data={customers} isLoading={isLoading}>
             <OrderCustomerOptions />
@@ -115,7 +117,7 @@ export default function OrderForm({
         )}
       </div>
       <div className="flex  flex-col ">
-        <div>Product : </div>
+        <div>{t("Product")}: </div>
         {type !== "productTable" ? (
           <Dropdown type="product" data={products} isLoading={isLoading2}>
             <OrderProductOptions />
@@ -130,7 +132,7 @@ export default function OrderForm({
       </div>
 
       <div className="flex  flex-col ">
-        <label>Quantity : </label>
+        <label>{t("Quantity")} : </label>
         <input
           onChange={(e) => {
             setOrderQuantity(parseInt(e.target.value));
@@ -171,12 +173,7 @@ export default function OrderForm({
           borderColor="border-sky-500"
         />
         <Button
-          disabled={
-            OrderQuantity < (productOptions?.minOrder ?? 1) ||
-            isLoading3 ||
-            isLoading ||
-            isLoading2
-          }
+          disabled={isLoading3 || isLoading || isLoading2}
           text="Cancel "
           onClick={() => {
             onclose(), setCustomerOptions(null), setProductOptions(null);

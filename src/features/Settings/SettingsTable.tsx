@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import useGetSettings from "./useGetSettings";
 import { useUpdateSettings } from "./useUpdateSettings";
+import Spinner from "../../ui/Spinner";
 
 export default function SettingsForm() {
+  const { t } = useTranslation();
   const { isLoading, data } = useGetSettings();
   const {
     shippingPrice,
@@ -17,12 +20,13 @@ export default function SettingsForm() {
     mutate(value);
   }
 
+  if (isLoading) return <Spinner />;
   return (
     <form className="flex flex-col   w-[800px] items-center justify-center">
       {/* Support Email */}
       <div className="w-full border-b border-dashed border-black   dark:border-gray-300  flex items-center py-3 px-6 gap-4">
         <label htmlFor="email" className="w-1/2">
-          Support Email:
+          {t("support_email")}
         </label>
         <input
           disabled={isUpdating}
@@ -36,7 +40,7 @@ export default function SettingsForm() {
       {/* Shipping Price */}
       <div className="w-full border-b border-dashed border-black   dark:border-gray-300 flex items-center py-3 px-6 gap-4">
         <label htmlFor="Shipping" className="w-1/2">
-          Shipping Price:
+          {t("shipping_price")}
         </label>
         <input
           disabled={isUpdating}
@@ -51,7 +55,7 @@ export default function SettingsForm() {
 
       <div className=" w-full border-b border-dashed border-black   dark:border-gray-300 flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="FreeShippingThreshold" className="w-1/2">
-          Free Shipping Threshold:
+          {t("free_shipping_threshold")}
         </label>
         <input
           disabled={isUpdating}
@@ -67,7 +71,7 @@ export default function SettingsForm() {
       {/* number of warehouses */}
       <div className=" w-full border-b border-dashed border-black   dark:border-gray-300 flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="numberOfWarehouses" className="w-1/2">
-          Number of warehouses :
+          {t("number_of_warehouses")}
         </label>
         <input
           disabled={isUpdating}
@@ -81,7 +85,7 @@ export default function SettingsForm() {
       {/* return policy duration */}
       <div className=" w-full border-b border-dashed border-black   dark:border-gray-300 flex items-center py-3 px-6 gap-4 ">
         <label htmlFor="returnPolicyDuration" className="w-1/2">
-          Return policy duration:
+          {t("return_policy_duration")}
         </label>
         <input
           disabled={isUpdating}
@@ -95,7 +99,7 @@ export default function SettingsForm() {
       {/* maintenance mode */}
       <div className="w-full border-b border-dashed border-black   dark:border-gray-300 flex justify-between items-center py-6 px-6 gap-4">
         <label htmlFor="maintenanceMode" className="w-1/2">
-          Maintenance Mode:
+          {t("maintenance_mode")}
         </label>
         <input
           disabled={isUpdating}

@@ -7,7 +7,7 @@ import { EmployeesType } from "../../Types/types";
 import Spinner from "../../ui/Spinner";
 import { useUser } from "../authentication/useUser";
 
-export default function EmployeesTable() {
+export default function EmployeesTable({ t }: any) {
   const { isLoading, employees } = useEmployees();
   const filteredEmployees = employees?.sort(
     (a: any, b: any) =>
@@ -21,14 +21,14 @@ export default function EmployeesTable() {
       <Table col=" 1fr 1fr 1.6fr 1fr  1fr 20px">
         <Table.Header>
           <div>Id</div>
-          <div>name</div>
-          <div>email</div>
-          <div>Phone number</div>
-          <div>role</div>
+          <div>{t("fullName")}</div>
+          <div>{t("email")}</div>
+          <div>{t("phoneNumber")}</div>
+          <div>{t("Role")}</div>
         </Table.Header>
         <div>
           {filteredEmployees?.map((employee: EmployeesType) => (
-            <EmployeesRow key={employee.id} employee={employee} />
+            <EmployeesRow t={t} key={employee.id} employee={employee} />
           ))}
         </div>
       </Table>

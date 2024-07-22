@@ -11,10 +11,12 @@ import EditEmployeeForm from "./EditEmployeeForm";
 
 type EmployeeProp = {
   employee: EmployeesType;
+  t: any;
 };
-export default function EmployeesRow({ employee }: EmployeeProp) {
+export default function EmployeesRow({ t, employee }: EmployeeProp) {
   const { user } = useUser();
   const { mutate, isDeleting } = useDeleteEmployee();
+
   function handleDelete() {
     if (user?.email === employee.email) {
       toast.error("You cant delete yourself");
@@ -53,13 +55,13 @@ export default function EmployeesRow({ employee }: EmployeeProp) {
               <Actions.Menu>
                 <Modal.Open opens="editEmployee">
                   <Actions.Item>
-                    <HiPencil size={20} /> Edit
+                    <HiPencil size={20} /> {t("Edit")}
                   </Actions.Item>
                 </Modal.Open>
 
                 <Modal.Open opens="deleteEmployee">
                   <Actions.Item>
-                    <HiTrash size={20} /> Delete
+                    <HiTrash size={20} /> {t("Delete")}
                   </Actions.Item>
                 </Modal.Open>
               </Actions.Menu>
@@ -71,7 +73,7 @@ export default function EmployeesRow({ employee }: EmployeeProp) {
               <DeleteMsg
                 deleteFunction={handleDelete}
                 data={employee}
-                type="employee"
+                type={t("employee")}
                 isDeleting={isDeleting}
                 onClose={() => {}}
               />

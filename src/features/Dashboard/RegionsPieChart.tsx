@@ -96,7 +96,7 @@ export default function RegionsPieChart({
                     <Cell
                       key={`cell-${index}`}
                       // stroke
-                      stroke={isDarkMode ? "black" : "white"}
+                      stroke={isDarkMode ? "#1f2937" : "white"}
                       fill={
                         REGION_COLORS[
                           entry.name as keyof typeof REGION_COLORS

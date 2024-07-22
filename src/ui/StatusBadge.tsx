@@ -1,12 +1,14 @@
 import React from "react";
 import { OrderStatusTypes } from "../Types/types";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { useTranslation } from "react-i18next";
 
 interface StatusBadgeProps {
   status: OrderStatusTypes;
 }
 
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
+  const { t } = useTranslation();
   const getStatusStyles = (status: OrderStatusTypes) => {
     switch (status) {
       case "cancelled":
@@ -36,7 +38,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
             <HiOutlineArrowUturnLeft />
           </span>
         )}
-        <span>{status.split("-").join(" ")}</span>
+        <span>{t(status).split("-").join(" ")}</span>
       </div>
     </>
   );

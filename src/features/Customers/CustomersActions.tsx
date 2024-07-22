@@ -13,6 +13,7 @@ import CustomerInfo from "./CustomerInfo";
 import { useDeleteCustomer } from "./useDeleteCustomer";
 import OrderForm from "../Orders/OrderForm";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
 
 type ActionsProps = {
   data: CustomersType;
@@ -22,6 +23,7 @@ export default function Actions({ data }: ActionsProps) {
   const [open, setOpen] = useState(false);
   const { setCustomerOptions } = useTahanout();
   const actionsRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -57,7 +59,7 @@ export default function Actions({ data }: ActionsProps) {
             <Modal.Open opens="make_order">
               <button className=" flex items-center hover:bg-gray-200  dark:hover:bg-gray-700 px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiOutlinePlus size={20} />
-                Order
+                {t("Order")}
               </button>
             </Modal.Open>
 
@@ -70,13 +72,13 @@ export default function Actions({ data }: ActionsProps) {
             </Modal.Window>
             <Modal.Open opens="moreDetails">
               <button className="flex items-center hover:bg-gray-200  dark:hover:bg-gray-700 px-10 py-[10px]  gap-2  font-light text-[14px]">
-                <HiEye size={20} /> details
+                <HiEye size={20} /> {t("Details")}
               </button>
             </Modal.Open>
 
             <Modal.Open opens="deleteCustomer">
               <button className="flex items-center hover:bg-gray-200  dark:hover:bg-gray-700 px-10 py-[10px] gap-2 font-light text-[14px]">
-                <HiMiniTrash size={20} /> Delete
+                <HiMiniTrash size={20} /> {t("Delete")}
               </button>
             </Modal.Open>
             <Modal.Window name="moreDetails">
@@ -85,7 +87,7 @@ export default function Actions({ data }: ActionsProps) {
             <Modal.Window name="deleteCustomer">
               <DeleteMsg
                 data={data}
-                type="Customer"
+                type={t("customer")}
                 onClose={() => {}}
                 isDeleting={isDeleting}
                 deleteFunction={deletingCustomer}

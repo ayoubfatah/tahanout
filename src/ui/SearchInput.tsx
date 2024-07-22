@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { OrderType } from "../Types/types";
+import { useTranslation } from "react-i18next";
 
 const SearchInput = ({ items, filterKeys, onFilter, order }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
-  const placeholder = order ? "Order ID or Customer Name" : "Search ...";
+  const placeholder = order
+    ? `${t("Order ID or Customer Name")} ...`
+    : `${t("search")} ...`;
   useEffect(() => {
     // Initial filter to display all items when component mounts
     onFilter(items);

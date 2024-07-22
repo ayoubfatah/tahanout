@@ -1,7 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 export default function SortBy({ options }: any) {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const filteredValue = searchParams.get("sortBy") || "created-asc";
 
@@ -21,7 +23,7 @@ export default function SortBy({ options }: any) {
     >
       {options.map((option: any) => (
         <option key={option.value} value={option.value}>
-          {option.label}
+          {t(option.label)}
         </option>
       ))}
     </select>

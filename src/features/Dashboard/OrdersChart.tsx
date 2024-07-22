@@ -101,16 +101,16 @@ export default function OrdersChart({
             type="monotone"
             dataKey="totalOrders"
             name="Total Orders"
-            stroke="#4f46e5"
-            fill="#c1dbff"
+            stroke="#0d00ff"
+            fill={isDarkMode ? "#4f46e5" : "#c1dbff"}
             strokeWidth={1}
           />
           <Area
             type="monotone"
             dataKey="confirmedOrders"
             name="Delivered Orders"
-            stroke="#4e9c8b"
-            fill="#ccfbf1"
+            stroke="#4e9c8b" //4e9c8b
+            fill={isDarkMode ? "#30edc4" : "#ccfbf1"}
             strokeWidth={1}
           />
           <Area dataKey="totalSales" name="Total Sales" stroke="#ffd700" />

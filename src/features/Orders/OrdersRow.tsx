@@ -2,7 +2,7 @@ import StatusBadge from "../../ui/StatusBadge";
 import Table from "../../ui/Tabel";
 import { formatCurrency, formatDate } from "../../utils/helpers";
 import OrderActions from "./OrdersActions";
-export default function OrdersRow({ order }: any) {
+export default function OrdersRow({ order, t }: any) {
   return (
     <Table.Row>
       <span className="text-[14px] text-gray-700  dark:text-gray-200 ">
@@ -24,7 +24,7 @@ export default function OrdersRow({ order }: any) {
       </span>
       <span className="text-[14px] text-gray-700  dark:text-gray-200 ">
         {" "}
-        {formatDate(order?.createdAt)}
+        {t(formatDate(order?.createdAt))}
       </span>
       <span className="text-[14px] text-gray-700  dark:text-gray-200 ">
         {order.quantity}

@@ -1,10 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CustomersType } from "../../Types/types";
 import useAddCustomer from "./useAddCustomer";
 import toast from "react-hot-toast";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
-import { useEffect, useState } from "react";
 import { moroccanRegionsAndCities } from "../../services/moroccanRegionsAndCities";
+import { useTranslation } from "react-i18next";
 
 type CustomerFormProps = {
   onClose: () => void;
@@ -12,6 +13,7 @@ type CustomerFormProps = {
 };
 
 const CustomerForm = ({ onClose }: CustomerFormProps) => {
+  const { t } = useTranslation();
   const { isLoading, addCustomerFun } = useAddCustomer();
   const [cities, setCities] = useState<string[]>([]);
   const playNotificationSound = useNotificationSound();
@@ -38,7 +40,7 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
     addCustomerFun(data, {
       onSuccess: () => {
         playNotificationSound();
-        toast.success("Customer created successfully");
+        toast.success(t("customerCreated"));
         onClose();
       },
     });
@@ -52,11 +54,11 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         className="mx-auto w-full flex flex-col gap-4 p-10"
       >
         <div className="flex flex-col gap-2">
-          <label>Full Name:</label>
+          <label>{t("fullName")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("fullName", { required: "Full Name is required" })}
+            {...register("fullName", { required: t("fullNameRequired") })}
           />
           {errors.fullName && (
             <span className="text-red-500 text-[12px]">
@@ -66,15 +68,15 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Email:</label>
+          <label>{t("email")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="email"
             {...register("email", {
-              required: "Email is required",
+              required: t("emailRequired"),
               pattern: {
                 value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: "Invalid email address",
+                message: t("invalidEmail"),
               },
             })}
           />
@@ -86,13 +88,11 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Phone Number:</label>
+          <label>{t("phoneNumber")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("phoneNumber", {
-              required: "Phone Number is required",
-            })}
+            {...register("phoneNumber", { required: t("phoneNumberRequired") })}
           />
           {errors.phoneNumber && (
             <span className="text-red-500 text-[12px]">
@@ -102,24 +102,25 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>national ID:</label>
+          <label>{t("nationalId")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("nationalId", { required: "nationalId is required" })}
+            {...register("nationalId", { required: t("nationalIdRequired") })}
           />
-          {errors.country && (
+          {errors.nationalId && (
             <span className="text-red-500 text-[12px]">
-              {errors.country.message}
+              {errors.nationalId.message}
             </span>
           )}
         </div>
+
         <div className="flex flex-col gap-2">
-          <label>Country:</label>
+          <label>{t("country")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("country", { required: "Country is required" })}
+            {...register("country", { required: t("countryRequired") })}
           />
           {errors.country && (
             <span className="text-red-500 text-[12px]">
@@ -129,12 +130,12 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Region:</label>
+          <label>{t("region")}:</label>
           <select
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            {...register("region", { required: "Region is required" })}
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            {...register("region", { required: t("regionRequired") })}
           >
-            <option value="">Select a region</option>
+            <option value="">{t("selectRegion")}</option>
             {moroccanRegionsAndCities.regions.map((region) => (
               <option key={region.name} value={region.name}>
                 {region.name}
@@ -149,13 +150,13 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>City:</label>
+          <label>{t("city")}:</label>
           <select
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            {...register("city", { required: "City is required" })}
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            {...register("city", { required: t("cityRequired") })}
           >
-            <option value="">Select a city</option>
-            {cities.map((city: any) => (
+            <option value="">{t("selectCity")}</option>
+            {cities.map((city) => (
               <option key={city} value={city}>
                 {city}
               </option>
@@ -169,11 +170,11 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Zip Code:</label>
+          <label>{t("zipCode")}:</label>
           <input
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("zipCode", { required: "Zip Code is required" })}
+            {...register("zipCode", { required: t("zipCodeRequired") })}
           />
           {errors.zipCode && (
             <span className="text-red-500 text-[12px]">
@@ -183,10 +184,10 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Address:</label>
+          <label>{t("address")}:</label>
           <textarea
-            className="rounded-md border border-[#e0e0e0]  dark:bg-gray-800 dark:dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            {...register("address", { required: "Address is required" })}
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            {...register("address", { required: t("addressRequired") })}
           />
           {errors.address && (
             <span className="text-red-500 text-[12px]">
@@ -200,14 +201,14 @@ const CustomerForm = ({ onClose }: CustomerFormProps) => {
             disabled={isLoading}
             className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
           >
-            Save Customer
+            {t("saveCustomer")}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="  text-gray-800    bg-white border border-black px-4 py-2 rounded-md mt-3"
+            className="text-gray-800 bg-white border border-black px-4 py-2 rounded-md mt-3"
           >
-            Close
+            {t("close")}
           </button>
         </div>
       </form>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { login } from "../../services/apiAuth";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLogin } from "./useLogin";
 
 export default function LoginFrom() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("ayoubfatah222@gmail.com");
   const [password, setPassword] = useState("ayoubfatah222");
   const { login, isLoading } = useLogin();
@@ -23,7 +24,7 @@ export default function LoginFrom() {
               className="font-semibold text-sm text-gray-600 dark:text-gray-200 pb-1 block"
               htmlFor="email"
             >
-              E-mail
+              {t("email")}
             </label>
             <input
               disabled={isLoading}
@@ -38,7 +39,7 @@ export default function LoginFrom() {
               className="font-semibold text-sm text-gray-600  dark:text-gray-200 pb-1 block"
               htmlFor="password"
             >
-              Password
+              {t("password")}
             </label>
             <input
               disabled={isLoading}
@@ -54,7 +55,7 @@ export default function LoginFrom() {
               type="submit"
               className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
             >
-              <span className="inline-block mr-2">Login</span>
+              <span className="inline-block mr-2">{t("login")}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -92,7 +93,9 @@ export default function LoginFrom() {
                       d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
                     />
                   </svg>
-                  <span className="inline-block ml-1">Forgot Password</span>
+                  <span className="inline-block ml-1">
+                    {t("forgotPassword")}
+                  </span>
                 </button>
               </div>
               <div className="text-center sm:text-right whitespace-nowrap">
@@ -114,7 +117,7 @@ export default function LoginFrom() {
                       d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
                     />
                   </svg>
-                  <span className="inline-block ml-1">Help</span>
+                  <span className="inline-block ml-1">{t("help")}</span>
                 </button>
               </div>
             </div>

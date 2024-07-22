@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi2";
 import { useTahanout } from "../contextApi/useTahanoutCA";
+import { t } from "i18next";
 
 const PaymentMethodDropDown = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -46,7 +47,7 @@ const PaymentMethodDropDown = () => {
           {paymentMethod ? (
             <span className="ml-2">{paymentMethod}</span>
           ) : (
-            <span className="ml-2">Select Payment Method</span>
+            <span className="ml-2">{t("Select Payment Method")}</span>
           )}
           <span
             className={`ml-2  ${
@@ -67,10 +68,19 @@ const PaymentMethodDropDown = () => {
             className="absolute mt-2 w-full overflow-y-scroll bg-white dark:bg-gray-800 border border-gray-200 rounded shadow-lg z-10"
           >
             <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
-              Cash on Delivery
+              {t("Cash on Delivery")}
             </div>
             <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
-              Credit Card
+              {t("Credit Card")}
+            </div>
+            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+              Paypal
+            </div>
+            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+              {t("Bank Transfer")}
+            </div>
+            <div className=" py-3  px-2 justify-around items-center  hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+              Wise
             </div>
           </div>
         )}

@@ -115,3 +115,10 @@ export const generateSKU = () => {
   }
   return result;
 };
+
+export const changeLanguage = (language: string) => {
+  localStorage.setItem("language", language);
+  console.log(`Language changed to: ${language}`);
+
+  window.location.reload();
+};

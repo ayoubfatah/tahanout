@@ -1,13 +1,8 @@
-import React, {
-  cloneElement,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { cloneElement, useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi2";
 import { CustomersType, Product } from "../Types/types";
 import { useTahanout } from "../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
 
 type DropdownProps = {
   data: CustomersType[] | Product[];
@@ -36,7 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const { t } = useTranslation();
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -85,8 +80,8 @@ const Dropdown: React.FC<DropdownProps> = ({
             ? (selectedOption as CustomersType)?.fullName
             : (selectedOption as Product)?.name
           : type === "customer"
-          ? "Select a customer"
-          : "Select a product"}
+          ? t("Select a customer")
+          : t("Select a product")}
 
         <span
           className={`ml-2  ${

@@ -4,6 +4,7 @@ import { EmployeesType } from "../../Types/types";
 
 import Button from "../../ui/Button";
 import { useUpdateEmployeeRole } from "./useUpdateRole";
+import { useTranslation } from "react-i18next";
 
 const EditEmployeeForm = ({
   employeeData,
@@ -16,6 +17,7 @@ const EditEmployeeForm = ({
   const [email, setEmail] = useState(employeeData.email);
   const [phoneNumber, setPhoneNumber] = useState(employeeData.phoneNumber);
   const [role, setRole] = useState(employeeData.role);
+  const { t } = useTranslation();
 
   //
   //
@@ -47,7 +49,7 @@ const EditEmployeeForm = ({
     >
       <div>
         <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
-          Full Name
+          {t("fullName")}
         </label>
         <input
           type="text"
@@ -59,7 +61,7 @@ const EditEmployeeForm = ({
 
       <div>
         <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
-          Email
+          {t("email")}
         </label>
         <input
           type="email"
@@ -71,7 +73,7 @@ const EditEmployeeForm = ({
 
       <div>
         <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
-          Phone Number
+          {t("phoneNumber")}
         </label>
         <input
           type="phone"
@@ -83,7 +85,7 @@ const EditEmployeeForm = ({
 
       <div>
         <label className="block text-sm font-medium text-gray-700  dark:text-gray-200  ">
-          Role
+          {t("Role")}
         </label>
         <input
           disabled={employeeData.role === "owner"}
@@ -98,14 +100,14 @@ const EditEmployeeForm = ({
         <Button
           onClick={handleSubmit}
           type="submit"
-          text={isUpdatingRole ? "Updating..." : "Submit"}
+          text={t("Edit")}
           textColor="text-white"
           bgColor="bg-sky-500"
           disabled={isUpdatingRole}
         />
         <Button
           type="button"
-          text="Cancel"
+          text={t("cancel")}
           textColor="  text-gray-800"
           bgColor="bg-white"
           border="border"

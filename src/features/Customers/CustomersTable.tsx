@@ -8,6 +8,7 @@ import AddCustomerForm from "./AddCustomerForm";
 import SearchInput from "../../ui/SearchInput";
 import { useState } from "react";
 import { CUSTOMER_TABLE_PAGINATION } from "../../utils/consts";
+import { useTranslation } from "react-i18next";
 export default function CustomersDetails() {
   const { isLoading, customers } = useCustomers();
   const customersNewToOld = customers?.sort(
@@ -29,7 +30,7 @@ export default function CustomersDetails() {
   );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
+  const { t } = useTranslation();
   if (isLoading) return <Spinner />;
   return (
     <>
@@ -40,15 +41,15 @@ export default function CustomersDetails() {
       />
 
       <div className="border border-gray-200  dark:border-gray-700  rounded-md ">
-        <Table col="1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 20px">
+        <Table col="1.2fr 2fr 1.3fr 1fr 1fr 1fr 1fr 30px">
           <Table.Header>
-            <span className="">Full name</span>
-            <span className="">email</span>
-            <span className="">Phone number</span>
-            <span className="">Country </span>
-            <span className="">City</span>
-            <span className="">National ID</span>
-            <span className="">Zip code</span>
+            <span className="">{t("fullName")}</span>
+            <span className="">{t("email")}</span>
+            <span className="">{t("phoneNumber")}</span>
+            <span className="">{t("country")} </span>
+            <span className="">{t("city")}</span>
+            <span className=""> {t("nationalId")}</span>
+            <span className="">{t("zipCode")}</span>
             <span></span>
           </Table.Header>
           {currentCustomers?.map((customer: any) => (
@@ -66,7 +67,7 @@ export default function CustomersDetails() {
         <Modal>
           <Modal.Open opens="addCustomer">
             <Button
-              text="Add Customer"
+              text={t("addCustomer")}
               onClick={() => {}}
               bgColor="bg-sky-500"
               textColor="text-white"

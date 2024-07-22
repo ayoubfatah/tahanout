@@ -6,7 +6,7 @@ import Table from "../../ui/Tabel";
 import { ORDER_TABLE_PAGINATION } from "../../utils/consts";
 import OrdersRow from "./OrdersRow";
 
-export default function OrdersTable({ orders }: any) {
+export default function OrdersTable({ orders, t }: any) {
   const [searchParams] = useSearchParams();
   const sortByValue = searchParams.get("sortBy") || "createdAt-desc";
   const [field, direction] = sortByValue.split("-");
@@ -68,17 +68,17 @@ export default function OrdersTable({ orders }: any) {
       <div className="border border-gray-200 dark:border-gray-700 rounded-md text-gray-600">
         <Table col="1fr 1.7fr 1.3fr 0.8fr 1fr 1fr  1fr 1fr 0.5fr">
           <Table.Header>
-            <span className="text-[16px] font-medium">Order id</span>
-            <span className="text-[16px] font-medium">Customer</span>
-            <span className="text-[16px] font-medium">Product</span>
+            <span className="text-[16px] font-medium">{t("Order ID")}</span>
+            <span className="text-[16px] font-medium">{t("Customer")}</span>
+            <span className="text-[16px] font-medium">{t("Product")}</span>
             <span className="text-[16px] font-medium">SKU</span>
             <span className="text-[16px] font-medium">Date</span>
-            <span className="text-[16px] font-medium">Quantity</span>
-            <span className="text-[16px] font-medium">AMOUNT</span>
-            <span className="text-[16px] font-medium">Status</span>
+            <span className="text-[16px] font-medium">{t("Quantity")}</span>
+            <span className="text-[16px] font-medium">{t("AMOUNT")}</span>
+            <span className="text-[16px] font-medium">{t("Status")}</span>
           </Table.Header>
           {currentOrders?.map((order: any) => (
-            <OrdersRow key={order.id} order={order} />
+            <OrdersRow t={t} key={order.id} order={order} />
           ))}
           <Table.Footer
             currentPage={currentPage}
