@@ -23,10 +23,9 @@ export default function Sidebar() {
       >
         <HiHome size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Home
-        </span>{" "}
+          Accueil
+        </span>
       </NavLink>
-      {/*  */}
       <NavLink
         to="/products"
         className={({ isActive }) =>
@@ -37,10 +36,9 @@ export default function Sidebar() {
       >
         <FaShoppingCart size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Products
-        </span>{" "}
+          Produits
+        </span>
       </NavLink>
-      {/*  */}
       <NavLink
         to="/orders"
         className={({ isActive }) =>
@@ -51,10 +49,9 @@ export default function Sidebar() {
       >
         <FaBoxOpen size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Orders
-        </span>{" "}
+          Commandes
+        </span>
       </NavLink>
-      {/*  */}
       <NavLink
         to="/employees"
         className={({ isActive }) =>
@@ -65,8 +62,8 @@ export default function Sidebar() {
       >
         <HiMiniUserGroup size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Employees
-        </span>{" "}
+          Employés
+        </span>
       </NavLink>
       <NavLink
         to="/customers"
@@ -78,10 +75,9 @@ export default function Sidebar() {
       >
         <HiMiniUsers size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Customers
-        </span>{" "}
-      </NavLink>{" "}
-      {/*  */}{" "}
+          Clients
+        </span>
+      </NavLink>
       <NavLink
         to="/settings"
         className={({ isActive }) =>
@@ -92,8 +88,8 @@ export default function Sidebar() {
       >
         <HiMiniCog8Tooth size={24} />
         <span className="   ml-1  text-gray-600 dark:text-gray-100 ">
-          Settings
-        </span>{" "}
+          Paramètres
+        </span>
       </NavLink>
     </div>
   );

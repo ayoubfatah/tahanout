@@ -5,7 +5,6 @@ import "../../styles/OrderInfoPage.css";
 import toast from "react-hot-toast";
 import useOrder from "./useOrder";
 import Button from "../../ui/Button";
-import { formatCurrency } from "../../utils/helpers";
 import Spinner from "../../ui/Spinner";
 import useGetSettings from "../Settings/useGetSettings";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,8 +18,10 @@ import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import { BiCheck } from "react-icons/bi";
 import useUpdateProductQuantity from "../Products/useUpdateProductQuantity";
 import { useUpdateOrderDate } from "./useUpdateOrderData";
+import { useTranslation } from "react-i18next";
 
 const OrderInfoPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const navigateBack = () => {
     navigate(-1);
@@ -40,13 +41,15 @@ const OrderInfoPage: React.FC = () => {
       newQuantity: order.quantity + order.products.quantity,
     });
     updateDate({ id: id, status: "cancelled" });
-    toast.success("Order Cancelled", { id: "cancelOrder" });
+    toast.success(t("Order Cancelled"), { id: "cancelOrder" });
   };
+
   const setToDelivered = () => {
     changeStatus({ id: id, status: "delivered" });
-    toast.success("Order Delivered", { id: "deliveredOrder" });
+    toast.success(t("Order Delivered"), { id: "deliveredOrder" });
     updateDate({ id: id, status: "delivered" });
   };
+
   const setToReturned = () => {
     changeStatus({ id: id, status: "returned" });
     upQuantity({
@@ -54,13 +57,15 @@ const OrderInfoPage: React.FC = () => {
       newQuantity: order.quantity + order.products.quantity,
     });
 
-    toast.success("Order Returned", { id: "returnOrder" });
+    toast.success(t("Order Returned"), { id: "returnOrder" });
   };
+
   const setToConfirmed = () => {
     changeStatus({ id: id, status: "in-progress" });
-    toast.success("Order Confirmed", { id: "confirmOrder" });
+    toast.success(t("Order Confirmed"), { id: "confirmOrder" });
     updateDate({ id: id, status: "confirmed" });
   };
+
   const handleDelete = () => {
     deletingOrder(Number(id));
     upQuantity({
@@ -68,10 +73,12 @@ const OrderInfoPage: React.FC = () => {
       newQuantity: order.quantity + order.products.quantity,
     });
 
-    toast.success("Order Deleted", { id: "deleteOrder" });
+    toast.success(t("Order Deleted"), { id: "deleteOrder" });
     navigate("/orders");
   };
+
   if (isLoading || isLoadingSettings) return <Spinner />;
+
   return (
     <Modal>
       <div className="fade-in-top container mx-auto p-6">
@@ -83,34 +90,38 @@ const OrderInfoPage: React.FC = () => {
           >
             <FaArrowLeft className="mr-2 text-sky-500 cursor-pointer text-xl" />
             <h1 className="text-2xl font-semibold text-sky-500">
-              Order Information
+              {t("Order Information")}
             </h1>
           </span>
         </span>
         <div className="space-y-6">
-          <OrderSection settings={settings} order={order} title="Order Info" />
           <OrderSection
             settings={settings}
             order={order}
-            title="Customer Info"
-          />
-          <OrderProductSection order={order} title="Product Info" />
-          <OrderSection
-            order={order}
-            settings={settings}
-            title="Shipping Details"
+            title={t("Order Info")}
           />
           <OrderSection
             settings={settings}
             order={order}
-            title="Payment Method"
+            title={t("Customer Info")}
+          />
+          <OrderProductSection order={order} title={t("Product Info")} />
+          <OrderSection
+            order={order}
+            settings={settings}
+            title={t("Shipping Details")}
+          />
+          <OrderSection
+            settings={settings}
+            order={order}
+            title={t("Payment Method")}
           />
         </div>
         <div className="flex justify-between mt-6">
           <Modal.Open opens="deleteOrder">
             <Button
               disabled={isLoading || isEditing}
-              text="Delete order"
+              text={t("Delete order")}
               textColor="text-white"
               bgColor="bg-red-500"
               hoverColor="bg-red-700"
@@ -122,7 +133,7 @@ const OrderInfoPage: React.FC = () => {
           {order.status !== "delivered" && order.status !== "returned" && (
             <Button
               disabled={isLoading || order.status === "cancelled" || isEditing}
-              text="Cancel order"
+              text={t("Cancel order")}
               textColor="text-white"
               hoverColor="bg-red-700"
               bgColor="bg-red-500"
@@ -138,7 +149,7 @@ const OrderInfoPage: React.FC = () => {
             order.status !== "returned" && (
               <Button
                 disabled={isLoading || isEditing}
-                text="Mark as Returned"
+                text={t("Mark as Returned")}
                 textColor="text-white"
                 hoverColor="bg-gray-600"
                 bgColor="bg-gray-400"
@@ -169,7 +180,7 @@ const OrderInfoPage: React.FC = () => {
                 disabled={
                   isLoading || order.status === "delivered" || isEditing
                 }
-                text="Mark as Delivered"
+                text={t("Mark as Delivered")}
                 textColor="text-white"
                 bgColor="bg-green-500"
                 hoverColor="bg-green-700"
@@ -181,7 +192,7 @@ const OrderInfoPage: React.FC = () => {
           {order.status === "pending" && (
             <Button
               disabled={isLoading || isEditing}
-              text="Confirm order"
+              text={t("Confirm order")}
               textColor="text-white"
               bgColor="bg-blue-500"
               hoverColor="bg-blue-700"

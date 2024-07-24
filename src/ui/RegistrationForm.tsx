@@ -42,11 +42,11 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
     };
 
     if (data.password !== data.confirmPassword) {
-      return toast.error("Passwords do not match");
+      return toast.error(t("Passwords do not match"));
     }
     signUp(data, {
       onSuccess: () => {
-        toast.success("User created successfully");
+        toast.success(t("Account created successfully"));
 
         onClose();
       },
@@ -77,8 +77,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.fullName && (
-          <span className="text-red-600  text-sm  ">
-            {errors.fullName.message}
+          <span className="text-red-600  text-[10px]  ">
+            {t(errors.fullName.message as string)}
           </span>
         )}
       </div>
@@ -100,8 +100,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.email && (
-          <span className="text-red-600  text-sm  ">
-            {errors.email.message}
+          <span className="text-red-600  text-[10px]  ">
+            {t(errors.email.message as string)}
           </span>
         )}
       </div>
@@ -119,8 +119,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.phoneNumber && (
-          <span className="text-red-600  text-sm  ">
-            {errors.phoneNumber.message}
+          <span className="text-red-600  text-[10px]  ">
+            {t(errors.phoneNumber.message as string)}
           </span>
         )}
       </div>
@@ -142,8 +142,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.password && (
-          <span className="text-red-600  text-sm  ">
-            {errors.password.message}
+          <span className="text-red-600  text-[10px]  ">
+            {t(errors.password.message as string)}
           </span>
         )}
       </div>
@@ -161,8 +161,8 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.confirmPassword && (
-          <span className="text-red-600  text-sm  ">
-            {errors.confirmPassword.message}
+          <span className="text-red-600  text-[10px]  ">
+            {t(errors.confirmPassword.message as string)}
           </span>
         )}
       </div>
@@ -177,7 +177,10 @@ const RegistrationForm: React.FC = ({ onClose }: any) => {
           className="py-2  px-2 mt-1  dark:bg-gray-800  dark:text-gray-200  block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.role && (
-          <span className="text-red-600  text-sm  ">{errors.role.message}</span>
+          <span className="text-red-600  text-[10px]  ">
+            {" "}
+            {t(errors.role.message as string)}
+          </span>
         )}
       </div>
 

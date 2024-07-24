@@ -7,6 +7,7 @@ import { useChangeOrderStatus } from "../Orders/useChangeOrderStatus";
 import toast from "react-hot-toast";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
 import { useQueryClient } from "@tanstack/react-query";
+import { t } from "i18next";
 
 export default function TodaysOrdersRow({ order }: any) {
   const { changeStatus, isLoading } = useChangeOrderStatus();
@@ -27,7 +28,7 @@ export default function TodaysOrdersRow({ order }: any) {
       { id: order.id, status: "in-progress" },
       {
         onSuccess: () => {
-          toast.success("Order confirmed successfully");
+          toast.success(t("Order confirmed successfully"));
           playNotificationSound();
         },
         onError: (error) => {
@@ -49,7 +50,7 @@ export default function TodaysOrdersRow({ order }: any) {
   return (
     <div
       key={order.id}
-      className=" border-b px-2 hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.3fr_0.8fr_1fr_1fr_1fr_1.2fr_1fr] grid items-center"
+      className=" border-b px-2 hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-200  py-1.5 ma-h-[400px]  grid-cols-[1fr_1.7fr_1.7fr_1fr_1.3fr_1fr_1fr_1.2fr_1fr] grid items-center"
     >
       <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
         {order.id}
@@ -68,7 +69,7 @@ export default function TodaysOrdersRow({ order }: any) {
       <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
         {order.products?.sku}
       </span>
-      <span className="text-[14px] text-gray-700   dark:text-gray-200 ">
+      <span className="text-[14px] text-green-500   dark:text-green-500 ">
         {order.createdAt ? formatTime(order.createdAt) : "N/A"}
       </span>
       <span className="text-[14px] text-gray-700   dark:text-gray-200 ">

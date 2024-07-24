@@ -13,11 +13,10 @@ import { CATEGORIES, CATEGORY_COLORS } from "../../services/Categories";
 import { filteredByDates, getDateInterval } from "../../utils/helpers";
 import { eachDayOfInterval } from "date-fns";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
 
 const getCategories = CATEGORIES;
-//
 
-//
 export default function CategoriesPieChart({
   orders,
   datesFromDatePicker,
@@ -29,14 +28,15 @@ export default function CategoriesPieChart({
 }) {
   const { start, end } = getDateInterval(numDays);
   const { isDarkMode } = useTahanout();
+  const { t } = useTranslation();
 
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
 
   const dataBasedOnDate = allDates.map((date: any) => {
     const ordersDate = filteredByDates(orders, date);
-
     return ordersDate;
   });
+
   const flattenedData = dataBasedOnDate.flatMap((arr: Array<any>) => arr);
 
   const data = getCategories.map((category: any) => {
@@ -53,17 +53,16 @@ export default function CategoriesPieChart({
     };
   });
 
-  // Filter out regions with zero orders
   const filteredData = data.filter((entry: any) => entry.orders > 0);
 
   return (
     <div className="col-span-2 bg-white dark:bg-gray-800 p-5">
       <h2 className="text-[20px] font-semibold">
-        Summary of Orders by Products Categories
+        {t("Summary of Orders by Products Categories")}
       </h2>
       {filteredData.length ? (
-        <div className=" flex items-center overflow-hidden justify-center ">
-          <div className="w-full   h-[300px]">
+        <div className="flex items-center overflow-hidden justify-center">
+          <div className="w-full h-[300px]">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -105,7 +104,6 @@ export default function CategoriesPieChart({
                       ],
                   }))}
                 />
-
                 <Tooltip
                   contentStyle={{
                     backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
@@ -121,7 +119,7 @@ export default function CategoriesPieChart({
           </div>
         </div>
       ) : (
-        <p className="text-left py-10">No Orders Found</p>
+        <p className="text-left py-10">{t("No Orders Found")}</p>
       )}
     </div>
   );

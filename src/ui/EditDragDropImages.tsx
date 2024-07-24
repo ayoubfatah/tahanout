@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { Reorder } from "framer-motion";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface ImageItem {
   id: string;
@@ -39,7 +40,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
   const handleDelete = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
-
+  const { t } = useTranslation();
   const handleSave = () => {
     const imageUrls = items.map((item) => item.url);
 
@@ -59,7 +60,7 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
 
   return (
     <main className="flex flex-col gap-4 p-10 ">
-      <h1 className="text-xl font-semibold">Edit Images</h1>
+      <h1 className="text-xl font-semibold">{t("Edit Images")}</h1>
       <Reorder.Group
         as="div"
         values={items}
@@ -93,12 +94,14 @@ const EditDragDropImages: React.FC<EditDragDropImagesProps> = ({
           </Reorder.Item>
         ))}
       </Reorder.Group>
-      <button
-        onClick={handleSave}
-        className="text-white bg-sky-500 px-4 py-2 rounded-md"
-      >
-        Save
-      </button>
+      <span>
+        <button
+          onClick={handleSave}
+          className="text-white bg-sky-500 px-4 py-2 rounded-md"
+        >
+          {t("Save")}
+        </button>
+      </span>
     </main>
   );
 };

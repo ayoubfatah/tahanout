@@ -3,6 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import Button from "../../ui/Button";
 import { useAddProductImages } from "./useAddProductImages";
+import { useTranslation } from "react-i18next";
 
 interface ImageItem {
   id: string;
@@ -68,11 +69,11 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
       }
     );
   };
-
+  const { t } = useTranslation();
   return (
     <main className="flex flex-col gap-4 p-4   w-[600px]">
       <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">
-        Add more images
+        {t("Add product images")}
       </h1>
 
       <input
@@ -87,7 +88,7 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
         onDragOver={handleDragOver}
         className="border-dashed border-2 border-gray-300 p-4 mb-4"
       >
-        Drop your images here
+        {t("Drop images here")}
       </div>
       <div className="mb-4">
         {items.map((item, i) => (
@@ -103,7 +104,9 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
                 {Math.round(item.size / 1024)} KB
               </span>
               <div className="flex items-center">
-                <span>Image {i + 1}</span>
+                <span>
+                  {t("Image")} {i + 1}
+                </span>
                 <button type="button" onClick={() => handleDelete(item.id)}>
                   <MdDelete />
                 </button>
@@ -118,7 +121,7 @@ const AddProductImages: React.FC = ({ onClose }: any) => {
         borderColor="border-blue-500"
         bgColor="bg-sky-500"
         textColor="text-white"
-        text="Save"
+        text={t("Save")}
         disabled={isLoading}
       />
     </main>

@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Product } from "../../Types/types";
 import useUpdateProduct from "./useUpdateProduct";
-import { MdDelete } from "react-icons/md";
 import { CATEGORIES } from "../../services/Categories";
 
 const ProductForm = ({
@@ -10,8 +10,9 @@ const ProductForm = ({
   onClose,
 }: {
   data: Product;
-  onClose: any;
+  onClose: () => void;
 }) => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,6 @@ const ProductForm = ({
 
   const onSubmit = (data: any) => {
     // Handle the form submission
-
     mutate(
       { newProductData: { ...data, images: product.images }, id: product.id },
       {
@@ -48,12 +48,12 @@ const ProductForm = ({
       className="overflow-y-scroll w-[600px] h-[600px] py-10 px-8 flex flex-col gap-5"
     >
       <div className="flex flex-col gap-2 items-start">
-        <label>SKU:</label>
+        <label>{t("SKU")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="text"
-          {...register("sku", { required: "SKU is required" })}
+          {...register("sku", { required: t("SKU is required") })}
         />
         {errors.sku && (
           <span className="text-red-500 text-[12px]">{errors.sku.message}</span>
@@ -61,12 +61,12 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Name:</label>
+        <label>{t("Name")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="text"
-          {...register("name", { required: "Name is required" })}
+          {...register("name", { required: t("Name is required") })}
         />
         {errors.name && (
           <span className="text-red-500 text-[12px]">
@@ -76,29 +76,29 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Original Price:</label>
+        <label>{t("Original Price")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
           {...register("originalPrice", {
-            required: "Original Price is required",
+            required: t("Original Price is required"),
           })}
         />
-        {errors.price && (
+        {errors.originalPrice && (
           <span className="text-red-500 text-[12px]">
-            {errors.price.message}
+            {errors.originalPrice.message}
           </span>
         )}
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Selling Price:</label>
+        <label>{t("Selling Price")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
-          {...register("price", { required: "Price is required" })}
+          {...register("price", { required: t("Price is required") })}
         />
         {errors.price && (
           <span className="text-red-500 text-[12px]">
@@ -108,22 +108,22 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Discount:</label>
+        <label>{t("Discount")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
           {...register("discount")}
         />
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Quantity:</label>
+        <label>{t("Quantity")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
-          {...register("quantity", { required: "Quantity is required" })}
+          {...register("quantity", { required: t("Quantity is required") })}
         />
         {errors.quantity && (
           <span className="text-red-500 text-[12px]">
@@ -133,11 +133,11 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Description:</label>
+        <label>{t("Description")}:</label>
         <textarea
-          className="h-[200px] rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="h-[200px] rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           {...register("description", {
-            required: "Description is required",
+            required: t("Description is required"),
           })}
         />
         {errors.description && (
@@ -148,25 +148,25 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Min Order:</label>
+        <label>{t("Min Order")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
           {...register("minOrder", {
-            required: "Min order is required",
-            min: { value: 0, message: "Min order must be at least 0" },
+            required: t("Min order is required"),
+            min: { value: 0, message: t("Min order must be at least 0") },
           })}
         />
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Category:</label>
+        <label>{t("Category")}:</label>
         <select
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-          {...register("category", { required: "Category is required" })}
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          {...register("category", { required: t("Category is required") })}
         >
-          {CATEGORIES.map((category, i: any) => (
+          {CATEGORIES.map((category, i) => (
             <option key={i} value={category}>
               {category}
             </option>
@@ -180,12 +180,12 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Warehouse:</label>
+        <label>{t("Warehouse")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="text"
-          {...register("warehouse", { required: "Warehouse is required" })}
+          {...register("warehouse", { required: t("Warehouse is required") })}
         />
         {errors.warehouse && (
           <span className="text-red-500 text-[12px]">
@@ -195,34 +195,34 @@ const ProductForm = ({
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Colors:</label>
+        <label>{t("Colors")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="text"
           {...register("colors")}
         />
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Brand:</label>
+        <label>{t("Brand")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="text"
           {...register("brand")}
         />
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <label>Weight:</label>
+        <label>{t("Weight")}:</label>
         <input
           disabled={isEditing}
-          className="rounded-md border border-[#e0e0e0]   dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           type="number"
           {...register("weight", {
-            required: "Weight is required",
-            min: { value: 0, message: "Weight must be at least 0" },
+            required: t("Weight is required"),
+            min: { value: 0, message: t("Weight must be at least 0") },
           })}
         />
         {errors.weight && (
@@ -232,22 +232,22 @@ const ProductForm = ({
         )}
       </div>
 
-      <div className="flex gap-2 ">
+      <div className="flex gap-2">
         <button
           disabled={isEditing}
-          type="submit" // Changed to type="submit"
+          type="submit"
           className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
         >
-          Edit
+          {t("Edit")}
         </button>
 
         <button
           disabled={isEditing}
           type="button"
           onClick={onCloseForm}
-          className="  text-gray-800    bg-white border border-black px-4 py-2 rounded-md mt-3"
+          className="text-gray-800 bg-white border border-black px-4 py-2 rounded-md mt-3"
         >
-          Close
+          {t("Close")}
         </button>
       </div>
     </form>

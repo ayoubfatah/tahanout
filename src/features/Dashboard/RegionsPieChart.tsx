@@ -12,6 +12,8 @@ import { OrderType } from "../../Types/types";
 import { filteredByDates, getDateInterval } from "../../utils/helpers";
 import { eachDayOfInterval } from "date-fns";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
+
 const REGION_COLORS = {
   "Tanger-Tetouan-Al Hoceima": "#3b82f6", // Bright Blue
   Oriental: "#f97316", // Bright Orange
@@ -26,13 +28,13 @@ const REGION_COLORS = {
   "Laâyoune-Sakia El Hamra": "#a855f7", // Bright Violet
   "Dakhla-Oued Ed-Dahab": "#ec4899", // Bright Pink
 };
+
 const getAllRegions = (regionsData: any) => {
   return regionsData.regions.flatMap((region: any) => region.name);
 };
+
 const regions = getAllRegions(moroccanRegionsAndCities);
 
-//
-//
 export default function RegionsPieChart({
   orders,
   numDays,
@@ -43,15 +45,15 @@ export default function RegionsPieChart({
   datesFromDatePicker?: any;
 }) {
   const { start, end } = getDateInterval(numDays);
-
+  const { t } = useTranslation();
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
 
   const { isDarkMode } = useTahanout();
   const dataBasedOnDate = allDates.map((date: any) => {
     const ordersDate = filteredByDates(orders, date);
-
     return ordersDate;
   });
+
   const flattenedData = dataBasedOnDate.flatMap((arr: Array<any>) => arr);
 
   // Filter out regions with zero orders
@@ -71,12 +73,13 @@ export default function RegionsPieChart({
 
   // Filter out regions with zero orders
   const filteredData = data.filter((entry: any) => entry.orders > 0);
+
   return (
     <div className="col-span-2 bg-white dark:bg-gray-800 p-5">
       <h2 className="text-[20px] font-semibold">
-        Summary of Orders by Moroccan Regions
+        {t("Summary of Orders by Moroccan Regions")}
       </h2>
-      <div className=" flex items-center overflow-hidden justify-center ">
+      <div className="flex items-center overflow-hidden justify-center">
         <div className="w-full h-[300px]">
           {filteredData.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
@@ -95,7 +98,6 @@ export default function RegionsPieChart({
                   {filteredData.map((entry: any, index: number) => (
                     <Cell
                       key={`cell-${index}`}
-                      // stroke
                       stroke={isDarkMode ? "#1f2937" : "white"}
                       fill={
                         REGION_COLORS[
@@ -120,7 +122,6 @@ export default function RegionsPieChart({
                       "#BEF264",
                   }))}
                 />
-
                 <Tooltip
                   contentStyle={{
                     backgroundColor: isDarkMode ? "#2D3748" : "#FFFFFF", // Dark gray or white background
@@ -134,7 +135,7 @@ export default function RegionsPieChart({
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <p className="text-left py-10">No Orders Found</p>
+            <p className="text-left py-10">{t("No Orders Found")}</p>
           )}
         </div>
       </div>

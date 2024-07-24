@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { deleteProduct } from "../../services/apiProducts";
 import { useScreenShake } from "../../hooks/useScreenShake";
+import { t } from "i18next";
 
 export default function useDeleteProducts() {
   const queryClient = useQueryClient();
@@ -11,14 +12,14 @@ export default function useDeleteProducts() {
   const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: (productId: number) => deleteProduct(productId),
     onSuccess: () => {
-      toast.success("product has been successfully deleted  ");
+      toast.success(t("product has been successfully deleted "));
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
     },
 
     onError: () => {
-      toast.error("This product cannot be deleted because it has orders");
+      toast.error(t("This product cannot be deleted because it has orders"));
       shakeScreen();
     },
   });

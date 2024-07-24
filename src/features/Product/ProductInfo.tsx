@@ -4,6 +4,7 @@ import { formatCurrency } from "../../utils/helpers";
 import Modal from "../../ui/Modal";
 import EditProductForm from "../Products/EditProductForm";
 import Button from "../../ui/Button";
+import { useTranslation } from "react-i18next";
 
 type ProductInfoType = {
   product: Product | undefined | null;
@@ -22,6 +23,7 @@ export default function ProductInfo({
   testing,
   handleEdit,
 }: ProductInfoType) {
+  const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const toggleDescription = () => setShowFullDescription(!showFullDescription);
@@ -41,7 +43,7 @@ export default function ProductInfo({
           <h2 className="text-2xl font-bold">{product?.name}</h2>
           <Modal.Open opens="editProduct">
             <Button
-              text="Edit"
+              text={t("Edit")}
               onClick={handleEdit}
               textColor="text-white"
               bgColor="bg-sky-500"
@@ -52,26 +54,22 @@ export default function ProductInfo({
           </Modal.Window>
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">SKU</span>: {product?.sku}
+          <span className="font-[600] text-[16px]">{t("SKU")}</span>: {product?.sku}
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">Price</span>:{" "}
-          {formatCurrency(product?.price ?? 0)}
+          <span className="font-[600] text-[16px]">{t("Price")}</span>: {formatCurrency(product?.price ?? 0)}
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">Discount Price</span>:{" "}
-          {formatCurrency(product?.discount ?? 0)}
+          <span className="font-[600] text-[16px]">{t("Discount Price")}</span>: {formatCurrency(product?.discount ?? 0)}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">Quantity</span>:{" "}
-          {product?.quantity}
+          <span className="font-[600] text-[16px]">{t("Quantity")}</span>: {product?.quantity}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">Min Order</span>: 29
+          <span className="font-[600] text-[16px]">{t("Min Order")}</span>: 29
         </div>
         <div className="text-[1Opx]">
-          <span className="font-[600] text-[16px]">Description</span>:{" "}
-          {description}
+          <span className="font-[600] text-[16px]">{t("Description")}</span>: {description}
           {product &&
             product.description &&
             product.description.split(" ").length > wordLimit && (
@@ -79,43 +77,38 @@ export default function ProductInfo({
                 onClick={toggleDescription}
                 className="text-blue-500 ml-2 underline"
               >
-                {showFullDescription ? "Show Less" : "See More"}
+                {showFullDescription ? t("Show Less") : t("See More")}
               </button>
             )}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">Category</span>:{" "}
-          {product?.category}
+          <span className="font-[600] text-[16px]">{t("Category")}</span>: {product?.category}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">Brand</span>:{" "}
-          {product?.brand}
+          <span className="font-[600] text-[16px]">{t("Brand")}</span>: {product?.brand}
         </div>
         <div className="text-lg flex gap-2 items-center">
-          <span className="font-[600] text-[16px]">Colors:</span>
+          <span className="font-[600] text-[16px]">{t("Colors")}:</span>
           {product?.colors?.split(",").map((color) => (
             <div
               key={color}
-              className={`w-5 h-5 shadow-md rounded-full ${
-                color === "white" ? "border border-black" : ""
-              }`}
+              className={`w-5 h-5 shadow-md rounded-full ${color === "white" ? "border border-black" : ""}`}
               style={{ backgroundColor: color }}
             ></div>
           ))}
         </div>
-
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">Specifications</span>:
+          <span className="font-[600] text-[16px]">{t("Specifications")}:</span>
         </div>
         <ul className="ml-4 list-disc">
-          <li>Switch Type: {testing.specifications.switchType}</li>
-          <li>Backlight: {testing.specifications.backlight}</li>
-          <li>Connectivity: {testing.specifications.connectivity}</li>
-          <li>Key Rollover: {testing.specifications.keyRollOver}</li>
-          <li>Weight: {testing.specifications.weight}</li>
+          <li>{t("Switch Type")}: {testing.specifications.switchType}</li>
+          <li>{t("Backlight")}: {testing.specifications.backlight}</li>
+          <li>{t("Connectivity")}: {testing.specifications.connectivity}</li>
+          <li>{t("Key Rollover")}: {testing.specifications.keyRollOver}</li>
+          <li>{t("Weight")}: {testing.specifications.weight}</li>
         </ul>
         <div className="text-lg flex gap-2 items-center">
-          <span className="font-[600] text-[16px]">Warehouse:</span>
+          <span className="font-[600] text-[16px]">{t("Warehouse")}:</span>
           <span>{product?.warehouse}</span>
         </div>
       </div>

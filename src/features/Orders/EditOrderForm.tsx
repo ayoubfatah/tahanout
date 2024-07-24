@@ -4,6 +4,7 @@ import { CustomersType, OrderType } from "../../Types/types";
 import useEditOrder from "./useEditOrder";
 import { id } from "date-fns/locale";
 import Button from "../../ui/Button";
+import { t } from "i18next";
 
 type EditOrderProps = {
   data: OrderType;
@@ -145,7 +146,9 @@ const EditOrder = ({
           <option value="cancelled">cancelled</option>
         </select>
         {errors.status && (
-          <span className="text-red-500 text-sm">{errors.status.message}</span>
+          <span className="text-red-500 text-sm">
+            {t(errors.status.message as string)}
+          </span>
         )}
       </div>
 
@@ -161,7 +164,7 @@ const EditOrder = ({
         />
         {errors.shippingCost && (
           <span className="text-red-500 text-sm">
-            {errors.shippingCost.message}
+            {t(errors.shippingCost.message as string)}
           </span>
         )}
       </div>
@@ -179,7 +182,7 @@ const EditOrder = ({
         />
         {errors.productPrice && (
           <span className="text-red-500 text-sm">
-            {errors.productPrice.message}
+            {t(errors.productPrice.message as string)}
           </span>
         )}
       </div>
@@ -195,7 +198,7 @@ const EditOrder = ({
         />
         {errors.totalPrice && (
           <span className="text-red-500 text-sm">
-            {errors.totalPrice.message}
+            {t(errors.totalPrice.message as string)}
           </span>
         )}
       </div>
@@ -218,7 +221,7 @@ const EditOrder = ({
         </select>
         {errors.paymentMethod && (
           <span className="text-red-500 text-sm">
-            {errors.paymentMethod.message}
+            {t(errors.paymentMethod.message as string)}
           </span>
         )}
       </div>
@@ -233,7 +236,7 @@ const EditOrder = ({
         />
         {errors.quantity && (
           <span className="text-red-500 text-sm">
-            {errors.quantity.message}
+            {t(errors.quantity.message as string)}
           </span>
         )}
       </div>

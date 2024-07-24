@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { updateEmployeeRole } from "../../services/apiEmployees";
+import { t } from "i18next";
 
 export function useUpdateEmployeeRole() {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export function useUpdateEmployeeRole() {
     }) => updateEmployeeRole({ email, role: newEmployeeRole }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["employees"] });
-      toast.success("Employee role updated successfully");
+      toast.success(t("Employee role updated successfully"));
     },
     onError: (err: any) => toast.error(err.message),
   });

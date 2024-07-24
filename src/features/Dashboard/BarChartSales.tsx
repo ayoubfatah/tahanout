@@ -9,28 +9,25 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { format } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
 import { OrderType } from "../../Types/types";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
 
 const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const { t, i18n } = useTranslation();
   const { isDarkMode } = useTahanout();
-  const data = months.map((month) => {
+  const locale = i18n.language === "fr" ? fr : enUS;
+
+  // Get months 
+  const months = Array.from({ length: 12 }, (_, i) =>
+    format(new Date(0, i), "MMM", { locale })
+  );
+
+  const data = months.map((month, index) => {
     const monthOrders = orders.filter(
-      (order: any) => months[new Date(order.createdAt).getMonth()] === month
+      (order: any) => new Date(order.createdAt).getMonth() === index
     );
     const originalPrice = monthOrders.reduce(
       (total: number, order: any) =>
@@ -54,9 +51,9 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
   const result = Object.values(data);
 
   return (
-    <div className="col-span-4 bg-white  dark:bg-gray-800 p-5">
+    <div className="col-span-4 bg-white dark:bg-gray-800 p-5">
       <h2 className="text-[20px] font-semibold">
-        Monthly Sales and Profit Overview
+        {t("Monthly Sales and Profit Overview")}
       </h2>
 
       <ResponsiveContainer width="100%" height={400}>
@@ -81,13 +78,18 @@ const BarChartSales = ({ orders }: { orders: OrderType[] | any }) => {
             formatter={(value, name: string) => [
               `$${value}`,
               typeof name === "string"
-                ? name.charAt(0).toUpperCase() + name.slice(1)
+                ? t(name.charAt(0).toUpperCase() + name.slice(1))
                 : "",
             ]}
           />
 
-          <Bar dataKey="sales" fill="#ffd700" name="Sales" barSize={20} />
-          <Bar dataKey="profits" fill="#3981e6" name="Profits" barSize={20} />
+          <Bar dataKey="sales" fill="#ffd700" name={t("Sales")} barSize={20} />
+          <Bar
+            dataKey="profits"
+            fill="#3981e6"
+            name={t("Profits")}
+            barSize={20}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

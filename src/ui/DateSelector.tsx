@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { format, subDays } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
+import { useTranslation } from "react-i18next";
 
 const DateSelector = () => {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
     null,
     null,
   ]);
+  const [locale, setLocale] = useState(enUS); // Default to English
+
+  useEffect(() => {
+    const language = localStorage.getItem("language");
+    if (language === "fr") {
+      setLocale(fr);
+    } else {
+      setLocale(enUS);
+    }
+  }, []);
 
   const handleDateChange = (update: [Date | null, Date | null]) => {
     setDateRange(update);
@@ -28,21 +41,22 @@ const DateSelector = () => {
 
   const customRanges = [
     {
-      label: "Last 7 days",
+      label: t("Last 7 days"),
       getValue: () => [subDays(new Date(), 7), new Date()],
     },
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 ">
-      <div className="flex items-center gap-1 ">
+    <form onSubmit={handleSubmit} className="p-4">
+      <div className="flex items-center gap-1">
         <DatePicker
+          locale={locale}
           selectsRange={true}
           startDate={dateRange[0]}
           endDate={dateRange[1]}
           onChange={handleDateChange}
-          className="bg-white dark:bg-gray-900  border border-gray-300 rounded-md px-4  focus:outline-none focus:ring-2 focus:ring-blue-500"
-          dateFormat="MMMM d, yyyy"
+          className="bg-white dark:bg-gray-900 border border-gray-300 rounded-md px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          dateFormat="d MMMM yyyy"
           showPopperArrow={false}
           maxDate={new Date()} // Block future dates
           customInput={
@@ -51,11 +65,10 @@ const DateSelector = () => {
               className="bg-sky-500 text-gray-800 dark:text-gray-200 font-semibold py-1.5 px-4 rounded"
             >
               {dateRange[0] && dateRange[1]
-                ? `${format(dateRange[0], "MMM d, yyyy")} - ${format(
-                    dateRange[1],
-                    "MMM d, yyyy"
-                  )}`
-                : "Select date"}
+                ? `${format(dateRange[0], "d MMMM yyyy", {
+                    locale,
+                  })} - ${format(dateRange[1], "d MMMM yyyy", { locale })}`
+                : t("Select date")}
             </button>
           }
           renderCustomHeader={({
@@ -65,7 +78,7 @@ const DateSelector = () => {
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            <div className="flex items-center    justify-between px-2 py-1">
+            <div className="flex items-center justify-between px-2 py-1">
               <button
                 type="button"
                 onClick={decreaseMonth}
@@ -75,7 +88,7 @@ const DateSelector = () => {
                 {"<"}
               </button>
               <div className="text-lg font-bold">
-                {format(date, "MMMM yyyy")}
+                {format(date, "MMMM yyyy", { locale })}
               </div>
               <button
                 type="button"
@@ -96,7 +109,7 @@ const DateSelector = () => {
                 onClick={() =>
                   handleDateChange(range.getValue() as [Date, Date])
                 }
-                className="block   w-full text-left px-4 py-1 hover:bg-gray-100"
+                className="block w-full text-left px-4 py-1 hover:bg-gray-100"
               >
                 {range.label}
               </button>
@@ -107,7 +120,7 @@ const DateSelector = () => {
           type="submit"
           className="bg-sky-500 hover:bg-sky-600 text-white font-semibold text-[14px] py-2 px-4 rounded"
         >
-          Apply
+          {t("Apply")}
         </button>
       </div>
     </form>

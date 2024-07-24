@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Modal from "../../ui/Modal";
 import Spinner from "../../ui/Spinner";
-import Table from "../../ui/Tabel";
 import ProductForm from "./ProductForm";
 import ProductRow from "./ProductRow";
 import ProductTablesOperations from "./ProductTablesOperations";
@@ -11,6 +11,7 @@ import {
   ORDER_TABLE_PAGINATION,
   PRODUCT_TABLE_PAGINATION,
 } from "../../utils/consts";
+import Table from "../../ui/Tabel";
 
 type ProductType = {
   id: string;
@@ -25,6 +26,7 @@ type ProductType = {
 };
 
 export default function ProductTables() {
+  const { t } = useTranslation();
   const { isLoading, products } = useProducts();
   const [searchParams] = useSearchParams();
   const filteredValue = searchParams.get("discount") || "all";
@@ -88,12 +90,12 @@ export default function ProductTables() {
         <Table col="1.3fr 1fr 1.9fr 1fr 1fr 1fr 1fr 40px">
           <Table.Header>
             <span></span>
-            <span>SKU</span>
-            <span>Product</span>
-            <span>Price</span>
-            <span>Discount</span>
-            <span>Quantity</span>
-            <span>Warehouse</span>
+            <span>{t("SKU")}</span>
+            <span>{t("Product")}</span>
+            <span>{t("Price")}</span>
+            <span>{t("Discount")}</span>
+            <span>{t("Quantity")}</span>
+            <span>{t("Warehouse")}</span>
           </Table.Header>
 
           <div>
@@ -102,8 +104,8 @@ export default function ProductTables() {
                 <ProductRow key={product.id || product.sku} data={product} />
               ))
             ) : (
-              <div className="px-3 py-4 border-b  dark:text-gray-200 border-gray-200">
-                No products available...
+              <div className="px-3 py-4 border-b dark:text-gray-200 border-gray-200">
+                {t("No products available...")}
               </div>
             )}
           </div>
@@ -119,7 +121,7 @@ export default function ProductTables() {
       <Modal>
         <Modal.Open opens="Products">
           <button className="text-white bg-sky-500 px-4 py-2 rounded-md mt-5">
-            Add Product
+            {t("Add Product")}
           </button>
         </Modal.Open>
         <Modal.Window name="Products">

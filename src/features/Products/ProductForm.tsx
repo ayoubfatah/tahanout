@@ -7,6 +7,7 @@ import { CATEGORIES } from "../../services/Categories";
 import DragDropImages from "../../ui/DragDropImages";
 import useAddProduct from "./useAddProduct";
 import { generateSKU } from "../../utils/helpers";
+import { t } from "i18next";
 
 const ProductForm = ({ onClose }: any) => {
   const [sku, setSku] = useState("");
@@ -34,7 +35,7 @@ const ProductForm = ({ onClose }: any) => {
     mutate(data, {
       onSuccess: () => {
         playNotificationSound();
-        toast.success("Product created successfully");
+        toast.success(t("Product created successfully"));
         onClose();
       },
       onError: (error: any) => {
@@ -46,7 +47,6 @@ const ProductForm = ({ onClose }: any) => {
   const handleImageChangeFromDragDrop = (newItems: any) => {
     setItems(newItems);
   };
-
   return (
     <div className="overflow-y-scroll min-w-[500px] max-h-[500px]">
       <form
@@ -54,12 +54,12 @@ const ProductForm = ({ onClose }: any) => {
         className="mx-auto w-full flex flex-col gap-4 p-10"
       >
         <div className="flex flex-col gap-2 relative">
-          <label>SKU:</label>
+          <label>{t("SKU")}</label>
           <input
             value={sku}
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("sku", { required: "SKU is required" })}
+            {...register("sku", { required: t("SKU is required") })}
           />
           <span
             onClick={randomeSku}
@@ -75,11 +75,11 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Name:</label>
+          <label>{t("Name")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("name", { required: "Name is required" })}
+            {...register("name", { required: t("Name is required") })}
           />
           {errors.name && (
             <span className="text-red-500 text-[12px]">
@@ -89,12 +89,12 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Original Price:</label>
+          <label>{t("Original Price")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("originalPrice", {
-              required: " Original prcie Price is required",
+              required: t("Original price is required"),
             })}
           />
           {errors.originalPrice && (
@@ -103,12 +103,13 @@ const ProductForm = ({ onClose }: any) => {
             </span>
           )}
         </div>
+
         <div className="flex flex-col gap-2">
-          <label>Selling Price:</label>
+          <label>{t("Selling Price")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
-            {...register("price", { required: "Price is required" })}
+            {...register("price", { required: t("Price is required") })}
           />
           {errors.price && (
             <span className="text-red-500 text-[12px]">
@@ -118,7 +119,7 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Discount:</label>
+          <label>{t("Discount")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
@@ -127,11 +128,11 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Quantity:</label>
+          <label>{t("Quantity")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
-            {...register("quantity", { required: "Quantity is required" })}
+            {...register("quantity", { required: t("Quantity is required") })}
           />
           {errors.quantity && (
             <span className="text-red-500 text-[12px]">
@@ -141,11 +142,11 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Description:</label>
+          <label>{t("Description")}</label>
           <textarea
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             {...register("description", {
-              required: "Description is required",
+              required: t("Description is required"),
             })}
           />
         </div>
@@ -156,22 +157,22 @@ const ProductForm = ({ onClose }: any) => {
         )}
 
         <div className="flex flex-col gap-2">
-          <label>Min Order:</label>
+          <label>{t("Min Order")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("minOrder", {
-              required: "min order is required",
-              min: { value: 0, message: "min order must be at least 0" },
+              required: t("Min order is required"),
+              min: { value: 0, message: t("Min order must be at least 0") },
             })}
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Category:</label>
+          <label>{t("Category")}</label>
           <select
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
-            {...register("category", { required: "Category is required" })}
+            {...register("category", { required: t("Category is required") })}
           >
             {CATEGORIES.map((category, i: any) => (
               <option key={i} value={category}>
@@ -187,11 +188,11 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Warehouse:</label>
+          <label>{t("Warehouse")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
-            {...register("warehouse", { required: "Warehouse is required" })}
+            {...register("warehouse", { required: t("Warehouse is required") })}
           />
         </div>
         {errors.warehouse && (
@@ -199,8 +200,9 @@ const ProductForm = ({ onClose }: any) => {
             {errors.warehouse.message as string}
           </span>
         )}
+
         <div className="flex flex-col gap-2">
-          <label>Colors:</label>
+          <label>{t("Colors")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
@@ -209,7 +211,7 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Brand:</label>
+          <label>{t("Brand")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
@@ -218,13 +220,13 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Weight(kg):</label>
+          <label>{t("Weight(kg)")}</label>
           <input
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="number"
             {...register("weight", {
-              required: "Weight is required",
-              min: { value: 0, message: "Weight must be at least 0" },
+              required: t("Weight is required"),
+              min: { value: 0, message: t("Weight must be at least 0") },
             })}
           />
           {errors.weight && (
@@ -235,23 +237,23 @@ const ProductForm = ({ onClose }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>Images:</label>
+          <label>{t("Images")}</label>
           <DragDropImages onChange={handleImageChangeFromDragDrop} />
         </div>
 
-        <div className="flex justify-end gap-4 mt-4">
+        <div className="flex justify-start gap-4 mt-4">
           <button
             type="submit"
-            className="px-6 py-2 bg-[#6A64F1] text-white rounded-md shadow-md transition duration-300 hover:bg-[#553C9A] focus:outline-none focus:ring-2 focus:ring-[#6A64F1]"
+            className="px-6 py-2 bg-sky-500 text-white rounded-md shadow-md transition duration-300 hover:bg-[#553C9A] focus:outline-none focus:ring-2 focus:ring-[#6A64F1]"
           >
-            {isLoading ? "Submitting..." : "Submit"}
+            {isLoading ? t("Submitting...") : t("Submit")}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2 bg-gray-300   text-gray-800    rounded-md shadow-md transition duration-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="px-6 py-2 bg-white text-gray-900 border-black border rounded-md shadow-md transition duration-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
-            Cancel
+            {t("Cancel")}
           </button>
         </div>
       </form>

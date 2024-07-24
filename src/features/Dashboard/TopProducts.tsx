@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { OrderType, Product } from "../../Types/types";
 import Spinner from "../../ui/Spinner";
 import { useOrders } from "../Orders/useOrders";
@@ -38,11 +39,16 @@ export default function TopProducts({ orders }: { orders: OrderType[] }) {
   return (
     <div className="bg-white dark:bg-gray-800  col-span-2 flex flex-col gap-3 overflow-x-scroll rounded-md ">
       <h2 className="text-xl px-2 py-3 font-semibold text-gray-700  dark:text-gray-200">
-        Top Products:
+        {t("Top Products")}:
       </h2>
       <div className="overflow-y-scroll">
         {sortedTopProducts?.map((product: any, i: number) => (
-          <TopProductsRow key={product.productId} i={i} product={product} />
+          <TopProductsRow
+            isLast={i === sortedTopProducts.length - 1}
+            key={product.productId}
+            i={i}
+            product={product}
+          />
         ))}
       </div>
     </div>

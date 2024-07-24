@@ -54,6 +54,8 @@ export default function OrderForm({
     }
   }, [dataFromCustomerActions]);
 
+  console.log(customerOptions, "customerOptions");
+
   // api
   const { isLoading: isLoading3, mutate } = useAddOrder();
   const { upQuantity } = useUpdateProductQuantity();
@@ -83,7 +85,7 @@ export default function OrderForm({
             newQuantity: productOptions?.quantity - OrderQuantity,
           });
           playNotificationSound();
-          toast.success("Order created successfully");
+          toast.success(t("Order created successfully"));
           onclose();
           setPaymentMethod(null);
           setCustomerOptions(null);
@@ -103,19 +105,6 @@ export default function OrderForm({
       onClick={(e) => e.preventDefault()}
       className="flex gap-4 flex-col m-[50px]"
     >
-      <div className="delete flex-col  ">
-        <div>{t("customer")}:</div>
-        {type !== "customerTable" ? (
-          <Dropdown type="customer" data={customers} isLoading={isLoading}>
-            <OrderCustomerOptions />
-          </Dropdown>
-        ) : (
-          <CustomerOptionsRow
-            fromCustomerTable={true}
-            item={dataFromCustomerActions}
-          />
-        )}
-      </div>
       <div className="flex  flex-col ">
         <div>{t("Product")}: </div>
         {type !== "productTable" ? (
@@ -127,6 +116,19 @@ export default function OrderForm({
             fromProductTable={true}
             key={productOptions?.id}
             item={dataFromProductActions}
+          />
+        )}
+      </div>
+      <div className="delete flex-col  ">
+        <div>{t("customer")}:</div>
+        {type !== "customerTable" ? (
+          <Dropdown type="customer" data={customers} isLoading={isLoading}>
+            <OrderCustomerOptions />
+          </Dropdown>
+        ) : (
+          <CustomerOptionsRow
+            fromCustomerTable={true}
+            item={dataFromCustomerActions}
           />
         )}
       </div>
@@ -166,7 +168,7 @@ export default function OrderForm({
             !paymentMethod ||
             productOptions.quantity < OrderQuantity
           }
-          text="Submit"
+          text={t("Submit")}
           onClick={handleOnClick}
           textColor="text-white"
           bgColor="bg-sky-500"
@@ -174,7 +176,7 @@ export default function OrderForm({
         />
         <Button
           disabled={isLoading3 || isLoading || isLoading2}
-          text="Cancel "
+          text={t("Cancel")}
           onClick={() => {
             onclose(), setCustomerOptions(null), setProductOptions(null);
           }}

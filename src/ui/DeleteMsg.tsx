@@ -20,7 +20,10 @@ export default function DeleteMsg({
   const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-3 items-center py-5 px-7 ">
-      <h1 className="text-[24px] font-semibold   ">Delete {type}</h1>
+      <h1 className="text-[24px] font-semibold   ">
+        {" "}
+        {t("Delete")} {type}
+      </h1>
       <p>
         {t("Are you sure you want to delete this")} {type}?
       </p>

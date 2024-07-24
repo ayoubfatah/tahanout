@@ -14,6 +14,7 @@ import { useUser } from "../features/authentication/useUser";
 import { changeLanguage } from "../utils/helpers";
 import Avatar from "./Avatar";
 import DropdownItem from "./DropdownItem";
+import { t } from "i18next";
 
 export default function Header() {
   const { user } = useUser();
@@ -54,7 +55,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className=" dark:bg-gray-900  bg-white  sticky top-0  z-[20]  py-2 px-6 flex items-center border-b border-gray-200  dark:border-gray-700  justify-end">
+    <header className="dark:bg-gray-900 bg-white sticky top-0 z-[20] py-2 px-6 flex items-center border-b border-gray-200 dark:border-gray-700 justify-end">
       <div className="flex items-center gap-5 space-x-4">
         <button onClick={toggleDarkMode}>
           {isDarkMode ? (
@@ -74,21 +75,14 @@ export default function Header() {
           {isLanguageDropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 dark:!text-gray-300 dark:bg-gray-800 bg-white rounded-md shadow-lg ">
               <DropdownItem
-                text="English"
+                text={t("English")}
                 onClick={() => {
                   changeLanguage("en");
                   setIsLanguageDropdownOpen(false);
                 }}
               />
               <DropdownItem
-                text="Arabic"
-                onClick={() => {
-                  changeLanguage("ar");
-                  setIsLanguageDropdownOpen(false);
-                }}
-              />
-              <DropdownItem
-                text="Français"
+                text={t("French")}
                 onClick={() => {
                   changeLanguage("fr");
                   setIsLanguageDropdownOpen(false);
@@ -109,7 +103,7 @@ export default function Header() {
             <div className="absolute right-0 mt-2 w-48 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg ">
               <DropdownItem
                 icon={HiOutlineUserCircle}
-                text="Profile"
+                text={t("Profile")}
                 onClick={() => {
                   navigate("/profile");
                   setIsUserDropdownOpen(false);
@@ -117,7 +111,7 @@ export default function Header() {
               />
               <DropdownItem
                 icon={HiMiniArrowRightStartOnRectangle}
-                text="Logout"
+                text={t("Logout")}
                 onClick={logout}
                 disabled={isLoading}
               />

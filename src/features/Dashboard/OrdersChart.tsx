@@ -3,8 +3,8 @@ import {
   eachMonthOfInterval,
   format,
   isSameDay,
-  subDays,
 } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
 import {
   Area,
   AreaChart,
@@ -17,6 +17,7 @@ import {
 import { OrderType } from "../../Types/types";
 import { formatCurrency, getDateInterval } from "../../utils/helpers";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { useTranslation } from "react-i18next";
 
 export default function OrdersChart({
   orders,
@@ -27,12 +28,15 @@ export default function OrdersChart({
   numDays: any;
   datesFromDatePicker?: any;
 }) {
+  const { t, i18n } = useTranslation();
   const { start, end } = getDateInterval(numDays);
+  const { isDarkMode } = useTahanout();
 
   const allDates = datesFromDatePicker || eachDayOfInterval({ start, end });
-  const { isDarkMode } = useTahanout();
+  const locale = i18n.language === "fr" ? fr : enUS;
+
   const ordersChartData = allDates.map((date: any) => {
-    const dateString = format(date, "MMM dd");
+    const dateString = format(date, "MMM dd", { locale });
     const totalOrdersOfDate = orders
       ?.filter((order) => isSameDay(date, new Date(order.createdAt)))
       ?.reduce((acc, curr) => acc + curr.quantity, 0);
@@ -59,8 +63,9 @@ export default function OrdersChart({
     <div>
       {numDays !== "all" && (
         <h2 className="px-4 py-3 text-gray-800 dark:text-gray-200 font-semibold text-[20px]">
-          Stats from {format(allDates.at(0) ?? new Date(), "MMM dd yyyy")} -{" "}
-          {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy")}{" "}
+          {t("Stats from")}{" "}
+          {format(allDates.at(0) ?? new Date(), "MMM dd yyyy", { locale })} -{" "}
+          {format(allDates.at(-1) ?? new Date(), "MMM dd yyyy", { locale })}
         </h2>
       )}
       <ResponsiveContainer width="100%" height={400}>
@@ -77,7 +82,7 @@ export default function OrdersChart({
           <YAxis
             tick={{ fontSize: 13 }}
             dataKey="totalOrders"
-            name="Total Orders"
+            name={t("Total Orders")}
             scale="auto"
             type="number"
           />
@@ -85,7 +90,7 @@ export default function OrdersChart({
             yAxisId="right"
             orientation="right"
             dataKey="totalSales"
-            name="Total Sales"
+            name={t("Total Sales")}
             domain={[0, "auto"]}
             scale="auto"
             type="number"
@@ -100,7 +105,7 @@ export default function OrdersChart({
           <Area
             type="monotone"
             dataKey="totalOrders"
-            name="Total Orders"
+            name={t("Total Orders")}
             stroke="#0d00ff"
             fill={isDarkMode ? "#4f46e5" : "#c1dbff"}
             strokeWidth={1}
@@ -108,12 +113,12 @@ export default function OrdersChart({
           <Area
             type="monotone"
             dataKey="confirmedOrders"
-            name="Delivered Orders"
-            stroke="#4e9c8b" //4e9c8b
+            name={t("Delivered Orders")}
+            stroke="#4e9c8b"
             fill={isDarkMode ? "#30edc4" : "#ccfbf1"}
             strokeWidth={1}
           />
-          <Area dataKey="totalSales" name="Total Sales" stroke="#ffd700" />
+          <Area dataKey="totalSales" name={t("Total Sales")} stroke="#ffd700" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

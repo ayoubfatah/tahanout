@@ -1,4 +1,3 @@
-// src/components/Dashboard.js
 import { useSearchParams } from "react-router-dom";
 import BarChartSales from "../features/Dashboard/BarChartSales";
 import CategoriesPieChart from "../features/Dashboard/CategoriesPieChart";
@@ -13,13 +12,14 @@ import useObserver from "../hooks/useObserver";
 import DateSelector from "../ui/DateSelector";
 import Filter from "../ui/Filter";
 import Spinner from "../ui/Spinner";
-import { useEffect } from "react";
 import { eachDayOfInterval } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
   const { orders, isLoading } = useOrders();
   const [searchParams] = useSearchParams();
   const [ref, isVisible] = useObserver();
+  const { t } = useTranslation();
 
   const start = searchParams.get("start");
   const end = searchParams.get("end");
@@ -45,12 +45,12 @@ const Dashboard = () => {
           dates={true}
           filterField={"last"}
           options={[
-            { label: "today", value: "1" },
-            { label: "yesterday", value: "2" },
-            { label: "this month", value: "30" },
-            { label: "last month", value: "31" },
-            { label: "this year", value: "365" },
-            { label: "last year", value: "366" },
+            { label: t("today"), value: "1" },
+            { label: t("yesterday"), value: "2" },
+            { label: t("this month"), value: "30" },
+            { label: t("last month"), value: "31" },
+            { label: t("this year"), value: "365" },
+            { label: t("last year"), value: "366" },
           ]}
         />
       </div>

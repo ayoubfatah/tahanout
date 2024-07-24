@@ -3,6 +3,7 @@ import { Product } from "../../Types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editProduct } from "../../services/apiProducts";
 import { editOrder } from "../../services/apiOrders";
+import { t } from "i18next";
 
 // Mutation function
 export default function useEditOrder() {
@@ -11,7 +12,7 @@ export default function useEditOrder() {
     mutationFn: ({ newProductData, id }: any) => editOrder(newProductData, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
-      toast.success("Order updated successfully");
+      toast.success(t("Order updated successfully"));
     },
     onError: (err: any) => toast.error(err.message),
   });

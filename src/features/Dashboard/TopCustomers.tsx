@@ -1,11 +1,9 @@
 import React from "react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { formatCurrency } from "../../utils/helpers";
-import { useOrders } from "../Orders/useOrders";
-import { CustomersType, OrderType } from "../../Types/types";
-import { useCustomers } from "../Customers/useCutomers";
+import { t } from "i18next";
 import TopCustomersRow from "./TopCustomersRow";
 import Spinner from "../../ui/Spinner";
+import { CustomersType, OrderType } from "../../Types/types";
+import { useCustomers } from "../Customers/useCutomers";
 
 export default function TopCustomers({ orders }: { orders: OrderType[] }) {
   const { customers, isLoading: customersLoading } = useCustomers();
@@ -35,12 +33,14 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
     ?.sort((a: any, b: any) => b.totalSpent - a.totalSpent)
     .slice(0, 10);
 
+  if (customersLoading) return <Spinner />;
   if (sortedTopCustomers?.length === 0)
-    return <div className="p-5">No customers found</div>;
+    return <div className="p-5">{t("No customers found")}</div>;
+
   return (
-    <div className="bg-white dark:bg-gray-800  relative col-span-2 flex flex-col gap-3 rounded-md">
-      <h2 className="text-xl px-2 py-3 font-semibold text-gray-700 dark:text-gray-200  dark:bg-gray-800 w-full bg-white sticky top-0">
-        Top Customers:
+    <div className="bg-white dark:bg-gray-800 relative col-span-2 flex flex-col gap-3 rounded-md">
+      <h2 className="text-xl px-2 py-3 font-semibold text-gray-700 dark:text-gray-200 dark:bg-gray-800 w-full bg-white sticky top-0">
+        {t("Top Customers")}:
       </h2>
 
       <div className="overflow-y-scroll">
@@ -52,6 +52,7 @@ export default function TopCustomers({ orders }: { orders: OrderType[] }) {
               (test: any) => test.id === customer.customerId
             )}
             i={i}
+            isLast={i === sortedTopCustomers.length - 1}
           />
         ))}
       </div>

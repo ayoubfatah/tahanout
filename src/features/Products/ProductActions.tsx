@@ -17,6 +17,7 @@ import useDeleteProduct from "./useDeleteProduct";
 import useDuplicateProduct from "./useDuplicateProduct";
 import OrderForm from "../Orders/OrderForm";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
+import { t } from "i18next";
 
 type ActionsProps = {
   data: Product;
@@ -89,7 +90,7 @@ export default function ProductActions({ data }: ActionsProps) {
 
     mutate(duplicatedData, {
       onSuccess: () => {
-        toast.success("Product duplicated successfully");
+        toast.success(t("Product duplicated successfully"));
         setOpen(false);
       },
     });
@@ -113,13 +114,13 @@ export default function ProductActions({ data }: ActionsProps) {
               className=" flex items-center hover:bg-gray-200   dark:hover:bg-gray-600     px-10 py-[10px] gap-2 font-light text-[14px]"
             >
               <HiEye size={20} />
-              Details
+              {t("Details")}
             </button>
             {data.quantity > 0 ? (
               <Modal.Open opens="make_order">
                 <button className=" flex items-center hover:bg-gray-200   dark:hover:bg-gray-600     px-10 py-[10px] gap-2 font-light text-[14px]">
                   <HiOutlinePlus size={20} />
-                  Order
+                  {t("Order")}
                 </button>
               </Modal.Open>
             ) : null}
@@ -134,7 +135,7 @@ export default function ProductActions({ data }: ActionsProps) {
             <Modal.Open opens="edit">
               <button className="flex items-center hover:bg-gray-200   dark:hover:bg-gray-600     px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniPencilSquare size={20} />
-                Edit
+                {t("Edit")}
               </button>
             </Modal.Open>
             <Modal.Window name="edit">
@@ -146,12 +147,12 @@ export default function ProductActions({ data }: ActionsProps) {
               className="flex items-center hover:bg-gray-200   dark:hover:bg-gray-600     px-10 py-[10px] gap-2 font-light text-[14px]"
             >
               <HiMiniSquare2Stack />
-              Duplicate
+              {t("Duplicate")}
             </button>
             <Modal.Open opens="delete">
               <button className="flex items-center hover:bg-gray-200   dark:hover:bg-gray-600     px-10 py-[10px] gap-2 font-light text-[14px]">
                 <HiMiniTrash size={20} />
-                Delete
+                {t("Delete")}
               </button>
             </Modal.Open>
             <Modal.Window name="delete">
@@ -159,7 +160,7 @@ export default function ProductActions({ data }: ActionsProps) {
                 onClose={() => setOpen(false)}
                 isDeleting={isDeleting}
                 deleteFunction={deleteProduct}
-                type="Product"
+                type={t("Product")}
                 data={data}
               />
             </Modal.Window>
