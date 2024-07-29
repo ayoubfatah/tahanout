@@ -28,7 +28,7 @@ interface TahanoutProvider {
   children: ReactNode;
 }
 
-const DarkModeContext = createContext<TahanoutContextType | null>(null);
+const TahanoutContext = createContext<TahanoutContextType | null>(null);
 
 const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
   const [productOptions, setProductOptions] = useState<Product | null>(null);
@@ -67,14 +67,14 @@ const TahanoutProvider: React.FC<TahanoutProvider> = ({ children }) => {
   };
 
   return (
-    <DarkModeContext.Provider value={contextValue}>
+    <TahanoutContext.Provider value={contextValue}>
       {children}
-    </DarkModeContext.Provider>
+    </TahanoutContext.Provider>
   );
 };
 
 const useTahanout = (): TahanoutContextType => {
-  const context = useContext(DarkModeContext);
+  const context = useContext(TahanoutContext);
   if (context === null) {
     throw new Error("useTahanout must be used within a DarkModeProvider");
   }

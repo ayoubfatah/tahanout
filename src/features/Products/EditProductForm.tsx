@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Product } from "../../Types/types";
 import useUpdateProduct from "./useUpdateProduct";
 import { CATEGORIES } from "../../services/Categories";
+import { HiOutlineX } from "react-icons/hi";
 
 const ProductForm = ({
   data: product,
@@ -20,15 +21,55 @@ const ProductForm = ({
   } = useForm({
     defaultValues: {
       ...product,
+      specificationsText: Object.entries(product.specifications || {})
+        .map(([key, value]) => `${key}: ${value}`)
+        .join("\n"),
     },
   });
 
+  const [offers, setOffers] = useState(
+    product.offers || [{ percentage: "", quantity: "" }]
+  );
+
   const { isEditing, mutate } = useUpdateProduct();
+  const handleOfferChange = (index: number, field: string, value: string) => {
+    const newOffers = [...offers];
+    newOffers[index] = { ...newOffers[index], [field]: value };
+    setOffers(newOffers);
+  };
+
+  const addOffer = () => {
+    setOffers([...offers, { percentage: "", quantity: "" }]);
+  };
+
+  const removeOffer = (index: number) => {
+    const newOffers = offers.filter((_: any, i: any) => i !== index);
+    setOffers(newOffers);
+  };
 
   const onSubmit = (data: any) => {
-    // Handle the form submission
+    const specificationsText = data.specificationsText || "";
+    const specificationsLines = specificationsText.split("\n");
+    const specifications = specificationsLines.reduce((acc: any, line: any) => {
+      const [key, value] = line.split(":").map((item: any) => item.trim());
+      if (key && value) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+    delete data.specificationsText;
+
     mutate(
-      { newProductData: { ...data, images: product.images }, id: product.id },
+      {
+        newProductData: {
+          ...data,
+          images: product.images,
+          specifications,
+          offers,
+        },
+        id: product.id,
+      },
       {
         onSuccess: () => {
           onClose();
@@ -38,7 +79,6 @@ const ProductForm = ({
   };
 
   const onCloseForm = () => {
-    // Handle close action
     onClose();
   };
 
@@ -116,6 +156,66 @@ const ProductForm = ({
           {...register("discount")}
         />
       </div>
+      <div className="flex flex-col gap-2 items-start">
+        <label>{t("Offers")}:</label>
+        {offers.map((offer: any, index: number) => (
+          <div key={index} className="flex gap-2 items-center">
+            <input
+              className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md p-1 px-2 w-[180px]"
+              type="number"
+              placeholder={t("Quantity")}
+              value={offer.quantity}
+              onChange={(e) =>
+                handleOfferChange(index, "quantity", e.target.value)
+              }
+            />
+            <input
+              className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md p-1 px-2 w-[180px]"
+              type="number"
+              placeholder={t("Percentage")}
+              value={offer.percentage}
+              onChange={(e) =>
+                handleOfferChange(index, "percentage", e.target.value)
+              }
+            />
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => removeOffer(index)}
+                className="px-2 py-1 text-red-500 rounded-md"
+              >
+                <HiOutlineX className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addOffer}
+          className="text-blue-500 rounded-md self-start text-sm"
+        >
+          {t("Add More Offers")}
+        </button>
+      </div>
+
+      <div className="flex gap-2">
+        <button
+          disabled={isEditing}
+          type="submit"
+          className="text-white bg-sky-500 px-4 py-2 rounded-md mt-3"
+        >
+          {t("Edit")}
+        </button>
+
+        <button
+          disabled={isEditing}
+          type="button"
+          onClick={onCloseForm}
+          className="text-gray-800 bg-white border border-black px-4 py-2 rounded-md mt-3"
+        >
+          {t("Close")}
+        </button>
+      </div>
 
       <div className="flex flex-col gap-2 items-start">
         <label>{t("Quantity")}:</label>
@@ -135,7 +235,7 @@ const ProductForm = ({
       <div className="flex flex-col gap-2 items-start">
         <label>{t("Description")}:</label>
         <textarea
-          className="h-[200px] rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          className=" rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
           {...register("description", {
             required: t("Description is required"),
           })}
@@ -145,6 +245,14 @@ const ProductForm = ({
             {errors.description.message}
           </span>
         )}
+      </div>
+      <div className="flex flex-col gap-2 items-start">
+        <label>{t("Specifications")}:</label>
+        <textarea
+          className=" rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+          placeholder="switchType: Razer Green..."
+          {...register("specificationsText")}
+        />
       </div>
 
       <div className="flex flex-col gap-2 items-start">

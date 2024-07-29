@@ -78,7 +78,7 @@ const DragDropImages: React.FC<DragDropImagesProps> = ({ onChange }) => {
       <div className="mb-4">
         {items.map((item, i) => (
           <div className="list-none shadow-sm" key={item.id}>
-            <div className="flex items-center justify-between border p-1 mb-2 bg-white">
+            <div className="flex items-center justify-between border p-1 mb-2  dark:bg-gray-800  bg-white">
               <img
                 src={item.id}
                 alt={item.name}

@@ -32,9 +32,7 @@ export default function ProductDetails() {
     images: product?.images,
   };
 
-  const handleEdit = () => {
-    // Handle edit action, e.g., navigate to edit form
-  };
+  const handleEdit = () => {};
 
   if (isLoading) {
     return (

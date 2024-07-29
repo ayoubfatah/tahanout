@@ -1,5 +1,5 @@
-import { useEffect, useTransition } from "react";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useTahanout } from "../../contextApi/useTahanoutCA";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
@@ -15,8 +15,8 @@ import OrderCustomerOptions from "./OrderCustomerOptions";
 import CustomerOptionsRow from "./OrderCustomerOptionsRow";
 import OrderProductOptions from "./OrderProductOptions";
 import ProductOptionsRow from "./OrderProductOptionsRow";
-import { id } from "date-fns/locale";
-import { useTranslation } from "react-i18next";
+import { calculateDiscountedPrice } from "../../utils/helpers";
+
 export default function OrderForm({
   onClose: onclose,
   type,
@@ -24,7 +24,6 @@ export default function OrderForm({
   dataFromCustomerActions,
 }: any) {
   const navigate = useNavigate();
-
   const { isLoading, customers } = useCustomers();
   const { t } = useTranslation();
   const { isLoading: isLoading2, products } = useProducts();
@@ -40,7 +39,9 @@ export default function OrderForm({
   } = useTahanout();
 
   const { data: settings } = useGetSettings();
-  // CREATING ORDER FROM THE PRODUCT TABLE
+  const { isLoading: isLoading3, mutate } = useAddOrder();
+  const { upQuantity } = useUpdateProductQuantity();
+  const playNotificationSound = useNotificationSound();
 
   useEffect(() => {
     if (dataFromProductActions) {
@@ -54,49 +55,59 @@ export default function OrderForm({
     }
   }, [dataFromCustomerActions]);
 
-  console.log(customerOptions, "customerOptions");
+  useEffect(() => {
+    console.log("Product Options:", productOptions);
+  }, [productOptions]);
 
-  // api
-  const { isLoading: isLoading3, mutate } = useAddOrder();
-  const { upQuantity } = useUpdateProductQuantity();
-  const playNotificationSound = useNotificationSound();
   function handleOnClick() {
     if (productOptions && productOptions.price !== undefined) {
+      const basePrice = productOptions.price - productOptions.discount;
+      const { discountedPrice, appliedDiscount } = calculateDiscountedPrice(
+        basePrice,
+        Number(OrderQuantity),
+        productOptions.offers || []
+      );
+
       const orderData = {
         id: Math.floor(Math.random() * 1000),
         customerId: dataFromCustomerActions?.id || customerOptions?.id,
         productId: productOptions?.id,
-        productPrice: productOptions.price - productOptions.discount,
+        productPrice: discountedPrice,
         shippingCost: settings[0].shippingPrice,
         totalPrice:
-          (productOptions.price - productOptions.discount) *
-            Number(OrderQuantity) +
+          discountedPrice * Number(OrderQuantity) +
           Number(settings[0].shippingPrice),
         quantity: Number(OrderQuantity),
         paymentMethod: paymentMethod,
         status: "pending",
         createdAt: new Date(),
       };
+      console.log("Order data:", orderData);
 
-      mutate(orderData, {
-        onSuccess: () => {
-          upQuantity({
-            id: productOptions?.id,
-            newQuantity: productOptions?.quantity - OrderQuantity,
-          });
-          playNotificationSound();
-          toast.success(t("Order created successfully"));
-          onclose();
-          setPaymentMethod(null);
-          setCustomerOptions(null);
-          navigate("/orders");
-        },
-      });
+      // mutate(orderData, {
+      //   onSuccess: () => {
+      //     console.log("Order created successfully");
+      //     upQuantity({
+      //       id: productOptions?.id,
+      //       newQuantity: productOptions?.quantity - OrderQuantity,
+      //     });
+      //     playNotificationSound();
+      //     toast.success(t("Order created successfully"));
+      //     onclose();
+      //     setPaymentMethod(null);
+      //     setCustomerOptions(null);
+      //     navigate("/orders");
+      //   },
+      //   onError: (error) => {
+      //     console.error("Error creating order:", error);
+      //     toast.error(t("Error creating order"));
+      //   },
+      // });
     } else {
+      console.log("Product options or price is undefined");
       onclose();
       setPaymentMethod(null);
       setCustomerOptions(null);
-      return null;
     }
   }
 
@@ -105,7 +116,7 @@ export default function OrderForm({
       onClick={(e) => e.preventDefault()}
       className="flex gap-4 flex-col m-[50px]"
     >
-      <div className="flex  flex-col ">
+      <div className="flex flex-col">
         <div>{t("Product")}: </div>
         {type !== "productTable" ? (
           <Dropdown type="product" data={products} isLoading={isLoading2}>
@@ -119,7 +130,7 @@ export default function OrderForm({
           />
         )}
       </div>
-      <div className="delete flex-col  ">
+      <div className="flex flex-col">
         <div>{t("customer")}:</div>
         {type !== "customerTable" ? (
           <Dropdown type="customer" data={customers} isLoading={isLoading}>
@@ -133,13 +144,13 @@ export default function OrderForm({
         )}
       </div>
 
-      <div className="flex  flex-col ">
+      <div className="flex flex-col">
         <label>{t("Quantity")} : </label>
         <input
           onChange={(e) => {
             setOrderQuantity(parseInt(e.target.value));
           }}
-          className="  rounded-md border w-[80px] border-[#e0e0e0] bg-white  dark:bg-gray-800  py-2 text-base font-medium   text-gray-800  dark:text-gray-200    outline-none focus:border-[#6A64F1] focus:shadow-md  p-1 px-2"
+          className="rounded-md border w-full border-[#e0e0e0] bg-white dark:bg-gray-800 py-2 text-base font-medium text-gray-800 dark:text-gray-200 outline-none focus:border-[#6A64F1] focus:shadow-md p-1 px-2"
           type="number"
         />
         {productOptions && productOptions.minOrder > OrderQuantity && (
@@ -148,12 +159,34 @@ export default function OrderForm({
           </span>
         )}
         {productOptions && productOptions.quantity < OrderQuantity && (
-          <span className="text-red-500 text-[12px] w-full  ">
-            {" "}
-            Max quantity is {productOptions.quantity}{" "}
+          <span className="text-red-500 text-[12px] w-full">
+            Max quantity is {productOptions.quantity}
           </span>
         )}
       </div>
+
+      {productOptions && productOptions.offers && (
+        <div>
+          {(() => {
+            const { discountedPrice, appliedDiscount } =
+              calculateDiscountedPrice(
+                productOptions.price - productOptions.discount,
+                Number(OrderQuantity),
+                productOptions.offers
+              );
+
+            if (appliedDiscount !== null) {
+              return (
+                <span className="text-green-500">
+                  {appliedDiscount}% {t("discount applied!")}
+                </span>
+              );
+            }
+
+            return null;
+          })()}
+        </div>
+      )}
 
       <PaymentMethodDropDown />
       <div className="flex gap-4">
@@ -178,13 +211,15 @@ export default function OrderForm({
           disabled={isLoading3 || isLoading || isLoading2}
           text={t("Cancel")}
           onClick={() => {
-            onclose(), setCustomerOptions(null), setProductOptions(null);
+            onclose();
+            setCustomerOptions(null);
+            setProductOptions(null);
+            setPaymentMethod(null);
           }}
           textColor="text-black"
           bgColor="bg-white"
           borderColor="border-gray-300"
           border="border"
-          // ayoubfatah XD
         />
       </div>
     </form>

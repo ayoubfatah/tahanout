@@ -31,7 +31,7 @@ export default function TodaysOrders({ orders }: { orders: OrderType[] }) {
       </h2>
       {todayPendingOrders?.length ? (
         <div className="px-1 bg-white dark:bg-gray-800 items-center gap-2">
-          <div className="border-b border-gray-200 py-1.5 grid grid-cols-[1fr_1.7fr_1.7fr_1fr_1.3fr_1fr_1fr_1.2fr_1fr] text-gray-400 dark:text-gray-200 text-[12px]">
+          <div className="border-b border-gray-200 py-1.5 grid grid-cols-[1fr_1.7fr_1.7fr_1fr_1.3fr_1fr_1fr_1.5fr_1fr] text-gray-400 dark:text-gray-200 text-[12px]">
             <span>{t("Order ID")}</span>
             <span>{t("Customer")}</span>
             <span>{t("Product")}</span>

@@ -19,6 +19,8 @@ export type Product = {
   additional_images?: string;
   createdAt?: string | Date;
   imgDetails?: any;
+  offers?: any;
+  specifications?: any;
 };
 
 export type ChildrenType = {

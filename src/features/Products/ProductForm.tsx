@@ -1,29 +1,51 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { HiArrowPath } from "react-icons/hi2";
+import { HiArrowPath, HiOutlineXCircle } from "react-icons/hi2";
 import { useNotificationSound } from "../../hooks/useNotificationSound";
 import { CATEGORIES } from "../../services/Categories";
 import DragDropImages from "../../ui/DragDropImages";
 import useAddProduct from "./useAddProduct";
 import { generateSKU } from "../../utils/helpers";
 import { t } from "i18next";
+import { HiOutlineX } from "react-icons/hi";
 
 const ProductForm = ({ onClose }: any) => {
   const [sku, setSku] = useState("");
-
-  function randomeSku() {
-    // generate a random sku like this 23LK2J4239
-    const sku = generateSKU();
-    setSku(sku);
-  }
-  const [items, setItems] = useState([]);
   const {
     setValue,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  function randomeSku() {
+    // generate a random sku like this 23LK2J4239
+    const sku = generateSKU();
+    setSku(sku);
+    setValue("sku", sku);
+  }
+
+  const [items, setItems] = useState([]);
+
+  // offers
+
+  const [offers, setOffers] = useState([{ percentage: "", quantity: "" }]);
+
+  const handleOfferChange = (index: number, field: string, value: string) => {
+    const newOffers = [...offers];
+    newOffers[index] = { ...newOffers[index], [field]: value };
+    setOffers(newOffers);
+  };
+
+  const addOffer = () => {
+    setOffers([...offers, { percentage: "", quantity: "" }]);
+  };
+
+  const removeOffer = (index: number) => {
+    const newOffers = offers.filter((_, i) => i !== index);
+    setOffers(newOffers);
+  };
+
   const playNotificationSound = useNotificationSound();
 
   const { mutate, isLoading } = useAddProduct();
@@ -31,17 +53,33 @@ const ProductForm = ({ onClose }: any) => {
   const onSubmit = async (data: any) => {
     // Prepare data to include images array
     data.images = items.map((item: any) => item.file);
+    data.offers = offers;
 
-    mutate(data, {
-      onSuccess: () => {
-        playNotificationSound();
-        toast.success(t("Product created successfully"));
-        onClose();
-      },
-      onError: (error: any) => {
-        toast.error(error.message);
-      },
-    });
+    const specificationsText = data.specificationsText || "";
+    const specificationsLines = specificationsText.split("\n");
+    data.specifications = specificationsLines.reduce((acc: any, line: any) => {
+      const [key, value] = line.split(":").map((item: any) => item.trim());
+      if (key && value) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+    // Remove the original text field
+    delete data.specificationsText;
+
+    console.log("Product data:", data);
+
+    // mutate(data, {
+    //   onSuccess: () => {
+    //     playNotificationSound();
+    //     toast.success(t("Product created successfully"));
+    //     onClose();
+    //   },
+    //   onError: (error: any) => {
+    //     toast.error(error.message);
+    //   },
+    // });
   };
 
   const handleImageChangeFromDragDrop = (newItems: any) => {
@@ -57,6 +95,7 @@ const ProductForm = ({ onClose }: any) => {
           <label>{t("SKU")}</label>
           <input
             value={sku}
+            disabled
             className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200  bg-white py-1 text-base font-medium   text-gray-800    outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
             type="text"
             {...register("sku", { required: t("SKU is required") })}
@@ -126,6 +165,50 @@ const ProductForm = ({ onClose }: any) => {
             {...register("discount")}
           />
         </div>
+        {/* offers */}
+
+        <div className="flex flex-col gap-2">
+          <label>{t("Offers")}</label>
+          {offers.map((offer, index) => (
+            <div key={index} className="flex gap-2 items-center">
+              <input
+                className="rounded-md border  border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md p-1 px-2 w-[180px]"
+                type="number"
+                placeholder={t("Quantity")}
+                value={offer.quantity}
+                onChange={(e) =>
+                  handleOfferChange(index, "quantity", e.target.value)
+                }
+              />
+              <input
+                className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md p-1 px-2 w-[180px]"
+                type="number"
+                placeholder={t("Percentage")}
+                value={offer.percentage}
+                onChange={(e) =>
+                  handleOfferChange(index, "percentage", e.target.value)
+                }
+              />
+
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => removeOffer(index)}
+                  className="px-2 py-1  text-red-500 rounded-md"
+                >
+                  <HiOutlineX className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addOffer}
+            className="  text-blue-500 rounded-md self-start  text-sm"
+          >
+            {t("Add More Offers")}
+          </button>
+        </div>
 
         <div className="flex flex-col gap-2">
           <label>{t("Quantity")}</label>
@@ -150,12 +233,21 @@ const ProductForm = ({ onClose }: any) => {
             })}
           />
         </div>
+
         {errors.description && (
           <span className="text-red-500 text-[12px]">
             {errors.description.message as string}
           </span>
         )}
 
+        <div className="flex flex-col gap-2">
+          <label>{t("Specifications")}</label>
+          <textarea
+            placeholder="switchType: Razer Green..."
+            className="rounded-md border border-[#e0e0e0] dark:bg-gray-800 dark:text-gray-200 bg-white py-1 text-base font-medium text-gray-800 outline-none focus:border-[#6A64F1] focus:shadow-md w-full p-1 px-2"
+            {...register("specificationsText")}
+          />
+        </div>
         <div className="flex flex-col gap-2">
           <label>{t("Min Order")}</label>
           <input

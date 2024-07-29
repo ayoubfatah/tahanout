@@ -122,3 +122,21 @@ export const changeLanguage = (language: string) => {
 
   window.location.reload();
 };
+
+export function calculateDiscountedPrice(
+  price: any,
+  quantity: number,
+  offers: any
+) {
+  if (!offers || offers.length === 0) {
+    return { discountedPrice: price, appliedDiscount: null };
+  }
+  const sortedOffers = offers.sort((a: any, b: any) => b.quantity - a.quantity);
+  for (let offer of sortedOffers) {
+    if (quantity >= parseInt(offer.quantity)) {
+      const discountedPrice = price * (1 - parseInt(offer.percentage) / 100);
+      return { discountedPrice, appliedDiscount: offer.percentage };
+    }
+  }
+  return { discountedPrice: price, appliedDiscount: null };
+}

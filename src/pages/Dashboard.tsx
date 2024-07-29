@@ -19,7 +19,7 @@ const Dashboard = () => {
   const { orders, isLoading } = useOrders();
   const [searchParams] = useSearchParams();
   const [ref, isVisible] = useObserver();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const start = searchParams.get("start");
   const end = searchParams.get("end");
@@ -35,9 +35,14 @@ const Dashboard = () => {
 
   if (isLoading) return <Spinner />;
 
+  console.log(i18n.language);
   return (
     <>
-      <div className="flex items-center justify-between gap-3 mb-7">
+      <div
+        className={`flex ${
+          i18n.language === "fr" ? " flex-col-reverse" : "flex-row"
+        } items-center justify-between gap-3 mb-7`}
+      >
         <DateSelector />
 
         <Filter

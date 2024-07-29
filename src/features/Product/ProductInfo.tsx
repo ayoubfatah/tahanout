@@ -23,6 +23,7 @@ export default function ProductInfo({
   testing,
   handleEdit,
 }: ProductInfoType) {
+  console.log(product, "product");
   const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -54,22 +55,27 @@ export default function ProductInfo({
           </Modal.Window>
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">{t("SKU")}</span>: {product?.sku}
+          <span className="font-[600] text-[16px]">{t("SKU")}</span>:{" "}
+          {product?.sku}
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">{t("Price")}</span>: {formatCurrency(product?.price ?? 0)}
+          <span className="font-[600] text-[16px]">{t("Price")}</span>:{" "}
+          {formatCurrency(product?.price ?? 0)}
         </div>
         <div className="text-lg ">
-          <span className="font-[600] text-[16px]">{t("Discount Price")}</span>: {formatCurrency(product?.discount ?? 0)}
+          <span className="font-[600] text-[16px]">{t("Discount Price")}</span>:{" "}
+          {formatCurrency(product?.discount ?? 0)}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">{t("Quantity")}</span>: {product?.quantity}
+          <span className="font-[600] text-[16px]">{t("Quantity")}</span>:{" "}
+          {product?.quantity}
         </div>
         <div className="text-lg">
           <span className="font-[600] text-[16px]">{t("Min Order")}</span>: 29
         </div>
         <div className="text-[1Opx]">
-          <span className="font-[600] text-[16px]">{t("Description")}</span>: {description}
+          <span className="font-[600] text-[16px]">{t("Description")}</span>:{" "}
+          {description}
           {product &&
             product.description &&
             product.description.split(" ").length > wordLimit && (
@@ -82,17 +88,21 @@ export default function ProductInfo({
             )}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">{t("Category")}</span>: {product?.category}
+          <span className="font-[600] text-[16px]">{t("Category")}</span>:{" "}
+          {product?.category}
         </div>
         <div className="text-lg">
-          <span className="font-[600] text-[16px]">{t("Brand")}</span>: {product?.brand}
+          <span className="font-[600] text-[16px]">{t("Brand")}</span>:{" "}
+          {product?.brand}
         </div>
         <div className="text-lg flex gap-2 items-center">
           <span className="font-[600] text-[16px]">{t("Colors")}:</span>
           {product?.colors?.split(",").map((color) => (
             <div
               key={color}
-              className={`w-5 h-5 shadow-md rounded-full ${color === "white" ? "border border-black" : ""}`}
+              className={`w-5 h-5 shadow-md rounded-full ${
+                color === "white" ? "border border-black" : ""
+              }`}
               style={{ backgroundColor: color }}
             ></div>
           ))}
@@ -101,15 +111,33 @@ export default function ProductInfo({
           <span className="font-[600] text-[16px]">{t("Specifications")}:</span>
         </div>
         <ul className="ml-4 list-disc">
-          <li>{t("Switch Type")}: {testing.specifications.switchType}</li>
-          <li>{t("Backlight")}: {testing.specifications.backlight}</li>
-          <li>{t("Connectivity")}: {testing.specifications.connectivity}</li>
-          <li>{t("Key Rollover")}: {testing.specifications.keyRollOver}</li>
-          <li>{t("Weight")}: {testing.specifications.weight}</li>
+          {testing.specifications &&
+            Object.keys(product && product.specifications).map((key) => (
+              <li key={key}>
+                <span className="font-semibold text-[15px]"> {key}</span>:{" "}
+                {product && product.specifications[key]}
+              </li>
+            ))}
         </ul>
+
         <div className="text-lg flex gap-2 items-center">
           <span className="font-[600] text-[16px]">{t("Warehouse")}:</span>
           <span>{product?.warehouse}</span>
+        </div>
+        <div>
+          <span className="font-[600] text-[16px]">{t("Offers")}:</span>
+          <ul className="text-green-500">
+            {product?.offers &&
+              product.offers.length > 0 &&
+              product.offers.map((offer: any) => {
+                return (
+                  <li>
+                    {offer.percentage}% discount on {offer.quantity} orders or
+                    above
+                  </li>
+                );
+              })}
+          </ul>
         </div>
       </div>
     </Modal>

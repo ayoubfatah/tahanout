@@ -14,7 +14,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Sourcing from "./pages/Sourcing";
 import AppLayout from "./ui/AppLayout";
-import { TahanoutProvider } from "./contextApi/useTahanoutCA";
+import { TahanoutProvider, useTahanout } from "./contextApi/useTahanoutCA";
 import Order from "./pages/Order";
 import ProtectedRoutes from "./ui/ProtectedRoutes";
 
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
     },
   },
 });
-
+const isDarkMode = false;
 export default function App() {
   return (
     <TahanoutProvider>
@@ -35,7 +35,7 @@ export default function App() {
           <Routes>
             <Route
               element={
-                <ProtectedRoutes >
+                <ProtectedRoutes>
                   <AppLayout />
                 </ProtectedRoutes>
               }
@@ -70,9 +70,9 @@ export default function App() {
             style: {
               fontSize: "16px",
               maxWidth: "500px",
-              padding: "16px 24px",
-              backgroundColor: "white",
-              color: "black",
+              padding: "16px 24px", 
+              backgroundColor: isDarkMode ? "#1f2937" : "white",
+              color: isDarkMode ? "#e7e8ec" : "black",
             },
           }}
         />
